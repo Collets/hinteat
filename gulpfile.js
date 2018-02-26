@@ -12,6 +12,7 @@ var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', ['watch']);
 
+//BUILD TASKS
 gulp.task('build-main', function (cb) {
 	pump([
 		gulp.src(['./src/js/common/*.js','./src/js/main/*.js']),
@@ -38,14 +39,6 @@ gulp.task('build-restaurant-info', function (cb) {
 	cb);
 });
 
-gulp.task('copy-images', function(cb){
-	pump([
-		gulp.src('./src/img/**/*'),
-		gulp.dest('./dist/assets/img/')
-	], 
-	cb);
-});
-
 gulp.task('build-scss', function(cb){
 	pump([
 		gulp.src('./src/scss/**/*.scss'),
@@ -56,14 +49,27 @@ gulp.task('build-scss', function(cb){
 	cb);
 });
 
+//COPY TASKS
+
+gulp.task('copy-images', function(cb){
+	pump([
+		gulp.src('./src/img/**/*'),
+		gulp.dest('./dist/assets/img/')
+	], 
+	cb);
+});
+
+gulp.task('copy-html', function(cb){
+	pump([
+		gulp.src('./src/**/*.html'),
+		gulp.dest('./dist/')
+	], 
+	cb);
+});
+
 gulp.task('watch', function() {
 	gulp.watch('./src/js/**/*.js', ['build-main', 'build-restaurant-info']);
 	gulp.watch('./src/scss/**/*.scss', ['build-scss']);
 	gulp.start('copy-images');
-	// pump([
-	// 	gulp.watch('./src/js/**/*.js', ['build-main', 'build-restaurant-info']),
-	// 	gulp.watch('./src/scss/**/*.scss', ['build-scss']),
-	// 	gulp.start('copy-images')
-	// ],
-	// cb);	
+	gulp.start('copy-html');
 });
