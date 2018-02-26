@@ -10,7 +10,7 @@ let map;
  * Initialize Google map, called from HTML.
  */
 
-let initMap = () => { 
+let initMap = () => {
  fetchRestaurantFromURL((error, restaurant) => {
   if (error) { // Got an error!
    console.error(error);
@@ -24,7 +24,7 @@ let initMap = () => {
    DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
   }
  });
-}
+};
 
 loadGoogleMapsApi({
  key: 'AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w',
@@ -51,10 +51,10 @@ let fetchRestaurantFromURL = (callback) => {
     return;
    }
    fillRestaurantHTML();
-   callback(null, restaurant)
+   callback(null, restaurant);
   });
  }
-}
+};
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -74,12 +74,12 @@ let fillRestaurantHTML = (restaurant = self.restaurant) => {
  cuisine.innerHTML = restaurant.cuisine_type;
 
  // fill operating hours
- if (restaurant.operating_hours) {
+ if (restaurant.operating_hours)
   fillRestaurantHoursHTML();
- }
+
  // fill reviews
  fillReviewsHTML();
-}
+};
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -100,7 +100,7 @@ let fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours)
 
   hours.appendChild(row);
  }
-}
+};
 
 /**
  * Create all reviews HTML and add them to the webpage.
@@ -122,7 +122,7 @@ let fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   ul.appendChild(createReviewHTML(review));
  });
  container.appendChild(ul);
-}
+};
 
 /**
  * Create review HTML and add it to the webpage.
@@ -146,7 +146,7 @@ let createReviewHTML = (review) => {
  li.appendChild(comments);
 
  return li;
-}
+};
 
 /**
  * Add restaurant name to the breadcrumb navigation menu
@@ -156,7 +156,7 @@ let fillBreadcrumb = (restaurant=self.restaurant) => {
  const li = document.createElement('li');
  li.innerHTML = restaurant.name;
  breadcrumb.appendChild(li);
-}
+};
 
 /**
  * Get a parameter by name from page URL.
@@ -172,4 +172,4 @@ let getParameterByName = (name, url) => {
  if (!results[2])
   return '';
  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+};
