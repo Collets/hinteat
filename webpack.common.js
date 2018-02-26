@@ -8,11 +8,12 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry:{
-        main: path.resolve(__dirname, "src/js/main.js")
+        main: path.resolve(__dirname, "src/js/main.js"),
+        restaurant: path.resolve(__dirname, "src/js/restaurant_info.js")
     },
     output:{
         path: path.resolve(__dirname, 'dist'),
-        filename: 'assets/js/[name].min.js',
+        filename: 'js/[name].min.js',
     },
     module:{
         rules: [{
@@ -20,7 +21,7 @@ module.exports = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ["es2015"]
+                    presets: ["env"]
                 }
             },
             exclude: /node_modules/,
@@ -38,17 +39,6 @@ module.exports = {
                     collapseWhitespace: false
                 }
             }
-        }, {
-            test: /\.(gif|jpg|png|ico)\??.*$/,
-            use: {
-                loader: 'url-loader',
-                options: {
-                    limit: 1024,
-                    name: '[name].[ext]',
-                    publicPath: '../../',
-                    outputPath: 'assets/img/'
-                }
-            }
         }]
     },
     plugins:[
@@ -58,13 +48,30 @@ module.exports = {
             dry: false
         }),
         extractSASS,
+        new CopyWebpackPlugin([
+            { from: './src/img', to: 'assets/img'},            
+            { from: './src/data', to: 'assets/data'}
+        ]),
         new webpack.optimize.CommonsChunkPlugin({
-            names: "vendor",
-            minChunks: Infinity,
+            names: 'vendor',
+            minChunks: 1
         }),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: './src/index.html',
             inject: 'body',
+            chunks: ['main', 'vendor'],
+            hash: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'restaurant.html',
+            template: './src/restaurant.html',
+            inject: 'body',
+            chunks: ['restaurant', 'vendor'],
             hash: true,
             minify: {
                 removeComments: true,

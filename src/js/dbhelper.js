@@ -1,4 +1,3 @@
-import '../data/restaurants.json';
 /**
  * Common database helper functions.
  */
@@ -10,7 +9,7 @@ export default class DBHelper {
    */
   static get DATABASE_URL() {
     const port = 9000 // Change this to your server port
-    return `http://localhost:${port}/src/data/restaurants.json`;
+    return `http://localhost:${port}/assets/data/restaurants.json`;
   }
 
   /**
@@ -151,7 +150,7 @@ export default class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    return (`assets/img/${restaurant.photograph}`);
   }
 
   /**

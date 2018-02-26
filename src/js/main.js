@@ -1,12 +1,13 @@
-let restaurants,
-  neighborhoods,
-  cuisines
-var map
-var markers = []
-
 import diana from '../styles/diana.scss';
 import DBHelper from './dbhelper.js';
 import loadGoogleMapsApi from 'load-google-maps-api';
+import '../data/restaurants.json';
+
+let restaurants,
+  neighborhoods,
+  cuisines;
+let map;
+let markers = [];
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -124,7 +125,8 @@ let resetRestaurants = (restaurants) => {
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
+  if(self.markers)
+    self.markers.forEach(m => m.setMap(null));
   self.markers = [];
   self.restaurants = restaurants;
 }
