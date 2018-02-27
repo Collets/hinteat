@@ -104,23 +104,32 @@ export default class DBHelper {
    * proper error handling.
    * @param {any} cuisine
    * @param {any} neighborhood
-   * @param {fetchCallback} callback
+   * @return {promise}
    */
-  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
-    // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants()
-    .then((restaurants)=>{
-      let results = restaurants;
-      if (cuisine != 'all') // filter by cuisine
-        results = results.filter((r) => r.cuisine_type == cuisine);
+  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood) {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DBHelper.fetchRestaurants()
+      .then((restaurants)=>{
+        let results = restaurants;
+        if (cuisine != 'all') // filter by cuisine
+          results = results.filter((r) => r.cuisine_type == cuisine);
 
-      if (neighborhood != 'all') // filter by neighborhood
-        results = results.filter((r) => r.neighborhood == neighborhood);
+        if (neighborhood != 'all') // filter by neighborhood
+          results = results.filter((r) => r.neighborhood == neighborhood);
 
-      callback(null, results);
-    }).catch((error)=>{
-      callback(error, null);
+        resolve(results);
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.log(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
     });
+
+    return promise;
   }
 
   /**
@@ -171,7 +180,7 @@ export default class DBHelper {
           console.log(error);
           error = new AppError('Unexpected error');
         }
-        
+
         reject(error);
       });
     });

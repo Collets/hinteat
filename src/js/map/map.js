@@ -23,7 +23,7 @@ export function setMap(map) {
  * Add markers for current restaurants to the map.
  * @param {any[]} restaurants
  */
-export function addMarkersToMap(restaurants = self.restaurants) {
+export function addMarkersToMap(restaurants) {
   restaurants.forEach((restaurant) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, Map.map);

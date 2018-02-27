@@ -51,7 +51,13 @@ let initMap = () => {
     center: loc,
     scrollwheel: false,
   }));
-  Restaurant.updateRestaurants();
+
+  Restaurant.updateRestaurants().then((results)=>{
+    restaurants = results;
+  })
+  .catch((error)=>{
+    Notification.error(error);
+  });
 };
 
 loadGoogleMapsApi({

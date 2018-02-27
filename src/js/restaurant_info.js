@@ -37,7 +37,7 @@ let initMap = () => {
   })
   .catch((error)=>{
     if (!(error instanceof AppError)) {
-      console.log(error);
+      console.error(error);
       error = 'Unexpected error';
     }
 

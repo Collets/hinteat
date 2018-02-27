@@ -5,6 +5,7 @@ import * as Review from '../review/review';
 
 /**
  * Update page and map for current restaurants.
+ * @return {promise}
  */
 export let updateRestaurants = () => {
   const cSelect = document.getElementById('cuisines-select');
@@ -16,16 +17,25 @@ export let updateRestaurants = () => {
   const cuisine = cSelect[cIndex].value;
   const neighborhood = nSelect[nIndex].value;
 
-  DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine,
-    neighborhood,
-    (error, restaurants) => {
-      if (error) { // Got an error!
-        Notification.error(error);
-      } else {
-        resetRestaurants(restaurants);
-        fillRestaurantsHTML();
+  let promise = new Promise((resolve, reject)=>{
+    DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood)
+    .then((restaurants)=>{
+      resetRestaurants(restaurants);
+      fillRestaurantsHTML(restaurants);
+
+      resolve(restaurants);
+    })
+    .catch((error)=>{
+      if (!(error instanceof AppError)) {
+        console.error(error);
+        error = new AppError('Unexpected error');
       }
+
+      reject(error);
     });
+  });
+
+  return promise;
 };
 
 /**
@@ -34,7 +44,7 @@ export let updateRestaurants = () => {
  */
 export let resetRestaurants = (restaurants) => {
   // Remove all restaurants
-  self.restaurants = [];
+  restaurants = [];
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
 
@@ -43,7 +53,6 @@ export let resetRestaurants = (restaurants) => {
     Map.markers.forEach((m) => m.setMap(null));
 
   Map.setMarkers([]);
-  self.restaurants = restaurants;
 };
 
 /**
@@ -54,10 +63,9 @@ export let fetchRestaurantFromURL = () => {
   let promise = new Promise((resolve, reject)=>{
     const id = Utils.getParameterByName('id');
 
-    if(!id) {
+    if (!id) 
       reject(new AppError('No restaurant id in URL'));
-    }
-    else {
+     else {
       DBHelper.fetchRestaurantById(id)
       .then((restaurant)=>{
         fillRestaurantHTML(restaurant);
@@ -66,7 +74,7 @@ export let fetchRestaurantFromURL = () => {
       })
       .catch((error)=>{
         if (!(error instanceof AppError)) {
-          console.log(error);
+          console.error(error);
           error = new AppError('Unexpected error');
         }
 
@@ -115,12 +123,12 @@ export let createRestaurantHTML = (restaurant) => {
  * Create all restaurants HTML and add them to the webpage.
  * @param {any[]} restaurants
  */
-export let fillRestaurantsHTML = (restaurants = self.restaurants) => {
+export let fillRestaurantsHTML = (restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach((restaurant) => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  Map.addMarkersToMap();
+  Map.addMarkersToMap(restaurants);
 };
 
 /**
