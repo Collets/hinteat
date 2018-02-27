@@ -1,3 +1,4 @@
+import {AppError} from '../utils/utils';
 /**
  * Common database helper functions.
  */
@@ -13,43 +14,55 @@ export default class DBHelper {
 
   /**
    * Fetch all restaurants.
- * @param {fetchCallback} callback
+   * @return {promise}
    */
-  static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
-      }
-    };
-    xhr.send();
+  static fetchRestaurants() {
+    let promise = new Promise((resolve, reject)=>{
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', DBHelper.DATABASE_URL);
+      xhr.onload = () => {
+        if (xhr.status === 200) { // Got a success response from server!
+          const json = JSON.parse(xhr.responseText);
+          const restaurants = json.restaurants;
+          resolve(restaurants);
+        } else { // Oops!. Got an error from server.
+          const error = new AppError(`Request failed. Returned status of ${xhr.status}`);
+          reject(error);
+        }
+      };
+      xhr.send();
+    });
+
+    return promise;
   }
 
   /**
    * Fetch a restaurant by its ID.
    * @param {string} id
-   * @param {fetchCallback} callback
+   * @return {promise}
    */
-  static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
+  static fetchRestaurantById(id) {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DBHelper.fetchRestaurants()
+      .then((restaurants)=>{
         const restaurant = restaurants.find((r) => r.id == id);
         if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
+          resolve(restaurant);
         } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
+          reject('Restaurant does not exist');
         }
-      }
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.log(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
     });
+
+    return promise;
   }
 
   /**
@@ -58,15 +71,14 @@ export default class DBHelper {
    * @param {fetchCallback} callback
    */
   static fetchRestaurantByCuisine(cuisine, callback) {
-    // Fetch all restaurants  with proper error handling
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        // Filter restaurants to have only given cuisine type
-        const results = restaurants.filter((r) => r.cuisine_type == cuisine);
-        callback(null, results);
-      }
+    // fetch all restaurants with proper error handling.
+    DBHelper.fetchRestaurants()
+    .then((restaurants)=>{
+      // Filter restaurants to have only given cuisine type
+      const results = restaurants.filter((r) => r.cuisine_type == cuisine);
+      callback(null, results);
+    }).catch((error)=>{
+      callback(error, null);
     });
   }
 
@@ -76,15 +88,14 @@ export default class DBHelper {
    * @param {fetchCallback} callback
    */
   static fetchRestaurantByNeighborhood(neighborhood, callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        // Filter restaurants to have only given neighborhood
-        const results = restaurants.filter((r) => r.neighborhood == neighborhood);
-        callback(null, results);
-      }
+    // fetch all restaurants with proper error handling.
+    DBHelper.fetchRestaurants()
+    .then((restaurants)=>{
+      // Filter restaurants to have only given neighborhood
+      const results = restaurants.filter((r) => r.neighborhood == neighborhood);
+      callback(null, results);
+    }).catch((error)=>{
+      callback(error, null);
     });
   }
 
@@ -96,59 +107,76 @@ export default class DBHelper {
    * @param {fetchCallback} callback
    */
   static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        let results = restaurants;
-        if (cuisine != 'all') // filter by cuisine
-          results = results.filter((r) => r.cuisine_type == cuisine);
+    // fetch all restaurants with proper error handling.
+    DBHelper.fetchRestaurants()
+    .then((restaurants)=>{
+      let results = restaurants;
+      if (cuisine != 'all') // filter by cuisine
+        results = results.filter((r) => r.cuisine_type == cuisine);
 
-        if (neighborhood != 'all') // filter by neighborhood
-          results = results.filter((r) => r.neighborhood == neighborhood);
+      if (neighborhood != 'all') // filter by neighborhood
+        results = results.filter((r) => r.neighborhood == neighborhood);
 
-        callback(null, results);
-      }
+      callback(null, results);
+    }).catch((error)=>{
+      callback(error, null);
     });
   }
 
   /**
    * Fetch all neighborhoods with proper error handling.
-   * @param {fetchCallback} callback
+   * @return {promise}
    */
-  static fetchNeighborhoods(callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
+  static fetchNeighborhoods() {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DBHelper.fetchRestaurants()
+      .then((restaurants)=>{
         // Get all neighborhoods from all restaurants
         const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
         // Remove duplicates from neighborhoods
         const uniqueNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
-        callback(null, uniqueNeighborhoods);
-      }
+
+        resolve(uniqueNeighborhoods);
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.log(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
     });
+
+    return promise;
   }
 
   /**
    * Fetch all cuisines with proper error handling.
-   * @param {fetchCallback} callback
+   * @return {promise}
    */
-  static fetchCuisines(callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
+  static fetchCuisines() {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DBHelper.fetchRestaurants()
+      .then((restaurants)=>{
         // Get all cuisines from all restaurants
         const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
         // Remove duplicates from cuisines
         const uniqueCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
-        callback(null, uniqueCuisines);
-      }
+
+        resolve(uniqueCuisines);
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.log(error);
+          error = new AppError('Unexpected error');
+        }
+        
+        reject(error);
+      });
     });
+
+    return promise;
   }
 
   /**

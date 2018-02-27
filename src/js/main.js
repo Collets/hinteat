@@ -3,7 +3,8 @@ import DBHelper from './db/dbhelper';
 import {Notification} from './utils/utils';
 import * as Restaurant from './restaurant/restaurant';
 import * as Map from './map/map';
-import * as Neighborhoods from './neighborhood/neighborhood';
+import * as Neighborhood from './neighborhood/neighborhood';
+import * as Cuisine from './cuisine/cuisine';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -13,44 +14,28 @@ import '../data/restaurants.json';
 import '../styles/diana.scss';
 
 let restaurants;
-let neighborhoods;
 let cuisines;
-
-/**
- * Fetch all cuisines and set their HTML.
- */
-let fetchCuisines = () => {
-  DBHelper.fetchCuisines((error, cuisines) => {
-    if (error) { // Got an error!
-      Notification.error(error);
-    } else {
-      self.cuisines = cuisines;
-      fillCuisinesHTML();
-    }
-  });
-};
-
-/**
- * Set cuisines HTML.
- * @param {any[]} cuisines
- */
-let fillCuisinesHTML = (cuisines = self.cuisines) => {
-  const select = document.getElementById('cuisines-select');
-
-  cuisines.forEach((cuisine) => {
-    const option = document.createElement('option');
-    option.innerHTML = cuisine;
-    option.value = cuisine;
-    select.append(option);
-  });
-};
+let neighborhoods;
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  Neighborhoods.fetchNeighborhoods();
-  fetchCuisines();
+  Neighborhood.fetchNeighborhoods()
+  .then((result)=>{
+    neighborhoods = result;
+  })
+  .catch((error)=>{
+    Notification.error(error);
+  });
+
+  Cuisine.fetchCuisines()
+  .then((result)=>{
+    cuisines = result;
+  })
+  .catch((error)=>{
+    Notification.error(error);
+  });
 });
 
 /**

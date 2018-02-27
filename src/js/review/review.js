@@ -28,7 +28,7 @@ export let createReviewHTML = (review) => {
  * Create all reviews HTML and add them to the webpage.
  * @param {object[]} reviews
  */
-export let fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+export let fillReviewsHTML = (reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';

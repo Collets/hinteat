@@ -1,32 +1,34 @@
-export let neighborhoods;
-
-/**
- * Set neighborhoods HTML.
- * @param {object[]} neighborhoods
- */
-export function setNeighborhoods(neighborhoods) {
-  Neighborhoods.neighborhoods = neighborhoods;
-}
+import DBHelper from '../db/dbhelper';
 
 /**
  * Fetch all neighborhoods and set their HTML.
+ * @return {promise}
  */
 export function fetchNeighborhoods() {
-  DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-    if (error) { // Got an error
-      Notification.error(error);
-    } else {
-      Neighborhoods.neighborhoods = neighborhoods;
-      fillNeighborhoodsHTML();
-    }
+  let promise = new Promise((resolve, reject)=>{
+    DBHelper.fetchNeighborhoods()
+    .then((neighborhoods)=>{
+      fillNeighborhoodsHTML(neighborhoods);
+      resolve(neighborhoods);
+    })
+    .catch((error)=>{
+      if (!(error instanceof AppError)) {
+        console.log(error);
+        error = new AppError('Unexpected error');
+      }
+
+      reject(error);
+    });
   });
+
+  return promise;
 };
 
 /**
  * Set neighborhoods HTML.
  * @param {object[]} neighborhoods
  */
-export function fillNeighborhoodsHTML(neighborhoods = Neighborhoods.neighborhoods) {
+export function fillNeighborhoodsHTML(neighborhoods) {
   const select = document.getElementById('neighborhoods-select');
   neighborhoods.forEach((neighborhood) => {
     const option = document.createElement('option');
@@ -36,4 +38,4 @@ export function fillNeighborhoodsHTML(neighborhoods = Neighborhoods.neighborhood
   });
 };
 
-export default {neighborhoods, setNeighborhoods, fetchNeighborhoods, fillNeighborhoodsHTML};
+export default {fetchNeighborhoods, fillNeighborhoodsHTML};

@@ -100,6 +100,9 @@ class Notification {
       progressBar: true,
     };
 
+    if(this.message instanceof AppError)
+      this.message = this.message.message;
+
     switch (this.severity) {
       case Severity.Info:
         Toastr.info(this.message, '', options);
@@ -142,7 +145,7 @@ class Utils {
    * Add restaurant name to the breadcrumb navigation menu
    * @param {object} restaurant
    */
-  static fillBreadcrumb(restaurant = self.restaurant) {
+  static fillBreadcrumb(restaurant) {
     const breadcrumb = document.getElementById('breadcrumb');
     const li = document.createElement('li');
     li.innerHTML = restaurant.name;
@@ -150,4 +153,18 @@ class Utils {
   };
 }
 
-export {Severity, Notification, Utils};
+/** Custom error class */
+class AppError extends Error {
+  /**
+   * Constructor of AppError
+   * @param {string} message
+   */
+  constructor(message) {
+    super(message);
+
+    this.name = 'appError';
+    this.stack = (new Error()).stack;
+  }
+}
+
+export {Severity, Notification, Utils, AppError};

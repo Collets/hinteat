@@ -1,8 +1,7 @@
 // APP MODULES
 import DBHelper from './db/dbhelper';
-import {Notification, Utils} from './utils/utils';
+import {Notification, Utils, AppError} from './utils/utils';
 import * as Restaurant from './restaurant/restaurant';
-import * as Map from './map/map';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -12,6 +11,7 @@ import '../data/restaurants.json';
 import '../styles/diana.scss';
 
 let restaurant;
+let map;
 
 /**
  * @callback fetchCallback
@@ -23,18 +23,25 @@ let restaurant;
  * Initialize Google map, called from HTML.
  */
 let initMap = () => {
-  Restaurant.fetchRestaurantFromURL((error, restaurant) => {
-    if (error) { // Got an error!
-      Notification.error(error);
-    } else {
-      Map.setMap(new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false,
-      }));
-      Utils.fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, Map.map);
+  Restaurant.fetchRestaurantFromURL()
+  .then((result)=>{
+    restaurant = result;
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: restaurant.latlng,
+      scrollwheel: false,
+    });
+    Utils.fillBreadcrumb(restaurant);
+    DBHelper.mapMarkerForRestaurant(restaurant, map);
+  })
+  .catch((error)=>{
+    if (!(error instanceof AppError)) {
+      console.log(error);
+      error = 'Unexpected error';
     }
+
+    Notification.error(error);
   });
 };
 

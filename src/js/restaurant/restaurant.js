@@ -1,5 +1,5 @@
 import DBHelper from '../db/dbhelper';
-import {Notification, Utils} from '../utils/utils';
+import {Notification, Utils, AppError} from '../utils/utils';
 import * as Map from '../map/map';
 import * as Review from '../review/review';
 
@@ -48,28 +48,34 @@ export let resetRestaurants = (restaurants) => {
 
 /**
  * Get current restaurant from page URL.
- * @param {fetchCallback} callback
+ * @return {promise}
  */
-export let fetchRestaurantFromURL = (callback) => {
-  if (self.restaurant) { // restaurant already fetched!
-    callback(null, self.restaurant);
-    return;
-  }
-  const id = Utils.getParameterByName('id');
-  if (!id) { // no id found in URL
-    error = 'No restaurant id in URL';
-    callback(error, null);
-  } else {
-    DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-      self.restaurant = restaurant;
-      if (!restaurant) {
-        Notification.error(error);
-        return;
-      }
-      fillRestaurantHTML();
-      callback(null, restaurant);
-    });
-  }
+export let fetchRestaurantFromURL = () => {
+  let promise = new Promise((resolve, reject)=>{
+    const id = Utils.getParameterByName('id');
+
+    if(!id) {
+      reject(new AppError('No restaurant id in URL'));
+    }
+    else {
+      DBHelper.fetchRestaurantById(id)
+      .then((restaurant)=>{
+        fillRestaurantHTML(restaurant);
+
+        resolve(restaurant);
+      })
+      .catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.log(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
+    }
+  });
+
+  return promise;
 };
 
 /**
@@ -121,7 +127,7 @@ export let fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML and add it to the webpage
  * @param {object} restaurant
  */
-export let fillRestaurantHTML = (restaurant = self.restaurant) => {
+export let fillRestaurantHTML = (restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
@@ -137,17 +143,17 @@ export let fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   // fill operating hours
   if (restaurant.operating_hours)
-    fillRestaurantHoursHTML();
+    fillRestaurantHoursHTML(restaurant.operating_hours);
 
   // fill reviews
-  Review.fillReviewsHTML();
+  Review.fillReviewsHTML(restaurant.reviews);
 };
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  * @param {object} operatingHours
  */
-export let fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
+export let fillRestaurantHoursHTML = (operatingHours) => {
   const hours = document.getElementById('restaurant-hours');
 
   for (let key in operatingHours) {
