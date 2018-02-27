@@ -1,5 +1,5 @@
 import DBHelper from '../db/dbhelper';
-import {Notification, Utils, AppError} from '../utils/utils';
+import {Utils, AppError} from '../utils/utils';
 import * as Map from '../map/map';
 import * as Review from '../review/review';
 
