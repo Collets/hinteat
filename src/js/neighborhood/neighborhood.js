@@ -13,7 +13,7 @@ export function fetchNeighborhoods() {
     })
     .catch((error)=>{
       if (!(error instanceof AppError)) {
-        console.log(error);
+        console.error(error);
         error = new AppError('Unexpected error');
       }
 

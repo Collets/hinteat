@@ -54,7 +54,7 @@ export default class DBHelper {
         }
       }).catch((error)=>{
         if (!(error instanceof AppError)) {
-          console.log(error);
+          console.error(error);
           error = new AppError('Unexpected error');
         }
 
@@ -121,7 +121,7 @@ export default class DBHelper {
         resolve(results);
       }).catch((error)=>{
         if (!(error instanceof AppError)) {
-          console.log(error);
+          console.error(error);
           error = new AppError('Unexpected error');
         }
 
@@ -149,7 +149,7 @@ export default class DBHelper {
         resolve(uniqueNeighborhoods);
       }).catch((error)=>{
         if (!(error instanceof AppError)) {
-          console.log(error);
+          console.error(error);
           error = new AppError('Unexpected error');
         }
 
@@ -177,7 +177,7 @@ export default class DBHelper {
         resolve(uniqueCuisines);
       }).catch((error)=>{
         if (!(error instanceof AppError)) {
-          console.log(error);
+          console.error(error);
           error = new AppError('Unexpected error');
         }
 
