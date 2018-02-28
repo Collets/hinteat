@@ -39,7 +39,20 @@ module.exports = {
           collapseWhitespace: false
         }
       }
+    }, {
+      loaders: [
+          {
+              test: /\.(njk|nunjucks)$/,
+              loader: 'nunjucks-loader'
+          }
+      ]
     }]
+  },
+  resolve: {
+    root: [
+      __dirname,
+      __dirname + '/src/'    // Resolve templates to ./src/views
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
