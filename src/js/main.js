@@ -1,10 +1,9 @@
 // APP MODULES
-import DBHelper from './db/dbhelper';
 import {Notification} from './utils/utils';
-import * as Restaurant from './restaurant/restaurant';
-import * as Map from './map/map';
-import * as Neighborhood from './neighborhood/neighborhood';
-import * as Cuisine from './cuisine/cuisine';
+import Map from './map/map';
+import * as RestaurantService from './restaurant/restaurant.service';
+import * as NeighborhoodService from './neighborhood/neighborhood.service';
+import * as CuisineService from './cuisine/cuisine.service';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -21,7 +20,7 @@ let neighborhoods;
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  Neighborhood.fetchNeighborhoods()
+  NeighborhoodService.fetchNeighborhoods()
   .then((result)=>{
     neighborhoods = result;
   })
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     Notification.error(error);
   });
 
-  Cuisine.fetchCuisines()
+  CuisineService.fetchCuisines()
   .then((result)=>{
     cuisines = result;
   })
@@ -46,13 +45,13 @@ let initMap = () => {
     lat: 40.722216,
     lng: -73.987501,
   };
-  Map.setMap(new google.maps.Map(document.getElementById('map'), {
+  Map.entity = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
     scrollwheel: false,
-  }));
+  });
 
-  Restaurant.updateRestaurants().then((results)=>{
+  RestaurantService.updateRestaurants().then((results)=>{
     restaurants = results;
   })
   .catch((error)=>{

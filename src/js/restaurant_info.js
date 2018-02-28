@@ -1,7 +1,7 @@
 // APP MODULES
-import DBHelper from './db/dbhelper';
+import DbService from './db/db.service';
 import {Notification, Utils, AppError} from './utils/utils';
-import * as Restaurant from './restaurant/restaurant';
+import * as RestaurantService from './restaurant/restaurant.service';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -23,7 +23,7 @@ let map;
  * Initialize Google map, called from HTML.
  */
 let initMap = () => {
-  Restaurant.fetchRestaurantFromURL()
+  RestaurantService.fetchRestaurantFromURL()
   .then((result)=>{
     restaurant = result;
 
@@ -33,7 +33,7 @@ let initMap = () => {
       scrollwheel: false,
     });
     Utils.fillBreadcrumb(restaurant);
-    DBHelper.mapMarkerForRestaurant(restaurant, map);
+    DbService.mapMarkerForRestaurant(restaurant, map);
   })
   .catch((error)=>{
     if (!(error instanceof AppError)) {

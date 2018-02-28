@@ -13,9 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].min.js',
-    library: 'MWS',
-    libraryTarget:'window'
+    filename: 'js/[name].min.js'
   },
   module: {
     rules: [{

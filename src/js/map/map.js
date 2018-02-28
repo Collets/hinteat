@@ -1,37 +1,43 @@
-import DBHelper from '../db/dbhelper';
 
-export let map;
-export let markers;
+/** Map "global" class */
+class Map {
+  /**
+   * Constructor of Map
+  */
+  constructor() {
+    this._entity = null;
+    this._markers = [];
+  }
 
-/**
- * Set the map.
- * @param {object[]} markers
- */
-export function setMarkers(markers) {
-  Map.markers = markers;
-}
+  /**
+   * entity getter
+  */
+  get entity() {
+    return this._entity;
+  }
 
-/**
- * Set the map.
- * @param {*} map
- */
-export function setMap(map) {
-  Map.map = map;
-}
+  /**
+   * entity setter
+   * @param {object} value
+  */
+  set entity(value) {
+    this._entity = value;
+  }
 
-/**
- * Add markers for current restaurants to the map.
- * @param {any[]} restaurants
- */
-export function addMarkersToMap(restaurants) {
-  restaurants.forEach((restaurant) => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, Map.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url;
-    });
-    Map.markers.push(marker);
-  });
+  /**
+   * markers getter
+  */
+  get markers() {
+    return this._markers;
+  }
+
+  /**
+   * markers setter
+   * @param {object[]} values
+  */
+  set markers(values) {
+    this._markers = values;
+  }
 };
 
-export default {map, markers, addMarkersToMap, setMap, setMarkers};
+export default new Map();
