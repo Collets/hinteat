@@ -8,8 +8,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, 'src/js/main.js'),
-    restaurant: path.resolve(__dirname, 'src/js/restaurant_info.js')
+    main: path.resolve(__dirname, 'src/main.js'),
+    restaurant: path.resolve(__dirname, 'src/restaurant_info.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -49,11 +49,11 @@ module.exports = {
     }),
     extractSASS,
     new CopyWebpackPlugin([{
-        from: './src/img',
+        from: './src/assets/img',
         to: 'assets/img'
       },
       {
-        from: './src/data',
+        from: './src/assets/data',
         to: 'assets/data'
       }
     ]),
