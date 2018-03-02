@@ -151,6 +151,14 @@ class Utils {
     li.innerHTML = restaurant.name;
     breadcrumb.appendChild(li);
   };
+  /**
+   * Convert camelcase to dash
+   * @param  {string} name
+   * @return {string}
+   */
+  static getIdByName(name) {
+    return name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
+  }
 }
 
 /** Custom error class */

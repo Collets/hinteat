@@ -5,23 +5,7 @@ import DbService from '../db/db.service';
  * @return {promise}
  */
 export function fetchCuisines() {
-  let promise = new Promise((resolve, reject) => {
-    DbService.fetchCuisines()
-      .then((cuisines) => {
-        fillCuisinesHTML(cuisines);
-        resolve(cuisines);
-      })
-      .catch((error) => {
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
-  });
-
-  return promise;
+  return DbService.fetchCuisines();
 };
 
 /**

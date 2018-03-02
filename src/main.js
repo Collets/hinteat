@@ -1,9 +1,15 @@
-// APP MODULES
+// UTILS
 import {Notification} from './app/utils/utils';
-import Map from './app/map/map';
+
+// SERVICES
+
 import * as RestaurantService from './app/restaurant/restaurant.service';
 import * as NeighborhoodService from './app/neighborhood/neighborhood.service';
 import * as CuisineService from './app/cuisine/cuisine.service';
+
+// COMPONENTS
+import Map from './app/map/map';
+import CuisineFilterComponent from './app/cuisine/cuisine-filter.component';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -34,6 +40,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
   })
   .catch((error)=>{
     Notification.error(error);
+  });
+
+  CuisineFilterComponent.init().then(()=>{
+    CuisineFilterComponent.render()
+    .then((html)=>{
+      document.querySelector('.filter-options').innerHTML += html;
+    })
+    .catch((err)=>{
+      Notification.error(err);
+    });
   });
 });
 

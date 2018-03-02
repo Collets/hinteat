@@ -13,7 +13,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].min.js'
+    filename: 'js/[name].min.js',
+    library: 'mws'
   },
   module: {
     rules: [{
@@ -40,19 +41,12 @@ module.exports = {
         }
       }
     }, {
-      loaders: [
-          {
-              test: /\.(njk|nunjucks)$/,
-              loader: 'nunjucks-loader'
-          }
-      ]
+      test: /\.(njk|nunjucks)$/,
+      loader: 'nunjucks-loader',
+      query: {
+          root: __dirname + '/assets/templates'
+      }
     }]
-  },
-  resolve: {
-    root: [
-      __dirname,
-      __dirname + '/src/'    // Resolve templates to ./src/views
-    ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {
@@ -68,6 +62,11 @@ module.exports = {
       {
         from: './src/assets/data',
         to: 'assets/data'
+      },
+      {
+        from: './src/**/*.njk',
+        to: 'assets/templates',
+        flatten: true
       }
     ]),
     new webpack.optimize.CommonsChunkPlugin({
