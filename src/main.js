@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     Notification.error(error);
   });
 
-  CuisineFilterComponent.init().then(()=>{
-    CuisineFilterComponent.render()
-    .then((html)=>{
-      document.querySelector('.filter-options').innerHTML += html;
-    })
-    .catch((err)=>{
-      Notification.error(err);
-    });
-  });
+  document.querySelector('.filter-options')
+  .innerHTML += CuisineFilterComponent.render();
+  // CuisineFilterComponent.render()
+  // .then((html)=>{
+  //   document.querySelector('.filter-options').innerHTML += html;
+  // })
+  // .catch((err)=>{
+  //   Notification.error(err);
+  // });
 });
 
 /**

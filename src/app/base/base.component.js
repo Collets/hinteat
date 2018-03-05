@@ -5,31 +5,18 @@ import * as nunjucks from '../../../node_modules/nunjucks/browser/nunjucks';
 export default class BaseComponent {
   /** Constructor of base component */
   constructor() {
-    this.ENV = nunjucks.configure({web: {async: true}});
+    this.ENV = nunjucks.configure({web: {async: false}});
     this._model = {};
-  }
 
+    this.init()
+    .then(()=>{
+      let wrapper = document.querySelector(this.id);
 
-  /**
-   * Render the template of the component'content
-   *
-   * @return {promise}
-   * @memberof BaseComponent
-   */
-  renderComponentContent() {
-    let promise = new Promise((resolve, reject)=>{
-      this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model, (err, res) =>{
-        if (err)
-          reject(new AppError(err));
-
-        if (res)
-          resolve(res);
-      });
+      if (wrapper)
+        wrapper.innerHTML = this.renderComponentContent();
     });
-
-    return promise;
   }
-  
+
   /**
    *
    * @return {object} model
@@ -48,23 +35,33 @@ export default class BaseComponent {
   }
 
   /**
+   * Render the template of the component'content
+   *
+   * @return {string}
+   * @memberof BaseComponent
+   */
+  renderComponentContent() {
+    return this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+  }
+
+  /**
    * Render the template of the component
    *
-   * @return {promise}
+   * @return {string}
    * @memberof BaseComponent
    */
   render() {
-    let promise = new Promise((resolve, reject)=>{
-      this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model, (err, res) =>{
-        if (err)
-          reject(new AppError(err));
+    return this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model);
+  }
 
-        if (res)
-          resolve(res);
-      });
-    });
-
-    return promise;
+  /**
+   * Initialize the component
+   *
+   * @return {promise}
+   * @memberof CuisineComponent
+   */
+  init() {
+    throw new Error('You have to implement the method doSomething!');
   }
 
   /**

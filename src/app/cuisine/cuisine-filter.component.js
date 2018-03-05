@@ -1,6 +1,5 @@
 import {AppError} from '../utils/utils';
 import * as CuisineService from './cuisine.service';
-import * as nunjucks from '../../../node_modules/nunjucks/browser/nunjucks';
 import BaseComponent from '../base/base.component';
 
 /** CuisineFilter Class */
