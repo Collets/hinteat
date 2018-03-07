@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var webpack = require('webpack');
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -29,7 +31,8 @@ module.exports = merge(common, {
         output: {
           comments: true,
           beautify: true
-        }
+        },
+        keep_fnames: true
       }
     }),
     new webpack.DefinePlugin({

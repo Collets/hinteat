@@ -1,7 +1,7 @@
 {
-  "name": "diana-stage-1",
+  "name": "HintEat",
   "version": "1.0.0",
-  "description": "Stage 1 of Google Dev Nanodegree's project mws restaurant",
+  "description": "Portal for restaurant and meal reviews",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
