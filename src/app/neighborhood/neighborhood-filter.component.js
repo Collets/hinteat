@@ -1,10 +1,10 @@
 import {AppError} from '../utils/utils';
-import * as CuisineService from './cuisine.service';
+import * as NeighboorhoodService from './neighborhood.service';
 import * as RestaurantService from '../restaurant/restaurant.service';
 import BaseComponent from '../base/base.component';
 
-/** CuisineFilter Class */
-class CuisineFilterComponent extends BaseComponent {
+/** NeighboorhoodFilter Component Class */
+class NeighborhoodFilterComponent extends BaseComponent {
   /**
    * Constructor
   */
@@ -12,7 +12,7 @@ class CuisineFilterComponent extends BaseComponent {
     super();
 
     this._model = {
-      cuisines: [],
+      neighborhoods: [],
     };
   }
 
@@ -20,13 +20,13 @@ class CuisineFilterComponent extends BaseComponent {
    * Initialize the component
    *
    * @return {promise}
-   * @memberof CuisineFilterComponent
+   * @memberof NeighborhoodFilterComponent
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      CuisineService.fetchCuisines()
+      NeighboorhoodService.fetchNeighborhoods()
       .then((results)=>{
-        this.model.cuisines = results;
+        this.model.neighborhoods = results;
 
         resolve();
       })
@@ -46,10 +46,10 @@ class CuisineFilterComponent extends BaseComponent {
   /**
    * Make an action after render of the component
    *
-   * @memberof CuisineFilterComponent
+   * @memberof NeighborhoodFilterComponent
    */
   afterRender() {
-    let element = document.querySelector('#cuisines-select');
+    let element = document.querySelector('#neighborhoods-select');
 
     if (element && element.addEventListener) {
       element.addEventListener('change', () => {
@@ -59,4 +59,4 @@ class CuisineFilterComponent extends BaseComponent {
   }
 }
 
-export default new CuisineFilterComponent();
+export default new NeighborhoodFilterComponent();

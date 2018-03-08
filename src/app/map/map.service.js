@@ -6,6 +6,8 @@ import Map from '../map/map';
  * @param {any[]} restaurants
  */
 export function addMarkersToMap(restaurants) {
+  if (typeof google != 'object' || typeof google.maps != 'object') return;
+
   restaurants.forEach((restaurant) => {
     // Add marker to the map
     const marker = DbService.mapMarkerForRestaurant(restaurant, Map.entity);

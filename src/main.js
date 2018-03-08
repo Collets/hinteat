@@ -10,6 +10,8 @@ import * as CuisineService from './app/cuisine/cuisine.service';
 // COMPONENTS
 import Map from './app/map/map';
 import CuisineFilterComponent from './app/cuisine/cuisine-filter.component';
+import NeighborhoodFilterComponent from './app/neighborhood/neighborhood-filter.component';
+import HeaderComponent from './app/header/header.component';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -42,8 +44,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     Notification.error(error);
   });
 
-  document.querySelector('.filter-options')
-  .innerHTML += CuisineFilterComponent.render();
+  HeaderComponent.render(document.querySelector('body'), true);
+  NeighborhoodFilterComponent.render(document.querySelector('.filter-options'));
+  CuisineFilterComponent.render(document.querySelector('.filter-options'));
   // CuisineFilterComponent.render()
   // .then((html)=>{
   //   document.querySelector('.filter-options').innerHTML += html;

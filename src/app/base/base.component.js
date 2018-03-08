@@ -13,7 +13,7 @@ export default class BaseComponent {
       let wrapper = document.querySelector(this.id);
 
       if (wrapper)
-        wrapper.innerHTML = this.renderComponentContent();
+        this.renderComponentContent(wrapper);
     });
   }
 
@@ -37,31 +37,46 @@ export default class BaseComponent {
   /**
    * Render the template of the component'content
    *
-   * @return {string}
+   * @param {HTMLElement} parent
    * @memberof BaseComponent
    */
-  renderComponentContent() {
-    return this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+  renderComponentContent(parent) {
+    parent.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+    this.afterRender();
   }
 
   /**
    * Render the template of the component
    *
-   * @return {string}
+   * @param {HTMLElement} parent
+   * @param {boolean} ontop True if the component must be rendered on top
    * @memberof BaseComponent
    */
-  render() {
-    return this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model);
+  render(parent, ontop) {
+    if(ontop)
+      parent.innerHTML = this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model) + parent.innerHTML;
+    else
+      parent.innerHTML += this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model);
+    this.afterRender();
   }
 
   /**
    * Initialize the component
    *
    * @return {promise}
-   * @memberof CuisineComponent
+   * @memberof BaseComponent
    */
   init() {
     throw new Error('You have to implement the method doSomething!');
+  }
+
+  /**
+   * Make an action after render of the component
+   *
+   * @memberof BaseComponent
+   */
+  afterRender() {
+    return;
   }
 
   /**

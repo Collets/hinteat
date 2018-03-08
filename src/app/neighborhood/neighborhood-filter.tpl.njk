@@ -1,0 +1,6 @@
+<select id="neighborhoods-select" name="neighborhoods">
+  <option value="all">All Neighborhoods</option>
+  {% for neighborhood in neighborhoods %}
+  <option value="{{ neighborhood }}">{{ neighborhood }}</option>
+  {% endfor %}
+</select>
