@@ -1,5 +1,6 @@
 import {AppError} from '../utils/utils';
 import BaseComponent from '../base/base.component';
+import NavigationComponent from '../navigation/navigation.component';
 import {MDCToolbar, MDCToolbarFoundation} from '@material/toolbar';
 
 import './header.scss';
@@ -13,18 +14,7 @@ class HeaderComponent extends BaseComponent {
     super();
 
     this._model = {
-      cuisines: [],
     };
-  }
-
-  /**
-   * Initialize the component
-   *
-   * @return {promise}
-   * @memberof HeaderComponent
-   */
-  init() {
-    return;
   }
 
   /**
@@ -33,7 +23,13 @@ class HeaderComponent extends BaseComponent {
    * @memberof HeaderComponent
    */
   afterRender() {
-    mdc.toolbar.MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
+    this._toolbar = MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
+    this._toolbar.fixedAdjustElement = document.querySelector('#maincontent');
+
+    document.querySelector('#menuHamburger').addEventListener('click', (e) => {
+      e.preventDefault();
+      NavigationComponent.model.drawer.open = true;
+    });
   }
 }
 

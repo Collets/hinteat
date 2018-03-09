@@ -12,6 +12,7 @@ import Map from './app/map/map';
 import CuisineFilterComponent from './app/cuisine/cuisine-filter.component';
 import NeighborhoodFilterComponent from './app/neighborhood/neighborhood-filter.component';
 import HeaderComponent from './app/header/header.component';
+import NavigationComponent from './app/navigation/navigation.component';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
@@ -28,23 +29,24 @@ let neighborhoods;
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  NeighborhoodService.fetchNeighborhoods()
-  .then((result)=>{
-    neighborhoods = result;
-  })
-  .catch((error)=>{
-    Notification.error(error);
-  });
+  // NeighborhoodService.fetchNeighborhoods()
+  // .then((result)=>{
+  //   neighborhoods = result;
+  // })
+  // .catch((error)=>{
+  //   Notification.error(error);
+  // });
 
-  CuisineService.fetchCuisines()
-  .then((result)=>{
-    cuisines = result;
-  })
-  .catch((error)=>{
-    Notification.error(error);
-  });
+  // CuisineService.fetchCuisines()
+  // .then((result)=>{
+  //   cuisines = result;
+  // })
+  // .catch((error)=>{
+  //   Notification.error(error);
+  // });
 
   HeaderComponent.render(document.querySelector('body'), true);
+  NavigationComponent.render(document.querySelector('.mdc-toolbar'));
   NeighborhoodFilterComponent.render(document.querySelector('.filter-options'));
   CuisineFilterComponent.render(document.querySelector('.filter-options'));
   // CuisineFilterComponent.render()

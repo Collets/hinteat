@@ -53,10 +53,13 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   render(parent, ontop) {
+    let wrapper = document.createElement('div');
+    wrapper.innerHTML = this.ENV.renderString('<' + this.id + 'Component> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + 'Component>', this.model);
+
     if(ontop)
-      parent.innerHTML = this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model) + parent.innerHTML;
+      parent.insertBefore(wrapper.firstChild, parent.firstChild);
     else
-      parent.innerHTML += this.ENV.renderString('<' + this.id + '> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '>', this.model);
+      parent.appendChild(wrapper.firstChild);
     this.afterRender();
   }
 
@@ -67,7 +70,11 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   init() {
-    throw new Error('You have to implement the method doSomething!');
+    let promise = new Promise((resolve, reject)=>{
+      resolve();
+    });
+
+    return promise;
   }
 
   /**
