@@ -4,6 +4,7 @@ import NavigationComponent from '../navigation/navigation.component';
 import {MDCToolbar, MDCToolbarFoundation} from '@material/toolbar';
 
 import './header.scss';
+import FiltersComponent from '../filters/filters.component';
 
 /** Header Class */
 class HeaderComponent extends BaseComponent {
@@ -29,6 +30,11 @@ class HeaderComponent extends BaseComponent {
     document.querySelector('#menuHamburger').addEventListener('click', (e) => {
       e.preventDefault();
       NavigationComponent.model.drawer.open = true;
+    });
+
+    document.querySelector('#openFilters').addEventListener('click', (e) => {
+      e.preventDefault();
+      FiltersComponent.model.drawer.open = true;
     });
   }
 }

@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@material/drawer": "^0.30.0",
+    "@material/grid-list": "^0.30.0",
     "@material/list": "^0.32.0",
     "@material/toolbar": "^0.32.0",
     "load-google-maps-api": "^1.1.1",

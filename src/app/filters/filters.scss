@@ -1,3 +1,32 @@
+@import "../colors/colors";
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
+
+/* OVERRIDE DRAWERS*/
+.mdc-drawer.mdc-drawer--right .mdc-drawer__drawer{
+  -webkit-transform: translateX(107%);
+  transform: translateX(107%);
+  -webkit-transform: translateX(calc(100% + 20px));
+  transform: translateX(calc(100% + 20px));
+  left: auto;
+  right: 0;
+}
+.mdc-drawer--open.mdc-drawer--right .mdc-drawer__drawer {
+  -webkit-transform: none;
+  transform: none;
+}   
+
+/* Custom styles */
+
+.totals{
+  color: $mdc-theme-primary-dark;
+  width: 100%;
+  box-shadow: none;
+  border: none;
+  background-color: inherit;
+  padding: 18px;
+}
+
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;

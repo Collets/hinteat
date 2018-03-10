@@ -1,3 +1,7 @@
+// DATA
+import './assets/data/restaurants.json';
+import './app/diana.scss';
+
 // UTILS
 import {Notification} from './app/utils/utils';
 
@@ -13,13 +17,11 @@ import CuisineFilterComponent from './app/cuisine/cuisine-filter.component';
 import NeighborhoodFilterComponent from './app/neighborhood/neighborhood-filter.component';
 import HeaderComponent from './app/header/header.component';
 import NavigationComponent from './app/navigation/navigation.component';
+import FiltersComponent from './app/filters/filters.component';
 
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
 
-// DATA
-import './assets/data/restaurants.json';
-import './app/diana.scss';
 
 let restaurants;
 let cuisines;
@@ -29,33 +31,11 @@ let neighborhoods;
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  // NeighborhoodService.fetchNeighborhoods()
-  // .then((result)=>{
-  //   neighborhoods = result;
-  // })
-  // .catch((error)=>{
-  //   Notification.error(error);
-  // });
-
-  // CuisineService.fetchCuisines()
-  // .then((result)=>{
-  //   cuisines = result;
-  // })
-  // .catch((error)=>{
-  //   Notification.error(error);
-  // });
-
   HeaderComponent.render(document.querySelector('body'), true);
   NavigationComponent.render(document.querySelector('.mdc-toolbar'));
+  FiltersComponent.render(document.querySelector('.mdc-toolbar'));
   NeighborhoodFilterComponent.render(document.querySelector('.filter-options'));
   CuisineFilterComponent.render(document.querySelector('.filter-options'));
-  // CuisineFilterComponent.render()
-  // .then((html)=>{
-  //   document.querySelector('.filter-options').innerHTML += html;
-  // })
-  // .catch((err)=>{
-  //   Notification.error(err);
-  // });
 });
 
 /**
