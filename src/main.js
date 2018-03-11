@@ -18,7 +18,10 @@ import NeighborhoodFilterComponent from './app/neighborhood/neighborhood-filter.
 import HeaderComponent from './app/header/header.component';
 import NavigationComponent from './app/navigation/navigation.component';
 import FiltersComponent from './app/filters/filters.component';
+import AppComponent from './app/app.component';
 
+import {ComponentFactory} from './core/component-factory/component-factory';
+import bootstrap from './core/bootstrapper/bootstrapper';
 // EXTERNAL MODULES
 import loadGoogleMapsApi from 'load-google-maps-api';
 
@@ -31,11 +34,14 @@ let neighborhoods;
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  HeaderComponent.render(document.querySelector('body'), true);
-  NavigationComponent.render(document.querySelector('.mdc-toolbar'));
-  FiltersComponent.render(document.querySelector('.mdc-toolbar'));
-  NeighborhoodFilterComponent.render(document.querySelector('.filter-options'));
-  CuisineFilterComponent.render(document.querySelector('.filter-options'));
+  // HeaderComponent.render(document.querySelector('body'), true);
+  // NavigationComponent.render(document.querySelector('.mdc-toolbar'));
+  // FiltersComponent.render(document.querySelector('.mdc-toolbar'));
+  // NeighborhoodFilterComponent.render(document.querySelector('.filter-options'));
+  // CuisineFilterComponent.render(document.querySelector('.filter-options'));
+
+  // AppComponent.render(document.querySelector('.filter-options'));
+  bootstrap('AppComponent');
 });
 
 /**

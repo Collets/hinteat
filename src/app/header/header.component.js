@@ -5,6 +5,7 @@ import {MDCToolbar, MDCToolbarFoundation} from '@material/toolbar';
 
 import './header.scss';
 import FiltersComponent from '../filters/filters.component';
+import CuisineFilterComponent from '../cuisine/cuisine-filter.component';
 
 /** Header Class */
 class HeaderComponent extends BaseComponent {

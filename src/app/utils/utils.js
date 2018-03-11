@@ -100,7 +100,7 @@ class Notification {
       progressBar: true,
     };
 
-    if(this.message instanceof AppError)
+    if (this.message instanceof AppError)
       this.message = this.message.message;
 
     switch (this.severity) {
@@ -158,6 +158,17 @@ class Utils {
    */
   static getIdByName(name) {
     return name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
+  }
+
+  /**
+   * Convert dash to camelcase
+   * @param  {string} id
+   * @return {string}
+   */
+  static getNameById(id) {
+    return id.replace(/-([a-z])/g, function(g) {
+      return g[1].toUpperCase();
+    }).replace(/\b\w/g, (l) => l.toUpperCase());
   }
 }
 

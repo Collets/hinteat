@@ -1,4 +1,5 @@
 import {Utils} from '../utils/utils';
+import {ComponentFactory} from '../../core/component-factory/component-factory';
 import * as nunjucks from '../../../node_modules/nunjucks/browser/nunjucks';
 
 /** Base class for every components */
@@ -10,7 +11,7 @@ export default class BaseComponent {
 
     this.init()
     .then(()=>{
-      let wrapper = document.querySelector(this.id);
+      let wrapper = document.querySelector(this.id + '-component');
 
       if (wrapper)
         this.renderComponentContent(wrapper);
@@ -53,14 +54,35 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   render(parent, ontop) {
-    let wrapper = document.createElement('div');
-    wrapper.innerHTML = this.ENV.renderString('<' + this.id + 'Component> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + 'Component>', this.model);
+    // let wrapper = document.createElement('div');
+    // wrapper.innerHTML = this.ENV.renderString('<' + this.id + '-component> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '-component>', this.model);
 
-    if(ontop)
-      parent.insertBefore(wrapper.firstChild, parent.firstChild);
-    else
-      parent.appendChild(wrapper.firstChild);
-    this.afterRender();
+    // if (ontop)
+    //   parent.insertBefore(wrapper.firstChild, parent.firstChild);
+    // else
+    //   parent.appendChild(wrapper.firstChild);
+    // this.afterRender();
+    this.wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+    this.renderDescendants();
+  }
+
+  /**
+   * Render the descendants present in this templates
+  */
+  renderDescendants() {
+    let html = this.wrapper.innerHTML;
+    let components = html.match(/(?<=\/)(.*?)(?=-component>)/ig);
+    
+    if(!components) return;
+
+    components = components.filter((v, i) => components.indexOf(v) == i);
+
+    components.forEach((element) => {
+      let componentName = Utils.getNameById(element) + 'Component';
+
+      let component = ComponentFactory.instantiate(componentName);
+      component.render();
+    });
   }
 
   /**
@@ -93,5 +115,13 @@ export default class BaseComponent {
   get id() {
     let name = this.constructor.name.replace('Component', '');
     return Utils.getIdByName(name);
+  }
+
+  /**
+   * Get wrapper element of component
+   * @return {string}
+   */
+  get wrapper() {
+    return document.querySelector(Utils.getIdByName(this.constructor.name));
   }
 }
