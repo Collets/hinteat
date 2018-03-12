@@ -1,6 +1,50 @@
 @import "../colors/colors";
+@import "@material/theme/mdc-theme";
 @import "@material/drawer/mdc-drawer";
 @import "@material/list/mdc-list";
+@import "@material/toolbar/mdc-toolbar";
+
+.filters-wrapper{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $mdc-theme-background;
+  z-index: 10;
+  overflow-y: scroll;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.filters-toolbar{
+  background-color: $mdc-theme-background;
+  @include mdc-theme-prop('color', 'text-primary-on-primary-light');
+}
+
+.toolbar-spacer{
+  height: 56px;
+}
+
+.filters-content{
+  position: static;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* OVERRIDE DRAWERS*/
 .mdc-drawer.mdc-drawer--right .mdc-drawer__drawer{

@@ -3,3 +3,10 @@
 
 @import "./colors/colors";
 @import "@material/theme/mdc-theme";
+
+[aria-hidden="true"]  { display: none; }
+[aria-hidden="false"] { display: block; }
+
+.noscroll{
+  overflow: hidden;
+}

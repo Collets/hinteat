@@ -1,13 +1,16 @@
+<header-component></header-component>
 <main id="maincontent">
-<section id="map-container">
-    <div id="map"></div>
-</section>
-<section>
-    <div class="filter-options">
-    <h2>Filter Results</h2>
-    <cuisine-filter-component></cuisine-filter-component>
-    <neighborhood-filter-component></neighborhood-filter-component>
-    </div>
-    <ul id="restaurants-list"></ul>
-</section>
+	<section id="map-container">
+			<div id="map"></div>
+	</section>
+	<filters-component></filters-component>
+	<results-component></results-component>
+	<section>
+			<div class="filter-options">
+			<h2>Filter Results</h2>
+			<cuisine-filter-component></cuisine-filter-component>
+			<neighborhood-filter-component></neighborhood-filter-component>
+			</div>
+			<ul id="restaurants-list"></ul>
+	</section>
 </main>

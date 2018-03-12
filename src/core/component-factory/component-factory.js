@@ -13,7 +13,7 @@ export const ComponentFactory = {
 				(element.constructor && element.constructor.name && element.constructor.name === name);
 			})[0];
 
-			if (cls.name)
+			if (cls && cls.name)
 				return new cls();
 			else
 				return cls;

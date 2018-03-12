@@ -64,6 +64,7 @@ export default class BaseComponent {
     // this.afterRender();
     this.wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
     this.renderDescendants();
+    this.afterRender();
   }
 
   /**
@@ -81,7 +82,9 @@ export default class BaseComponent {
       let componentName = Utils.getNameById(element) + 'Component';
 
       let component = ComponentFactory.instantiate(componentName);
-      component.render();
+
+      if(component)
+        component.render();
     });
   }
 
