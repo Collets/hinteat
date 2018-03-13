@@ -11,14 +11,14 @@
     padding: 15px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 
     &__text{
         margin: 0;
     }
 
     &__image{
-        max-width: 100%;
+        max-width: 150px;
     }
 }
 

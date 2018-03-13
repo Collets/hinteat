@@ -3,6 +3,8 @@ import * as NeighboorhoodService from './neighborhood.service';
 import * as RestaurantService from '../restaurant/restaurant.service';
 import BaseComponent from '../base/base.component';
 
+import {MDCSelect} from '@material/select';
+
 /** NeighboorhoodFilter Component Class */
 class NeighborhoodFilterComponent extends BaseComponent {
   /**
@@ -49,13 +51,11 @@ class NeighborhoodFilterComponent extends BaseComponent {
    * @memberof NeighborhoodFilterComponent
    */
   afterRender() {
-    let element = document.querySelector('#neighborhoods-select');
+    let select = new MDCSelect(document.querySelector('#neighborhoods-select'));
 
-    if (element && element.addEventListener) {
-      element.addEventListener('change', () => {
-        RestaurantService.updateRestaurants();
-      });
-    }
+    select.listen('MDCSelect:change', () => {
+      this.model.selected = select.value;
+    });
   }
 }
 

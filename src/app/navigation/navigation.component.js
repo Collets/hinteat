@@ -13,12 +13,18 @@ class NavigationComponent extends BaseComponent {
 
     this._model = {
       drawer: null,
-      menuVoices:[
+      menuVoices: [
         {
           url: '/',
-          label: 'Discover'
-        }
-      ]
+          label: 'Discover',
+          icon: 'explore',
+        },
+        {
+          url: '/favorites.html',
+          label: 'Favorites',
+          icon: 'favorite',
+        },
+      ],
     };
   }
 

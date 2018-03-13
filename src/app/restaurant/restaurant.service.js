@@ -9,17 +9,17 @@ import * as ReviewService from '../review/review.service';
  * @return {promise}
  */
 export let updateRestaurants = () => {
-  const cSelect = document.getElementById('cuisines-select');
-  const nSelect = document.getElementById('neighborhoods-select');
+  // const cSelect = document.getElementById('cuisines-select');
+  // const nSelect = document.getElementById('neighborhoods-select');
 
-  const cIndex = cSelect.selectedIndex;
-  const nIndex = nSelect.selectedIndex;
+  // const cIndex = cSelect.selectedIndex;
+  // const nIndex = nSelect.selectedIndex;
 
-  const cuisine = cSelect[cIndex].value;
-  const neighborhood = nSelect[nIndex].value;
+  // const cuisine = cSelect[cIndex].value;
+  // const neighborhood = nSelect[nIndex].value;
 
   let promise = new Promise((resolve, reject)=>{
-    DbService.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood)
+    DbService.fetchRestaurantByCuisineAndNeighborhood('', '')
     .then((restaurants)=>{
       resetRestaurants(restaurants);
       fillRestaurantsHTML(restaurants);

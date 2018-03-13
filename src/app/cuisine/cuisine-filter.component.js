@@ -3,6 +3,8 @@ import * as CuisineService from './cuisine.service';
 import * as RestaurantService from '../restaurant/restaurant.service';
 import BaseComponent from '../base/base.component';
 
+import {MDCSelect} from '@material/select';
+
 /** CuisineFilter Class */
 class CuisineFilterComponent extends BaseComponent {
   /**
@@ -49,13 +51,11 @@ class CuisineFilterComponent extends BaseComponent {
    * @memberof CuisineFilterComponent
    */
   afterRender() {
-    let element = document.querySelector('#cuisines-select');
+    let select = new MDCSelect(document.querySelector('#cuisines-select'));
 
-    if (element && element.addEventListener) {
-      element.addEventListener('change', () => {
-        RestaurantService.updateRestaurants();
-      });
-    }
+    select.listen('MDCSelect:change', () => {
+      this.model.selected = select.value;
+    });
   }
 }
 

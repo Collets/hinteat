@@ -11,8 +11,12 @@ class FiltersComponent extends BaseComponent {
   constructor() {
     super();
 
+    this._listView = true;
+
     this._model = {
       drawer: null,
+      listView: this._listView,
+      gridView: !this._listView,
     };
   }
 
@@ -30,6 +34,14 @@ class FiltersComponent extends BaseComponent {
 
       this.toggle();
     });
+
+    document.querySelectorAll('.cards-view-button').forEach((element)=>{
+      element.addEventListener('click', (e)=>{
+        e.preventDefault();
+  
+        this.toggleView();
+      });
+    });
   }
 
   /**
@@ -43,6 +55,18 @@ class FiltersComponent extends BaseComponent {
 
     wrapper.setAttribute('aria-hidden', !closed);
     document.body.classList.toggle('noscroll', closed);
+  }
+
+  /**
+   * Toggle the list view style
+   *
+   * @memberof FiltersComponent
+   */
+  toggleView() {
+    this._listView = !this._listView;
+
+    document.querySelector('#list-view-button').setAttribute('aria-pressed', this._listView);
+    document.querySelector('#grid-view-button').setAttribute('aria-pressed', !this._listView);
   }
 }
 

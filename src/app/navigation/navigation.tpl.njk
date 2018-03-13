@@ -9,7 +9,8 @@
     <nav id="icon-with-text-demo" class="mdc-drawer__content mdc-list">
       {% for menuVoice in menuVoices %}
         <a class="mdc-list-item" href="{{ menuVoice.url }}">
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">explore</i>{{ menuVoice.label }}
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">{{ menuVoice.icon }}</i>{{ menuVoice.label }}
+          <!-- <i class="material-icons">{{ menuVoice.icon }}</i> -->
         </a>
       {% endfor %}
     </nav>

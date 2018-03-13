@@ -3,10 +3,18 @@
 
 @import "./colors/colors";
 @import "@material/theme/mdc-theme";
-
-[aria-hidden="true"]  { display: none; }
-[aria-hidden="false"] { display: block; }
+@import "@material/typography/mdc-typography";
 
 .noscroll{
   overflow: hidden;
+}
+
+body,td,th,p{
+  @include mdc-typography-base();
+  @include mdc-typography("body1");
+}
+
+body {
+  margin: 0;
+  position:relative;
 }
