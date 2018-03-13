@@ -1,4 +1,4 @@
-import DbService from '../db/db.service';
+import DbService from 'db/db.service';
 
 /**
  * Fetch all neighborhoods and set their HTML.

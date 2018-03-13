@@ -1,6 +1,6 @@
-import {AppError} from '../utils/utils';
+import {AppError} from 'utils/utils';
 import * as CuisineService from './cuisine.service';
-import * as RestaurantService from '../restaurant/restaurant.service';
+import * as RestaurantService from 'restaurant/restaurant.service';
 import BaseComponent from 'core/base/base.component';
 
 import {MDCSelect} from '@material/select';

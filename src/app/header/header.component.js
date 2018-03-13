@@ -1,9 +1,9 @@
 import BaseComponent from 'core/base/base.component';
-import NavigationComponent from '../navigation/navigation.component';
+import NavigationComponent from 'app/navigation/navigation.component';
+import FiltersComponent from 'app/filters/filters.component';
 import {MDCToolbar} from '@material/toolbar';
 
 import './header.scss';
-import FiltersComponent from '../filters/filters.component';
 
 /** Header Class */
 class HeaderComponent extends BaseComponent {
