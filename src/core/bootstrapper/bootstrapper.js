@@ -5,6 +5,7 @@ import NeighborhoodFilterComponent from '../../app/neighborhood/neighborhood-fil
 import HeaderComponent from '../../app/header/header.component';
 import NavigationComponent from '../../app/navigation/navigation.component';
 import FiltersComponent from '../../app/filters/filters.component';
+import MapComponent from '../../app/map/map.component';
 
 // Import of components
 
@@ -20,6 +21,7 @@ export default function bootstrap(entrypoint) {
         FiltersComponent,
         CuisineFilterComponent,
         NeighborhoodFilterComponent,
+        MapComponent,
     ];
 
     let starterComponent = ComponentFactory.instantiate(entrypoint);

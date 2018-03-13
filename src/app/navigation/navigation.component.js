@@ -1,4 +1,4 @@
-import BaseComponent from '../base/base.component';
+import BaseComponent from 'core/base/base.component';
 import {MDCTemporaryDrawer} from '@material/drawer';
 
 import './navigation.scss';

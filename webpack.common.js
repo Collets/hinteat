@@ -17,6 +17,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].min.js'
   },
+  resolve:{
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules')
+    ]
+  },
   module: {
     rules: [{
       test: /(\.js)$/,

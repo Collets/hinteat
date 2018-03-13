@@ -15,7 +15,8 @@ export default class BaseComponent {
 
       if (wrapper)
         this.renderComponentContent(wrapper);
-    });
+    })
+    .catch(()=>{});
   }
 
   /**
@@ -96,7 +97,7 @@ export default class BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      resolve();
+      reject();
     });
 
     return promise;

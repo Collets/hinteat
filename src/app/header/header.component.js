@@ -1,4 +1,4 @@
-import BaseComponent from '../base/base.component';
+import BaseComponent from 'core/base/base.component';
 import NavigationComponent from '../navigation/navigation.component';
 import {MDCToolbar} from '@material/toolbar';
 

@@ -1,7 +1,7 @@
 import {AppError} from '../utils/utils';
 import * as NeighboorhoodService from './neighborhood.service';
 import * as RestaurantService from '../restaurant/restaurant.service';
-import BaseComponent from '../base/base.component';
+import BaseComponent from 'core/base/base.component';
 
 import {MDCSelect} from '@material/select';
 

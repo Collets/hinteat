@@ -1,4 +1,4 @@
-import BaseComponent from '../base/base.component';
+import BaseComponent from 'core/base/base.component';
 import {MDCToolbar} from '@material/toolbar';
 
 import './filters.scss';
@@ -14,7 +14,6 @@ class FiltersComponent extends BaseComponent {
     this._listView = true;
 
     this._model = {
-      drawer: null,
       listView: this._listView,
       gridView: !this._listView,
     };
