@@ -14,6 +14,10 @@ body,td,th,p{
   @include mdc-typography("body1");
 }
 
+html{
+  background-color: white;
+}
+
 body {
   margin: 0;
   position:relative;

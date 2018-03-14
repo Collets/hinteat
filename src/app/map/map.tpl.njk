@@ -1,3 +1,24 @@
-<section id="map-container">
+<div class="map-placeholder">
+  <picture>
+    <source media="(min-width: 450px)" 
+      srcset="https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=640x400&format=JPEG&style=feature:all|element:label|visibility:off">
+    <img class="map-placeholder__image" 
+      src="https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off" 
+      srcset="https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off, 
+            https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&scale=2&format=JPEG&style=feature:all|element:label|visibility:off 2x"/>
+  </picture>  
+  <button class="mdc-button mdc-button--raised mdc-button--dense" id="open-map">
+    Open map
+  </button>
+</div>
+<div id="map-container" class="map-wrapper" aria-hidden="true">
+	<div class="mdc-toolbar mdc-toolbar--fixed map-toolbar">
+		<div class="mdc-toolbar__row">
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+					<a id="close-map" href="#" class="material-icons mdc-toolbar__icon" aria-label="close map">arrow_back</a>
+					<!-- <span class="mdc-toolbar__title">Be more specific</span> -->
+			</section>
+		</div>
+  </div>
   <div id="map"></div>
-</section>
+</div>

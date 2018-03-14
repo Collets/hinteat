@@ -1,5 +1,4 @@
 import BaseComponent from 'core/base/base.component';
-import CuisineFilterComponent from './cuisine/cuisine-filter.component';
 
 import './app.scss';
 

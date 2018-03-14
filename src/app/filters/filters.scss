@@ -7,8 +7,18 @@
 @import "@material/select/mdc-select";
 @import "@material/typography/mdc-typography";
 
-#filters[aria-hidden="true"]  { display: none; }
-#filters[aria-hidden="false"] { display: flex; }
+#filters[aria-hidden="true"]  { 
+  transform: translateX(130%);
+  transition-timing-function: ease-in;
+  transition: 350ms;
+}
+#filters[aria-hidden="false"] { 
+  transition: 350ms;
+  transition-timing-function: ease-out;
+  
+  transform: translateX(0);
+  opacity: 1;
+}
 
 .filters-wrapper{
   width: 100%;
@@ -17,18 +27,17 @@
   top: 0;
   left: 0;
   background-color: $mdc-theme-background;
-  z-index: 10;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
+  z-index: 10;
+  opacity: 0;
+  // transform: translateX(130%);
 }
 
 .filters-toolbar{
   background-color: $mdc-theme-background;
-  @include mdc-theme-prop('color', 'text-primary-on-primary-light');
-}
-
-.material-icons.mdc-toolbar__icon.filters-toolbar__icon{
   @include mdc-theme-prop('color', 'text-primary-on-primary-light');
 }
 

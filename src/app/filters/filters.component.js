@@ -26,7 +26,7 @@ class FiltersComponent extends BaseComponent {
    */
   afterRender() {
     this._toolbar = MDCToolbar.attachTo(document.querySelector('.filters-toolbar'));
-    this._toolbar.fixedAdjustElement = document.querySelector('#filters');
+    this._toolbar.fixedAdjustElement = document.querySelector('#maincontent');
 
     document.querySelector('#close-filters').addEventListener('click', (e)=>{
       e.preventDefault();

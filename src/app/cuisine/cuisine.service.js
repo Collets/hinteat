@@ -1,4 +1,4 @@
-import DbService from 'db/db.service';
+import DbService from 'app/db/db.service';
 
 /**
  * Fetch all cuisines and set their HTML.

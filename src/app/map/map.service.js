@@ -1,5 +1,5 @@
-import DbService from 'db/db.service';
-import Map from 'map/map';
+import DbService from 'app/db/db.service';
+import Map from 'app/map/map';
 
 /**
  * Add markers for current restaurants to the map.

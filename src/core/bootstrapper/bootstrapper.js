@@ -1,4 +1,4 @@
-import {ComponentFactory} from 'component-factory/component-factory';
+import {ComponentFactory} from 'core/component-factory/component-factory';
 import AppComponent from 'app/app.component';
 import CuisineFilterComponent from 'app/cuisine/cuisine-filter.component';
 import NeighborhoodFilterComponent from 'app/neighborhood/neighborhood-filter.component';

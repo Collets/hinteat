@@ -1,6 +1,6 @@
-import {Utils} from 'utils/utils';
+import {Utils} from 'app/utils/utils';
 import {ComponentFactory} from 'core/component-factory/component-factory';
-import * as nunjucks from 'node_modules/nunjucks/browser/nunjucks';
+import * as nunjucks from 'nunjucks/browser/nunjucks';
 
 /** Base class for every components */
 export default class BaseComponent {

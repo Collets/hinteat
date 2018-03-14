@@ -1,4 +1,4 @@
-import {AppError} from 'utils/utils';
+import {AppError} from 'app/utils/utils';
 /**
  * Common database helper functions.
  */

@@ -1,8 +1,8 @@
-import DbService from 'db/db.service';
-import {Utils, AppError} from 'utils/utils';
-import * as MapService from 'map/map.service';
-import Map from 'map/map';
-import * as ReviewService from 'review/review.service';
+import DbService from 'app/db/db.service';
+import {Utils, AppError} from 'app/utils/utils';
+import * as MapService from 'app/map/map.service';
+import Map from 'app/map/map';
+import * as ReviewService from 'app/review/review.service';
 
 /**
  * Update page and map for current restaurants.
