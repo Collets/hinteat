@@ -1,22 +1,37 @@
-import {Utils} from 'app/utils/utils';
+import {Utils,AppError,Notification} from 'app/utils/utils';
 import {ComponentFactory} from 'core/component-factory/component-factory';
 import * as nunjucks from 'nunjucks/browser/nunjucks';
+import ComponentInfo from 'core/component-factory/component-info';
 
 /** Base class for every components */
 export default class BaseComponent {
   /** Constructor of base component */
-  constructor() {
+  constructor(params) {
     this.ENV = nunjucks.configure({web: {async: false}});
     this._model = {};
 
+    if(params)
+    {
+      Object.keys(Object.getOwnPropertyDescriptors(params)).map((key)=>{
+        Reflect.defineProperty(this, '_' + key, {value:params[key]});
+      });
+    }
+
     this.init()
     .then(()=>{
-      let wrapper = document.querySelector(this.id + '-component');
+      // let wrapper = document.querySelector(this.name + '-component');
 
-      if (wrapper)
-        this.renderComponentContent(wrapper);
+      if (this._wrapper)
+        this.renderComponentContent(this._wrapper);
     })
-    .catch(()=>{});
+    .catch((error)=>{
+      if (!(error instanceof AppError)) {
+        console.error(error);
+      }
+      else{
+        Notification.error(error);
+      }
+    });
   }
 
   /**
@@ -42,28 +57,18 @@ export default class BaseComponent {
    * @param {HTMLElement} parent
    * @memberof BaseComponent
    */
-  renderComponentContent(parent) {
-    parent.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+  renderComponentContent(parent = this._wrapper) {
+    parent.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
     this.afterRender();
   }
 
   /**
    * Render the template of the component
    *
-   * @param {HTMLElement} parent
-   * @param {boolean} ontop True if the component must be rendered on top
    * @memberof BaseComponent
    */
-  render(parent, ontop) {
-    // let wrapper = document.createElement('div');
-    // wrapper.innerHTML = this.ENV.renderString('<' + this.id + '-component> {% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %} </' + this.id + '-component>', this.model);
-
-    // if (ontop)
-    //   parent.insertBefore(wrapper.firstChild, parent.firstChild);
-    // else
-    //   parent.appendChild(wrapper.firstChild);
-    // this.afterRender();
-    this.wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this.id + '.tpl.njk" ignore missing %}', this.model);
+  render() {
+    this._wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
     this.renderDescendants();
     this.afterRender();
   }
@@ -72,20 +77,26 @@ export default class BaseComponent {
    * Render the descendants present in this templates
   */
   renderDescendants() {
-    let html = this.wrapper.innerHTML;
-    let components = html.match(/(?<=\/)(.*?)(?=-component>)/ig);
-    
-    if(!components) return;
+    let html = this._wrapper.innerHTML;
+    let componentNames = html.match(/(?<=\/)(.*?)(?=-component>)/ig);
 
-    components = components.filter((v, i) => components.indexOf(v) == i);
+    if(!componentNames) return;
 
-    components.forEach((element) => {
-      let componentName = Utils.getNameById(element) + 'Component';
+    componentNames = componentNames.filter((v, i) => componentNames.indexOf(v) == i);
 
-      let component = ComponentFactory.instantiate(componentName);
+    componentNames.forEach((componentName)=> {
 
-      if(component)
-        component.render();
+      document.querySelectorAll(componentName + '-component').forEach((element)=>{
+
+        let componentInfo = new ComponentInfo(Utils.getNameByTag(componentName) + 'Component', element);
+  
+        let component = ComponentFactory.instantiate(componentInfo);
+
+        element.id = component._id;
+  
+        if(component)
+          component.render();
+      });
     });
   }
 
@@ -97,7 +108,7 @@ export default class BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      reject();
+      resolve();
     });
 
     return promise;
@@ -113,19 +124,19 @@ export default class BaseComponent {
   }
 
   /**
-   * Get id of component
+   * Get name of component
    * @return {string}
    */
-  get id() {
-    let name = this.constructor.name.replace('Component', '');
-    return Utils.getIdByName(name);
+  get _name() {
+    let componentName = this.constructor.name.replace('Component', '');
+    return Utils.getTagByName(componentName);
   }
 
   /**
    * Get wrapper element of component
    * @return {string}
    */
-  get wrapper() {
-    return document.querySelector(Utils.getIdByName(this.constructor.name));
+  get _wrapper() {
+    return document.querySelector('#'+ this._id);
   }
 }

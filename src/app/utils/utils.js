@@ -156,7 +156,7 @@ class Utils {
    * @param  {string} name
    * @return {string}
    */
-  static getIdByName(name) {
+  static getTagByName(name) {
     return name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
   }
 
@@ -165,10 +165,29 @@ class Utils {
    * @param  {string} id
    * @return {string}
    */
-  static getNameById(id) {
+  static getNameByTag(id) {
     return id.replace(/-([a-z])/g, function(g) {
       return g[1].toUpperCase();
     }).replace(/\b\w/g, (l) => l.toUpperCase());
+  }
+
+  /**
+   * Return a random generated guid
+   * @return {string}
+   */
+  static guid() {
+    return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+    this.s4() + '-' + this.s4() + this.s4() + this.s4();
+  }
+
+  /**
+   * Helper function for guid()
+   * @return {string}
+   */
+  static s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
   }
 }
 

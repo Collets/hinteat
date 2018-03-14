@@ -1,0 +1,27 @@
+<div class="mdc-card resturant">
+  <a class="mdc-card__primary-action" href="#">
+    <div class="restaurant-media">
+      <div class="restaurant-media__wrapper">
+        <img class="restaurant-media__image" src="assets/img/{{restaurant.photograph}}" alt="{{restaurant.name}}"/>
+      </div>      
+    </div>
+    <div class="mdc-card__content">
+      <h2 class="mdc-typography--title resturant__title">{{restaurant.name}}</h2>
+      <h3 class="mdc-typography--subheading1 resturant__subtitle">{{restaurant.neighborhood}}</h3>
+    </div>
+    <div class="mdc-card__content mdc-card__content--secondary mdc-typography--body1">
+      {{restaurant.address}}
+    </div>
+  </a>
+  <div class="mdc-card__actions">
+    <div class="mdc-card__action-buttons">
+      <button class="mdc-button mdc-card__action mdc-card__action--button open-detail-restaurant" data-url="/restaurant.html?id={{restaurant.id}}" data-id-"{{restaurant.id}}">DISCOVER</button>
+    </div>
+    <div class="mdc-card__action-icons">
+      <i class="material-icons mdc-card__action mdc-card__action--icon mdc-icon-toggle add-favorites-button"
+        tabindex="0" role="button" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites"
+        data-toggle-on='{"label": "Remove from favorites", "content": "favorite"}'
+        data-toggle-off='{"label": "Add to favorites", "content": "favorite_border"}'>favorite_border</i>
+    </div>
+  </div>
+</div>

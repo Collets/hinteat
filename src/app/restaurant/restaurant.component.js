@@ -1,5 +1,8 @@
 import BaseComponent from 'core/base/base.component';
-import {RestaurantService} from 'app/restaurant/restaurant.service';
+import {MDCRipple} from '@material/ripple';
+import {MDCIconToggle} from '@material/icon-toggle';
+import {AppError} from 'app/utils/utils';
+import * as RestaurantService from 'app/restaurant/restaurant.service';
 
 import './restaurant.scss';
 
@@ -7,12 +10,11 @@ import './restaurant.scss';
 class RestaurantComponent extends BaseComponent {
   /**
    * Constructor
-   * @param {number} id
+   * @param {object} params
   */
-  constructor(id) {
-    super();
+  constructor(params) {
+    super(params);
 
-    this._id = id;
     this._model = {
       restaurant: null,
     };
@@ -24,6 +26,28 @@ class RestaurantComponent extends BaseComponent {
    * @memberof RestaurantComponent
    */
   afterRender() {
+    document.querySelectorAll('#' + this._id + ' .mdc-card__primary-action').forEach((element) => {
+      MDCRipple.attachTo(element);
+    });
+
+    document.querySelectorAll('#' + this._id + ' .add-favorites-button').forEach((element) => {
+      MDCRipple.attachTo(element);
+    });
+
+    document.querySelectorAll('#' + this._id + ' .open-detail-restaurant').forEach((element) => {
+      MDCRipple.attachTo(element);
+    });
+
+    if (document.querySelector('#' + this._id + ' .mdc-icon-toggle'))
+      MDCIconToggle.attachTo(document.querySelector('#' + this._id + ' .mdc-icon-toggle'));
+
+    if (document.querySelector('#' + this._id + ' .open-detail-restaurant')) {
+      document.querySelector('#' + this._id + ' .open-detail-restaurant').addEventListener('click', (e)=>{
+        e.preventDefault();
+
+        window.location.href = e.currentTarget.getAttribute('data-url');
+      });
+    }
   }
 
   /**
@@ -34,13 +58,13 @@ class RestaurantComponent extends BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      RestaurantService.getRestaurant(this._id)
+      RestaurantService.get(this._restaurantid)
       .then((result)=>{
         this.model.restaurant = result;
 
         resolve();
       })
-      .catch((err)=>{
+      .catch((error)=>{
         if (!(error instanceof AppError)) {
           console.error(error);
           error = new AppError('Unexpected error');
@@ -54,4 +78,4 @@ class RestaurantComponent extends BaseComponent {
   }
 }
 
-export default new RestaurantComponent();
+export default RestaurantComponent;
