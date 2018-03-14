@@ -5,6 +5,38 @@ import Map from 'app/map/map';
 import * as ReviewService from 'app/review/review.service';
 
 /**
+ * Get Restaurant by id
+ *
+ * @param {number} id
+ * @return {object}
+ */
+export let getRestaurant = (id) => {
+  let promise = new Promise((resolve, reject)=>{
+    if (!id)
+      reject(new AppError('No restaurant id in URL'));
+     else {
+      DbService.fetchRestaurantById(id)
+      .then((restaurant)=>{
+        fillRestaurantHTML(restaurant);
+
+        resolve(restaurant);
+      })
+      .catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.error(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
+    }
+  });
+
+  return promise;
+}
+
+
+/**
  * Update page and map for current restaurants.
  * @return {promise}
  */
@@ -64,7 +96,7 @@ export let fetchRestaurantFromURL = () => {
   let promise = new Promise((resolve, reject)=>{
     const id = Utils.getParameterByName('id');
 
-    if (!id) 
+    if (!id)
       reject(new AppError('No restaurant id in URL'));
      else {
       DbService.fetchRestaurantById(id)
