@@ -15,23 +15,7 @@ export default class BaseComponent {
       Object.keys(Object.getOwnPropertyDescriptors(params)).map((key)=>{
         Reflect.defineProperty(this, '_' + key, {value:params[key]});
       });
-    }
-
-    this.init()
-    .then(()=>{
-      // let wrapper = document.querySelector(this.name + '-component');
-
-      if (this._wrapper)
-        this.renderComponentContent(this._wrapper);
-    })
-    .catch((error)=>{
-      if (!(error instanceof AppError)) {
-        console.error(error);
-      }
-      else{
-        Notification.error(error);
-      }
-    });
+    }   
   }
 
   /**
@@ -59,6 +43,8 @@ export default class BaseComponent {
    */
   renderComponentContent(parent = this._wrapper) {
     parent.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+    
+    this.renderDescendants();
     this.afterRender();
   }
 
@@ -68,9 +54,21 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   render() {
-    this._wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
-    this.renderDescendants();
-    this.afterRender();
+    this.init()
+    .then(()=>{
+      this._wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+      
+      this.renderDescendants();
+      this.afterRender();
+    })
+    .catch((error)=>{
+      if (!(error instanceof AppError)) {
+        console.error(error);
+      }
+      else{
+        Notification.error(error);
+      }
+    });
   }
 
   /**
@@ -86,11 +84,11 @@ export default class BaseComponent {
 
     componentNames.forEach((componentName)=> {
 
-      document.querySelectorAll(componentName + '-component').forEach((element)=>{
+      this._wrapper.querySelectorAll(componentName + '-component').forEach((element)=>{
 
         let componentInfo = new ComponentInfo(Utils.getNameByTag(componentName) + 'Component', element);
   
-        let component = ComponentFactory.instantiate(componentInfo);
+        let component = ComponentFactory.instantiate(componentInfo, this);
 
         element.id = component._id;
   

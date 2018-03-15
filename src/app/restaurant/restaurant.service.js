@@ -13,26 +13,7 @@ import * as ReviewService from 'app/review/review.service';
  * @return {object}
  */
 export function get(id) {
-  let promise = new Promise((resolve, reject)=>{
-    if (!id)
-      reject(new AppError('No restaurant id in URL'));
-     else {
-      DbService.fetchRestaurantById(id)
-      .then((restaurant)=>{
-        resolve(restaurant);
-      })
-      .catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
-    }
-  });
-
-  return promise;
+  return DbService.fetchRestaurantById(id);
 };
 
 /**
@@ -44,22 +25,19 @@ export function get(id) {
 export function retrieve(filters) {
   if (!filters) return;
 
-  let promise = new Promise((resolve, reject)=>{
-    DbService.fetchRestaurantByCuisineAndNeighborhood(filters.Cuisine, filters.Neighboorhood)
-    .then((restaurants)=>{
-      resolve(restaurants);
-    })
-    .catch((error)=>{
-      if (!(error instanceof AppError)) {
-        console.error(error);
-        error = new AppError('Unexpected error');
-      }
+  return DbService.fetchRestaurantByCuisineAndNeighborhood(filters.Cuisine, filters.Neighboorhood);
+}
 
-      reject(error);
-    });
-  });
+/**
+ * Retrieve restaurants count
+ *
+ * @param {RestaurantFilters} filters
+ * @return {Promise}
+*/
+export function retrieveCount(filters) {
+  if (!filters) return;
 
-  return promise;
+  return DbService.fetchRestaurantByCuisineAndNeighborhoodCount(filters.Cuisine, filters.Neighboorhood);
 }
 
 

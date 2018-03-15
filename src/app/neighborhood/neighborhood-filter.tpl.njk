@@ -6,11 +6,11 @@
   </div>
   <div class="mdc-menu mdc-select__menu">
     <ul class="mdc-list mdc-menu__items">
-      <li class="mdc-list-item" role="option" tabindex="0">
+      <li class="mdc-list-item" role="option" tabindex="0" id="all-neighborhoods">
         All neighborhood
       </li>
       {% for neighborhood in neighborhoods %}
-        <li class="mdc-list-item" role="option" tabindex="0">
+        <li class="mdc-list-item" role="option" tabindex="0" id="{{neighborhood}}">
           {{ neighborhood }}
         </li>
       {% endfor %}

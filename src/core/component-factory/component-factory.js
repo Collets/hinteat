@@ -19,9 +19,10 @@ export const ComponentFactory = {
   /**
    *
    * @param {ComponentInfo} componentInfo
+   * @param {object} context
    * @return {object}
    */
-  instantiate(componentInfo) {
+  instantiate(componentInfo, context) {
     let cls = this.components.filter(
       (element) => {
         return (element.name && element.name === componentInfo.Name) ||
@@ -30,13 +31,13 @@ export const ComponentFactory = {
 
     let generatedId = 'comp-' + Utils.guid();
 
+    let inputs = this.getInputParams(componentInfo.Element, context);
+
     if (cls && cls.name) {
-      let inputs = this.getInputParams(componentInfo.Element);
       let instance = new cls(inputs);
       Reflect.defineProperty(instance, '_id', {value: generatedId});
       return instance;
-    }
-    else {
+    } else {
       Reflect.defineProperty(cls, '_id', {value: generatedId});
 
       return cls;
@@ -45,17 +46,22 @@ export const ComponentFactory = {
   /**
    * Given a component element return input parameters
    * @param {HTMLElement} element
+   * @param {object} context
    * @return {object}
    */
-  getInputParams(element) {
+  getInputParams(element, context) {
     if (!element) return null;
 
     let params = {};
 
-    Object.keys(element.dataset).filter((key)=>{
-      return key.startsWith('in');
-    }).forEach((key) => {
-      Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
+    Object.keys(element.dataset).forEach((key) => {
+      if (key.startsWith('injs')) {
+        let variableName = element.dataset[key];
+        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: context.model[variableName]});
+      }
+      else if (key.startsWith('in')) {
+        Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
+      }
     });
 
     return params;

@@ -11,6 +11,7 @@ class AppComponent extends BaseComponent {
     super();
 
     this._model = {
+      test: 1,
     };
   }
 

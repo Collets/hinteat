@@ -51,7 +51,22 @@ class ResultsComponent extends BaseComponent {
    * @memberof RestaurantComponent
    */
   init() {
-    return this.filter(new RestaurantFilters('all', 'all'));
+    let filters = new RestaurantFilters('all-cuisines', 'all-neighborhoods');
+    let promise = new Promise((resolve, reject)=>{
+      RestaurantService.retrieve(filters)
+      .then((restaurants)=>{
+        this.model.restaurants = restaurants;
+        resolve();
+      })
+      .catch((error)=>{
+        if (!(error instanceof AppError))
+          console.error(error);
+        else
+          Notification.error(error);
+      });
+    });
+    
+    return promise;
   }
 
   /**
@@ -60,7 +75,7 @@ class ResultsComponent extends BaseComponent {
    * @memberof ResultsComponent
    */
   afterRender() {
-    this.renderDescendants();
+    //this.renderDescendants();
   }
 }
 

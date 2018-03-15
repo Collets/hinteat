@@ -16,7 +16,7 @@ class RestaurantComponent extends BaseComponent {
     super(params);
 
     this._model = {
-      restaurant: null,
+      restaurant: this._restaurant,
     };
   }
 
@@ -50,32 +50,32 @@ class RestaurantComponent extends BaseComponent {
     }
   }
 
-  /**
-   * Initialize the component
-   *
-   * @return {promise}
-   * @memberof RestaurantComponent
-   */
-  init() {
-    let promise = new Promise((resolve, reject)=>{
-      RestaurantService.get(this._restaurantid)
-      .then((result)=>{
-        this.model.restaurant = result;
+  // /**
+  //  * Initialize the component
+  //  *
+  //  * @return {promise}
+  //  * @memberof RestaurantComponent
+  //  */
+  // init() {
+  //   let promise = new Promise((resolve, reject)=>{
+  //     RestaurantService.get(this._restaurantid)
+  //     .then((result)=>{
+  //       this.model.restaurant = result;
 
-        resolve();
-      })
-      .catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
+  //       resolve();
+  //     })
+  //     .catch((error)=>{
+  //       if (!(error instanceof AppError)) {
+  //         console.error(error);
+  //         error = new AppError('Unexpected error');
+  //       }
 
-        reject(error);
-      });
-    });
+  //       reject(error);
+  //     });
+  //   });
 
-    return promise;
-  }
+  //   return promise;
+  // }
 }
 
 export default RestaurantComponent;

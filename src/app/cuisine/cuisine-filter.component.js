@@ -3,6 +3,7 @@ import * as CuisineService from 'app/cuisine/cuisine.service';
 import BaseComponent from 'core/base/base.component';
 
 import {MDCSelect} from '@material/select';
+import FiltersComponent from 'app/filters/filters.component';
 
 /** CuisineFilter Class */
 class CuisineFilterComponent extends BaseComponent {
@@ -54,6 +55,8 @@ class CuisineFilterComponent extends BaseComponent {
 
     select.listen('MDCSelect:change', () => {
       this.model.selected = select.value;
+
+      FiltersComponent.setCuisine(this.model.selected);
     });
   }
 }

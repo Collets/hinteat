@@ -3,6 +3,7 @@ import * as NeighboorhoodService from 'app/neighborhood/neighborhood.service';
 import BaseComponent from 'core/base/base.component';
 
 import {MDCSelect} from '@material/select';
+import FiltersComponent from 'app/filters/filters.component';
 
 /** NeighboorhoodFilter Component Class */
 class NeighborhoodFilterComponent extends BaseComponent {
@@ -54,6 +55,8 @@ class NeighborhoodFilterComponent extends BaseComponent {
 
     select.listen('MDCSelect:change', () => {
       this.model.selected = select.value;
+      
+      FiltersComponent.setNeighboorhood(this.model.selected);
     });
   }
 }

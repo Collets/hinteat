@@ -1,6 +1,10 @@
 import BaseComponent from 'core/base/base.component';
 import {MDCToolbar} from '@material/toolbar';
 
+import RestaurantFilters from 'app/restaurant/restaurant-filters';
+import ResultsComponent from 'app/results/results.component';
+import * as RestaurantService from 'app/restaurant/restaurant.service';
+
 import './filters.scss';
 
 /** Filters Class */
@@ -16,6 +20,8 @@ class FiltersComponent extends BaseComponent {
     this._model = {
       listView: this._listView,
       gridView: !this._listView,
+      cuisine: 'all-cuisines',
+      neighboorhood: 'all-neighborhoods',
     };
   }
 
@@ -34,13 +40,64 @@ class FiltersComponent extends BaseComponent {
       this.toggle();
     });
 
+    document.querySelector('#confirm-filters').addEventListener('click', (e)=>{
+      e.preventDefault();
+
+      let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
+      ResultsComponent.filter(filters);
+      this.toggle();
+    });
+
     document.querySelectorAll('.cards-view-button').forEach((element)=>{
       element.addEventListener('click', (e)=>{
         e.preventDefault();
-  
-        this.toggleView();
+
+        if (e.currentTarget.id != this._wrapper.querySelector('[aria-pressed=true]').id)
+          this.toggleView();
       });
     });
+
+    this.count();
+  }
+
+  /**
+   * Count the results with current filters
+   *
+   * @memberof FiltersComponent
+   */
+  count() {
+    let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
+    RestaurantService.retrieveCount(filters)
+    .then((total)=>{
+      this._wrapper.querySelector('#total-results').innerHTML = total;
+    })
+    .catch((error)=>{
+      if (!(error instanceof AppError)) 
+        console.error(error);
+       else 
+        Notification.error(error);
+      
+    });
+  }
+
+  /**
+   * Set the current cuisine filter
+   *
+   * @param {string} filter
+   */
+  setCuisine(filter) {
+    this.model.cuisine = filter.trim();
+    this.count();
+  }
+
+  /**
+   * Set the current neighboorhood filter
+   *
+   * @param {string} filter
+   */
+  setNeighboorhood(filter) {
+    this.model.neighboorhood = filter.trim();
+    this.count();
   }
 
   /**

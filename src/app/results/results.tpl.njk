@@ -1,9 +1,12 @@
 <section class="results">
-  <ul class="results-list">
-    <li class="results-list__element">
-        {% for restaurant in restaurants %}
-        <restaurant-component data-in-restaurant-id="{{restaurant.id}}"></restaurant-component>
-      {% endfor %}
-    </li>
+  <div class="results-subtitle">
+    <h1 class="results-subtitle__text">The meal you are looking for is really close:</h1>
+  </div>
+  <ul class="results-list">    
+    {% for restaurant in restaurants %}
+      <li class="results-list__element">
+        <restaurant-component data-injs-restaurant="restaurants[{{ loop.index0 }}]"></restaurant-component>
+      </li>
+    {% endfor %}    
   </ul>
 </section>

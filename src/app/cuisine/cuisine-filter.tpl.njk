@@ -6,11 +6,11 @@
   </div>
   <div class="mdc-menu mdc-select__menu">
     <ul class="mdc-list mdc-menu__items">
-      <li class="mdc-list-item" role="option" tabindex="0">
+      <li class="mdc-list-item" role="option" tabindex="0" id="all-cuisines">
         All cuisines
       </li>
       {% for cuisine in cuisines %}
-        <li class="mdc-list-item" role="option" tabindex="0">
+        <li class="mdc-list-item" role="option" tabindex="0" id="{{cuisine}}">
           {{ cuisine }}
         </li>
       {% endfor %}

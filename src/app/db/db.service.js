@@ -66,6 +66,73 @@ export default class DbService {
   }
 
   /**
+   * Fetch restaurants by a cuisine and a neighborhood with
+   * proper error handling.
+   * @param {object} cuisine
+   * @param {object} neighborhood
+   * @return {promise}
+   */
+  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood) {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DbService.fetchRestaurants()
+      .then((restaurants)=>{
+        let results = restaurants;
+        if (cuisine != 'all-cuisines') // filter by cuisine
+          results = results.filter((r) => r.cuisine_type == cuisine);
+
+        if (neighborhood != 'all-neighborhoods') // filter by neighborhood
+          results = results.filter((r) => r.neighborhood == neighborhood);
+
+        resolve(results);
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.error(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
+    });
+
+    return promise;
+  }
+
+  /**
+   * Fetch restaurants by a cuisine and a neighborhood with
+   * proper error handling.
+   * @param {object} cuisine
+   * @param {object} neighborhood
+   * @return {promise}
+   */
+  static fetchRestaurantByCuisineAndNeighborhoodCount(cuisine, neighborhood) {
+    let promise = new Promise((resolve, reject)=>{
+      // fetch all restaurants with proper error handling.
+      DbService.fetchRestaurants()
+      .then((restaurants)=>{
+        let results = restaurants;
+        if (cuisine != 'all-cuisines') // filter by cuisine
+          results = results.filter((r) => r.cuisine_type == cuisine);
+
+        if (neighborhood != 'all-neighborhoods') // filter by neighborhood
+          results = results.filter((r) => r.neighborhood == neighborhood);
+
+        resolve(results.length);
+      }).catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.error(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
+    });
+
+    return promise;
+  }
+
+
+  /**
    * Fetch restaurants by a cuisine type with proper error handling.
    * @param {object} cuisine
    * @return {promise}
@@ -104,39 +171,6 @@ export default class DbService {
       .then((restaurants)=>{
         // Filter restaurants to have only given neighborhood
         const results = restaurants.filter((r) => r.neighborhood == neighborhood);
-
-        resolve(results);
-      }).catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
-    });
-
-    return promise;
-  }
-
-  /**
-   * Fetch restaurants by a cuisine and a neighborhood with
-   * proper error handling.
-   * @param {object} cuisine
-   * @param {object} neighborhood
-   * @return {promise}
-   */
-  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood) {
-    let promise = new Promise((resolve, reject)=>{
-      // fetch all restaurants with proper error handling.
-      DbService.fetchRestaurants()
-      .then((restaurants)=>{
-        let results = restaurants;
-        if (cuisine != 'all') // filter by cuisine
-          results = results.filter((r) => r.cuisine_type == cuisine);
-
-        if (neighborhood != 'all') // filter by neighborhood
-          results = results.filter((r) => r.neighborhood == neighborhood);
 
         resolve(results);
       }).catch((error)=>{
