@@ -8,6 +8,7 @@ import FiltersComponent from 'app/filters/filters.component';
 import MapComponent from 'app/map/map.component';
 import ResultsComponent from 'app/results/results.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
+import HomeComponent from 'app/home/home.component';
 
 // Import of components
 
@@ -18,6 +19,7 @@ import RestaurantComponent from 'app/restaurant/restaurant.component';
 export default function bootstrap(entrypoint) {
     ComponentFactory.components = [
         AppComponent,
+        HomeComponent,
         HeaderComponent,
         NavigationComponent,
         FiltersComponent,

@@ -33,7 +33,6 @@
 
   z-index: 10;
   opacity: 0;
-  // transform: translateX(130%);
 }
 
 .filters-toolbar{
@@ -65,65 +64,4 @@
 
 .cards-view-button[aria-pressed="true"] { 
   @include mdc-button-filled-accessible($mdc-theme-primary)
-}
-
-
-
-
-
-
-
-
-
-
-
-/* OVERRIDE DRAWERS*/
-.mdc-drawer.mdc-drawer--right .mdc-drawer__drawer{
-  -webkit-transform: translateX(107%);
-  transform: translateX(107%);
-  -webkit-transform: translateX(calc(100% + 20px));
-  transform: translateX(calc(100% + 20px));
-  left: auto;
-  right: 0;
-}
-.mdc-drawer--open.mdc-drawer--right .mdc-drawer__drawer {
-  -webkit-transform: none;
-  transform: none;
-}   
-
-/* Custom styles */
-
-.totals{
-  color: $mdc-theme-primary-dark;
-  width: 100%;
-  box-shadow: none;
-  border: none;
-  background-color: inherit;
-  padding: 18px;
-}
-
-/* ====================== Restaurant Filtering ====================== */
-.filter-options {
-  width: 100%;
-  height: 50px;
-  background-color: #3397DB;
-  align-items: center;
-}
-.filter-options h2 {
-  color: white;
-  font-size: 1rem;
-  font-weight: normal;
-  line-height: 1;
-  margin: 0 20px;
-}
-.filter-options select {
-  background-color: white;
-  border: 1px solid #fff;
-  font-family: Arial,sans-serif;
-  font-size: 11pt;
-  height: 35px;
-  letter-spacing: 0;
-  margin: 10px;
-  padding: 0 10px;
-  width: 200px;
 }
