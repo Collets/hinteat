@@ -1,4 +1,4 @@
-import {AppError} from 'app/utils/utils';
+import {AppError} from 'core/models/errors';
 import * as NeighboorhoodService from 'app/neighborhood/neighborhood.service';
 import BaseComponent from 'core/base/base.component';
 
@@ -26,7 +26,7 @@ class NeighborhoodFilterComponent extends BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      NeighboorhoodService.fetchNeighborhoods()
+      NeighboorhoodService.get()
       .then((results)=>{
         this.model.neighborhoods = results;
 

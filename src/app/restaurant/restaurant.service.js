@@ -1,9 +1,8 @@
 import DbService from 'app/db/db.service';
 import RestaurantFilters from 'app/restaurant//restaurant-filters';
 
-import {Utils, AppError} from 'app/utils/utils';
-import * as MapService from 'app/map/map.service';
-import Map from 'app/map/map';
+import Utils from 'core/utils/utils';
+import {AppError} from 'core/models/errors';
 import * as ReviewService from 'app/review/review.service';
 
 /**
@@ -40,59 +39,6 @@ export function retrieveCount(filters) {
   return DbService.fetchRestaurantByCuisineAndNeighborhoodCount(filters.Cuisine, filters.Neighboorhood);
 }
 
-
-/**
- * Update page and map for current restaurants.
- * @return {promise}
- */
-export let updateRestaurants = () => {
-  // const cSelect = document.getElementById('cuisines-select');
-  // const nSelect = document.getElementById('neighborhoods-select');
-
-  // const cIndex = cSelect.selectedIndex;
-  // const nIndex = nSelect.selectedIndex;
-
-  // const cuisine = cSelect[cIndex].value;
-  // const neighborhood = nSelect[nIndex].value;
-
-  let promise = new Promise((resolve, reject)=>{
-    DbService.fetchRestaurantByCuisineAndNeighborhood('', '')
-    .then((restaurants)=>{
-      resetRestaurants(restaurants);
-      fillRestaurantsHTML(restaurants);
-
-      resolve(restaurants);
-    })
-    .catch((error)=>{
-      if (!(error instanceof AppError)) {
-        console.error(error);
-        error = new AppError('Unexpected error');
-      }
-
-      reject(error);
-    });
-  });
-
-  return promise;
-};
-
-/**
- * Clear current restaurants, their HTML and remove their map markers.
- * @param {any[]} restaurants
- */
-export let resetRestaurants = (restaurants) => {
-  // Remove all restaurants
-  restaurants = [];
-  const ul = document.getElementById('restaurants-list');
-  ul.innerHTML = '';
-
-  // Remove all map markers
-  if (Map.markers)
-    Map.markers.forEach((m) => m.setMap(null));
-
-  Map.markers = [];
-};
-
 /**
  * Get current restaurant from page URL.
  * @return {promise}
@@ -122,51 +68,6 @@ export let fetchRestaurantFromURL = () => {
   });
 
   return promise;
-};
-
-/**
- * Create restaurant HTML.
- * @param {any} restaurant
- * @return {string}
- */
-export let createRestaurantHTML = (restaurant) => {
-  const li = document.createElement('li');
-
-  const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DbService.imageUrlForRestaurant(restaurant);
-  li.append(image);
-
-  const name = document.createElement('h1');
-  name.innerHTML = restaurant.name;
-  li.append(name);
-
-  const neighborhood = document.createElement('p');
-  neighborhood.innerHTML = restaurant.neighborhood;
-  li.append(neighborhood);
-
-  const address = document.createElement('p');
-  address.innerHTML = restaurant.address;
-  li.append(address);
-
-  const more = document.createElement('a');
-  more.innerHTML = 'View Details';
-  more.href = DbService.urlForRestaurant(restaurant);
-  li.append(more);
-
-  return li;
-};
-
-/**
- * Create all restaurants HTML and add them to the webpage.
- * @param {any[]} restaurants
- */
-export let fillRestaurantsHTML = (restaurants) => {
-  const ul = document.getElementById('restaurants-list');
-  restaurants.forEach((restaurant) => {
-    ul.append(createRestaurantHTML(restaurant));
-  });
-  MapService.addMarkersToMap(restaurants);
 };
 
 /**

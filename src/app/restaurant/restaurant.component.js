@@ -1,7 +1,7 @@
 import BaseComponent from 'core/base/base.component';
 import {MDCRipple} from '@material/ripple';
 import {MDCIconToggle} from '@material/icon-toggle';
-import {AppError} from 'app/utils/utils';
+import {AppError} from 'core/models/errors';
 import * as RestaurantService from 'app/restaurant/restaurant.service';
 
 import './restaurant.scss';

@@ -1,4 +1,4 @@
-import {AppError} from 'app/utils/utils';
+import {AppError} from 'core/models/errors';
 /**
  * Common database helper functions.
  */
@@ -118,61 +118,6 @@ export default class DbService {
           results = results.filter((r) => r.neighborhood == neighborhood);
 
         resolve(results.length);
-      }).catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
-    });
-
-    return promise;
-  }
-
-
-  /**
-   * Fetch restaurants by a cuisine type with proper error handling.
-   * @param {object} cuisine
-   * @return {promise}
-   */
-  static fetchRestaurantByCuisine(cuisine) {
-    let promise = new Promise((resolve, reject)=>{
-      // fetch all restaurants with proper error handling.
-      DbService.fetchRestaurants()
-      .then((restaurants)=>{
-        // Filter restaurants to have only given cuisine type
-        const results = restaurants.filter((r) => r.cuisine_type == cuisine);
-
-        resolve(results);
-      }).catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
-    });
-
-    return promise;
-  }
-
-  /**
-   * Fetch restaurants by a neighborhood with proper error handling.
-   * @param {object} neighborhood
-   * @return {promise}
-   */
-  static fetchRestaurantByNeighborhood(neighborhood) {
-    let promise = new Promise((resolve, reject)=>{
-      // fetch all restaurants with proper error handling.
-      DbService.fetchRestaurants()
-      .then((restaurants)=>{
-        // Filter restaurants to have only given neighborhood
-        const results = restaurants.filter((r) => r.neighborhood == neighborhood);
-
-        resolve(results);
       }).catch((error)=>{
         if (!(error instanceof AppError)) {
           console.error(error);

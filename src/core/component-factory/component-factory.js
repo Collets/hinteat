@@ -1,4 +1,4 @@
-import {Utils} from 'app/utils/utils';
+import Utils from 'core/utils/utils';
 import ComponentInfo from 'core/component-factory/component-info';
 
 export const ComponentFactory = {
@@ -56,8 +56,9 @@ export const ComponentFactory = {
 
     Object.keys(element.dataset).forEach((key) => {
       if (key.startsWith('injs')) {
-        let variableName = element.dataset[key];
-        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: context.model[variableName]});
+        let expr = 'model.' + element.dataset[key];
+        let value = Utils.get(expr, context);
+        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value});
       }
       else if (key.startsWith('in')) {
         Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
@@ -65,5 +66,5 @@ export const ComponentFactory = {
     });
 
     return params;
-  },
+  },  
 };

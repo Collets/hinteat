@@ -1,4 +1,4 @@
-import {AppError} from 'app/utils/utils';
+import {AppError} from 'core/models/errors';
 import * as CuisineService from 'app/cuisine/cuisine.service';
 import BaseComponent from 'core/base/base.component';
 
@@ -26,7 +26,7 @@ class CuisineFilterComponent extends BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      CuisineService.fetchCuisines()
+      CuisineService.get()
       .then((results)=>{
         this.model.cuisines = results;
 

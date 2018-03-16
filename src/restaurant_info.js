@@ -1,6 +1,8 @@
 // APP MODULES
 import DbService from './app/db/db.service';
-import {Notification, Utils, AppError} from './app/utils/utils';
+import Utils from './core/utils/utils';
+import {AppError} from 'core/models/errors';
+import Notification from 'core/ui/notification';
 import * as RestaurantService from './app/restaurant/restaurant.service';
 
 // EXTERNAL MODULES

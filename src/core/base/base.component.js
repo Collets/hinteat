@@ -1,4 +1,6 @@
-import {Utils,AppError,Notification} from 'app/utils/utils';
+import Utils from 'core/utils/utils';
+import {AppError} from 'core/models/errors';
+import Notification from 'core/ui/notification';
 import {ComponentFactory} from 'core/component-factory/component-factory';
 import * as nunjucks from 'nunjucks/browser/nunjucks';
 import ComponentInfo from 'core/component-factory/component-info';
