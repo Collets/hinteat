@@ -59,12 +59,20 @@ export const ComponentFactory = {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
         Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value});
-      }
-      else if (key.startsWith('in')) {
+      } else if (key.startsWith('in')) 
         Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
-      }
+      
     });
 
     return params;
-  },  
+  },
+  /**
+   * Set the starter component of the current page
+   * @param {string} componentName
+   */
+  setRouterComponent(componentName) {
+    let componentTag = Utils.getTagByName(componentName);
+
+    document.querySelector('router-component').innerHTML = '<' + componentTag + '></' + componentTag + '>';
+  },
 };

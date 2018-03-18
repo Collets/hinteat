@@ -1,0 +1,41 @@
+@import "../../colors/colors";
+@import "@material/theme/mdc-theme";
+@import "@material/typography/mdc-typography";
+@import "@material/ripple/mdc-ripple";
+@import "@material/card/mdc-card";
+@import "@material/icon-toggle/mdc-icon-toggle";
+
+/* ====================== Card verion ====================== */
+.mdc-card__content{
+  padding: 24px 16px 16px 16px;
+
+  &--secondary{
+    padding-top: 0;
+  }
+}
+
+.resturant__title,
+.resturant__subtitle{
+  margin: 0;
+}
+
+.restaurant-media{
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.restaurant-media__wrapper{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.restaurant-media__image{
+  max-width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

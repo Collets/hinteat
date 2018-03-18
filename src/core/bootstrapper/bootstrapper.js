@@ -7,8 +7,10 @@ import NavigationComponent from 'app/navigation/navigation.component';
 import FiltersComponent from 'app/filters/filters.component';
 import MapComponent from 'app/map/map.component';
 import ResultsComponent from 'app/results/results.component';
-import RestaurantComponent from 'app/restaurant/restaurant.component';
+import RestaurantPreviewComponent from 'app/restaurant/preview/restaurant-preview.component';
 import HomeComponent from 'app/home/home.component';
+import RouteComponent from 'core/routing/router.component';
+import RestaurantComponent from 'app/restaurant/restaurant.component';
 
 // Import of components
 
@@ -27,6 +29,8 @@ export default function bootstrap(entrypoint) {
         NeighborhoodFilterComponent,
         MapComponent,
         ResultsComponent,
+        RestaurantPreviewComponent,
+        RouteComponent,
         RestaurantComponent,
     ];
 

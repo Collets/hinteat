@@ -48,7 +48,7 @@ class ResultsComponent extends BaseComponent {
    * Initialize the component
    *
    * @return {promise}
-   * @memberof RestaurantComponent
+   * @memberof RestaurantPreviewComponent
    */
   init() {
     let filters = new RestaurantFilters('all-cuisines', 'all-neighborhoods');

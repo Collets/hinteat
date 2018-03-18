@@ -10,7 +10,6 @@ import loadGoogleMapsApi from 'load-google-maps-api';
 
 // DATA
 import './assets/data/restaurants.json';
-import './app/diana.scss';
 
 let restaurant;
 let map;

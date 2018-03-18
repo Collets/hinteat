@@ -5,7 +5,7 @@
   <ul class="results-list">    
     {% for restaurant in restaurants %}
       <li class="results-list__element">
-        <restaurant-component data-injs-restaurant="restaurants[{{ loop.index0 }}]"></restaurant-component>
+        <restaurant-preview-component data-injs-restaurant="restaurants[{{ loop.index0 }}]"></restaurant-preview-component>
       </li>
     {% endfor %}    
   </ul>
