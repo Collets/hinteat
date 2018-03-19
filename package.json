@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open --progress --config webpack.dev.js",
+    "start": "webpack-dev-server --open --historyApiFallback --progress --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.4.1",
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.9",
     "eslint": "^4.18.1",
     "eslint-config-google": "^0.9.1",

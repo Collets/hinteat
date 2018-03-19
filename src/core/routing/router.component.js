@@ -19,8 +19,6 @@ class RouterComponent extends BaseComponent {
    * @memberof RouterComponent
    */
   afterRender() {
-    RouteEngine.initialize('http://localhost:9000/');
-    this.renderDescendants();
   }
 }
 

@@ -44,7 +44,7 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   renderComponentContent(parent = this._wrapper) {
-    parent.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+    parent.innerHTML = this.ENV.renderString('{% include "assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
     
     this.renderDescendants();
     this.afterRender();
@@ -58,7 +58,7 @@ export default class BaseComponent {
   render() {
     this.init()
     .then(()=>{
-      this._wrapper.innerHTML = this.ENV.renderString('{% include "/assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+      this._wrapper.innerHTML = this.ENV.renderString('{% include "assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
       
       this.renderDescendants();
       this.afterRender();

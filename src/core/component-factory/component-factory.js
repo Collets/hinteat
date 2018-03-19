@@ -1,20 +1,21 @@
 import Utils from 'core/utils/utils';
 import ComponentInfo from 'core/component-factory/component-info';
+import RouterComponent from 'core/routing/router.component';
 
 export const ComponentFactory = {
   components: [],
+  startupComponent: null,
   /**
    * Instantiate the entrypoint
    * @param {string} entrypoint
-   * @return {object}
    */
   startup(entrypoint) {
-    let startupComponent = this.instantiate(new ComponentInfo(entrypoint, null));
+    this.startupComponent = this.instantiate(new ComponentInfo(entrypoint, null));
 
     let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
-    startupElement.id = startupComponent._id;
+    startupElement.id = this.startupComponent._id;
 
-    return startupComponent;
+    this.startupComponent.render();
   },
   /**
    *
@@ -74,5 +75,6 @@ export const ComponentFactory = {
     let componentTag = Utils.getTagByName(componentName);
 
     document.querySelector('router-component').innerHTML = '<' + componentTag + '></' + componentTag + '>';
+    this.startupComponent.render();
   },
 };

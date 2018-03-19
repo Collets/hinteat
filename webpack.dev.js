@@ -16,5 +16,12 @@ module.exports = merge(common, {
     disableHostCheck: true,
     host: 'localhost',
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development'),
+        'BASEURL': JSON.stringify('http://localhost:9000/')
+      }
+    })
+  ],
 });

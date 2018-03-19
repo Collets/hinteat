@@ -12,6 +12,8 @@ import HomeComponent from 'app/home/home.component';
 import RouteComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 
+import {RouteEngine} from 'core/routing/route';
+
 // Import of components
 
 /**
@@ -34,6 +36,7 @@ export default function bootstrap(entrypoint) {
         RestaurantComponent,
     ];
 
-    let starterComponent = ComponentFactory.startup(entrypoint);
-    starterComponent.render();
+    ComponentFactory.startup(entrypoint);
+    RouteEngine.initialize('http://localhost:9000/');
+    // ComponentFactory.starterComponent.render();
 }
