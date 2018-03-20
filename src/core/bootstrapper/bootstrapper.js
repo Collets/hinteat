@@ -36,7 +36,8 @@ export default function bootstrap(entrypoint) {
         RestaurantComponent,
     ];
 
-    ComponentFactory.startup(entrypoint);
-    RouteEngine.initialize('http://localhost:9000/');
+    ComponentFactory.startup(entrypoint).then(()=>{
+        RouteEngine.initialize('http://localhost:9000/');
+    });
     // ComponentFactory.starterComponent.render();
 }

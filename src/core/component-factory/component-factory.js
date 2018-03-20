@@ -8,14 +8,21 @@ export const ComponentFactory = {
   /**
    * Instantiate the entrypoint
    * @param {string} entrypoint
+   * @return {Promise}
    */
   startup(entrypoint) {
-    this.startupComponent = this.instantiate(new ComponentInfo(entrypoint, null));
+    let promise = new Promise((resolve, reject) => {
+      this.startupComponent = this.instantiate(new ComponentInfo(entrypoint, null));
 
-    let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
-    startupElement.id = this.startupComponent._id;
+      let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
+      startupElement.id = this.startupComponent._id;
+  
+      this.startupComponent.render();
+      
+      resolve();
+    });
 
-    this.startupComponent.render();
+    return promise;
   },
   /**
    *
@@ -75,6 +82,6 @@ export const ComponentFactory = {
     let componentTag = Utils.getTagByName(componentName);
 
     document.querySelector('router-component').innerHTML = '<' + componentTag + '></' + componentTag + '>';
-    this.startupComponent.render();
+    RouterComponent.render();
   },
 };
