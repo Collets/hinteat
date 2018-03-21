@@ -13,10 +13,6 @@ class RestaurantPreviewComponent extends BaseComponent {
   */
   constructor(params) {
     super(params);
-
-    this._model = {
-      restaurant: this._restaurant,
-    };
   }
 
   /**

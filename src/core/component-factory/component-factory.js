@@ -16,9 +16,9 @@ export const ComponentFactory = {
 
       let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
       startupElement.id = this.startupComponent._id;
-  
+
       this.startupComponent.renderComponentContent(undefined, false);
-      
+
       resolve();
     });
 
@@ -48,6 +48,8 @@ export const ComponentFactory = {
     } else {
       Reflect.defineProperty(cls, '_id', {value: generatedId});
 
+      this._setModelByParams(cls, inputs);
+
       return cls;
     }
   },
@@ -67,9 +69,8 @@ export const ComponentFactory = {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
         Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value});
-      } else if (key.startsWith('in')) 
+      } else if (key.startsWith('in'))
         Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
-      
     });
 
     return params;
@@ -77,17 +78,61 @@ export const ComponentFactory = {
   /**
    * Set the starter component of the current page
    * @param {string} componentName
+   * @param {Array} params
    */
-  setRouterComponent(componentName) {
+  setRouterComponent(componentName, params) {
     let componentTag = Utils.getTagByName(componentName);
 
     let routerComponentElement = document.querySelector('router-component');
     routerComponentElement.innerHTML = '<' + componentTag + '></' + componentTag + '>';
 
+    if (params)
+      this._setParams(params, componentTag, routerComponentElement);
+
+    let routerComponent = this._instantiateRouting();
+
+    routerComponent.renderDescendants();
+  },
+  /**
+   * Helper to instantiate router component
+   * @return {Object}
+   */
+  _instantiateRouting() {
+    let routerComponentElement = document.querySelector('router-component');
+
     let componentInfo = new ComponentInfo('RouterComponent', routerComponentElement);
     let routerComponent = this.instantiate(componentInfo);
     routerComponentElement.id = routerComponent._id;
 
-    routerComponent.renderDescendants();
+    return routerComponent;
+  },
+  /**
+   * Set params to HTML node
+   * @param {Array} params
+   * @param {string} tagName
+   * @param {HTMLElement} context
+   */
+  _setParams(params, tagName, context = document) {
+    let element = context.querySelector(tagName);
+
+    Object.keys(params).forEach((key)=>{
+      element.setAttribute('data-in-' + key, params[key]);
+    });
+  },
+  /**
+   * Set model of component by element data input
+   * @param {Object} component
+   * @param {Object[]} inputs
+   */
+  _setModelByParams(component, inputs) {
+    if (inputs) {
+      Object.keys(Object.getOwnPropertyDescriptors(inputs)).map((key)=>{
+        Reflect.defineProperty(component._model, key,
+          {
+            value: inputs[key],
+            enumerable: true,
+          });
+      });
+    }
   },
 };

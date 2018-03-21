@@ -15,7 +15,11 @@ export default class BaseComponent {
     if(params)
     {
       Object.keys(Object.getOwnPropertyDescriptors(params)).map((key)=>{
-        Reflect.defineProperty(this, '_' + key, {value:params[key]});
+        Reflect.defineProperty(this._model, key, 
+          {
+            value:params[key],
+            enumerable: true,
+          });
       });
     }   
   }

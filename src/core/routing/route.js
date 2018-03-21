@@ -22,7 +22,7 @@ export const RouteEngine = {
 
     if (this.routes) {
       this.routes.forEach((route)=>{
-        if (!route.url) {          
+        if (!route.url) {
           this.router.notFound((query) => {
             console.log('NOT FOUND');
           });
@@ -32,19 +32,14 @@ export const RouteEngine = {
           });
         } else {
           let routeObj = {};
-          Reflect.defineProperty(routeObj, route.url, {value: (params)=>{
-            ComponentFactory.setRouterComponent(route.component);
-          }});
+          routeObj[route.url] = (params)=>{
+            ComponentFactory.setRouterComponent(route.component, params);
+          };
 
           this.router.on(routeObj);
         }
       });
     }
-    this.router.on({
-      'restaurant/:id': (params)=>{
-        ComponentFactory.setRouterComponent('RestaurantComponent');
-      }
-    });
     this.router.resolve();
   },
 };

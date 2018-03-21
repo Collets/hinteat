@@ -7,11 +7,8 @@ class RestaurantComponent extends BaseComponent {
   /**
    * Constructor
   */
-  constructor() {
-    super();
-
-    this._model = {
-    };
+  constructor(params) {
+    super(params);
   }
 
   /**
