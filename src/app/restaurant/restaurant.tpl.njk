@@ -1,8 +1,89 @@
-<div class="mdc-toolbar mdc-toolbar--fixed restaurant-toolbar">
-  <div class="mdc-toolbar__row">
+<header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior mdc-toolbar--flexible-space-maximized restaurant">
+  <div class="mdc-toolbar__row restaurant-header">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-        <a id="back-to-home" href="#" class="material-icons mdc-toolbar__icon" aria-label="Back to home">arrow_back</a>
-        <!-- <span class="mdc-toolbar__title">Be more specific</span> -->
+      <a id="back-to-home" href="#" class="material-icons mdc-toolbar__icon" aria-label="Back to home">arrow_back</a>
     </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">      
+      <a href="#" class="material-icons mdc-toolbar__icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" aria-label="Bookmark this page" alt="Bookmark this page">share</a>
+      <span class="material-icons mdc-toolbar__icon add-favorites-button"
+        tabindex="0" role="button" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites"
+        data-toggle-on='{"label": "Remove from favorites", "content": "favorite"}'
+        data-toggle-off='{"label": "Add to favorites", "content": "favorite_border"}'>favorite_border</span>
+    </section>
+    <span class="mdc-toolbar__title"></span>
   </div>
-</div>
+  <div class="restaurant-cover__wrapper">
+    <span class="restaurant-cover__overlay"></span>
+    <img class="restaurant-cover__image" src="/assets/img/{{restaurant.photograph}}" alt="{{restaurant.name}}"/>
+  </div>
+</header>
+<main class="mdc-toolbar-fixed-adjust restaurant-content">
+  <div class="restaurant-intro">
+    <h1 class="restaurant__title mdc-typography--headline">{{restaurant.name}}</h1>
+    <h3 class="mdc-typography--body2 restaurant__cuisine">{{restaurant.cuisine_type}}</h3>
+    <div class="restaurant-informations">
+        <i class="material-icons">near_me</i> <h3 class="mdc-typography--body1 restaurant-address">{{restaurant.address}}</h3>
+    </div>
+    <div class="restaurant-informations">
+      <i class="material-icons">access_time</i> <h3 class="mdc-typography--body1 restaurant-now-open">Today: {{actualHours}}<br/> <a href="#" role="link" title="See all hours" class="mdc-typography--caption see-all-hours">See all</a></h3>
+    </div>    
+  </div>
+  <hr class="mdc-list-divider">
+  <div class="map-button-container">
+    <button class="mdc-button mdc-button--raised map-button" id="open-restaurant-map">
+      OPEN MAP
+    </button>
+	  <map-component data-in-show-placeholder="false"></map-component>
+  </div>
+  <hr class="mdc-list-divider">
+  <div class="reviews">
+    <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">(15)</span></h2>
+    <ul class="mdc-list mdc-list--two-line reviews-list">
+      {% for review in restaurant.reviews %}
+        <li class="mdc-list-item reviews-list-item">
+          <span class="mdc-list-item__text">
+              {{review.name}}
+            <span class="mdc-list-item__secondary-text">{{review.comments}}</span>
+          </span>
+          <span class="mdc-list-item__meta reviews-list-item__rating">
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+
+<aside id="my-mdc-dialog"
+  class="mdc-dialog"
+  role="alertdialog"
+  aria-labelledby="my-mdc-dialog-label"
+  aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="my-mdc-dialog-label" class="mdc-dialog__header__title">
+        Opening hours
+      </h2>
+    </header>
+    <section id="my-mdc-dialog-description" class="mdc-dialog__body">
+      <ul class="mdc-list mdc-list--dense mdc-list--two-line">
+        {% for key, value in restaurant.operating_hours %}
+          <li class="mdc-list-item">
+            <span class="mdc-list-item__text">
+              {{key}}
+              <span class="mdc-list-item__secondary-text">
+                {{value}}
+              </span>
+            </span>
+          </li>          
+        {% endfor %}
+      </ul>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">CLOSE</button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</aside>

@@ -2,3 +2,131 @@
 @import "@material/theme/mdc-theme";
 @import "@material/button/mdc-button";
 @import "@material/toolbar/mdc-toolbar";
+@import "@material/typography/mdc-typography";
+@import "@material/dialog/mdc-dialog";
+@import "@material/list/mdc-list";
+
+.restaurant-header{
+    z-index: 5;
+}
+
+.restaurant-cover__wrapper{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+
+    &[aria-hidden="true"]  {         
+        transition-timing-function: ease-in;
+        transition: 350ms;
+        opacity: 0;
+    }
+
+    &[aria-hidden="false"] { 
+        transition: 350ms;
+        transition-timing-function: ease-out;
+        
+        opacity: 1;
+    }
+}
+
+.restaurant-cover__image{
+    max-width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.restaurant-cover__overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    z-index: 1;
+}
+
+.restaurant-content{
+    margin: auto;
+}
+
+.restaurant-intro{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.restaurant__title,
+.restaurant-address,
+.restaurant__cuisine,
+.restaurant-now-open,
+.reviews__title{
+  margin: 0;
+}
+
+.restaurant__title{
+    flex: 1 1 100%;
+}
+
+.restaurant__cuisine{
+    flex: 1 1 100%;
+    color: $mdc-theme-primary;
+    font-weight: 700;
+}
+
+.restaurant-informations{
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 16px;
+
+    .material-icons{
+        font-size: 22px;
+    }
+}
+
+.restaurant-address,
+.restaurant-now-open{
+    margin-left: 10px;
+}
+
+.see-all-hours{
+    color: $mdc-theme-primary-dark;
+}
+
+.map-button-container{
+    padding: 16px;
+    height: 36px;
+}
+
+.map-button-container .map-placeholder{
+    display: none;
+}
+
+.map-button{
+    width: 100%;
+}
+
+.reviews{
+    padding: 16px;
+}
+
+.reviews-number{
+    color: $mdc-theme-secondary-light;
+}
+
+.reviews-list-item{
+    height: 68px;
+}
+
+.reviews-list-item__rating{
+    display: flex;
+
+    .material-icons{
+        font-size: 16px;
+    }
+}

@@ -9,14 +9,16 @@ import './map.scss';
 class MapComponent extends BaseComponent {
   /**
    * Constructor
+   * @param {Object[]} params
    */
-  constructor() {
-    super();
+  constructor(params) {
+    super(params);
 
-    this._model = {
-      map: null,
-      showMap: document.body.clientWidth < 641,
-    };
+    this._model.map = null;
+    this._model.showMap = document.body.clientWidth < 641;
+
+    if (this._model.showplaceholder === undefined)
+      this._model.showplaceholder = 'true';
   }
 
   /**
@@ -25,14 +27,9 @@ class MapComponent extends BaseComponent {
    * @memberof MapComponent
    */
   afterRender() {
-    MDCRipple.attachTo(document.querySelector('#open-map'));
-
-    loadGoogleMapsApi({
-      key: 'AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w',
-      libraries: ['places'],
-    }).then(()=>{
-      this.initMap();
-    });
+    if (this._model.showplaceholder === 'true') {
+      MDCRipple.attachTo(document.querySelector('#open-map'));
+    }
 
     document.querySelectorAll('#open-map, #close-map').forEach((element) => {
       element.addEventListener('click', (e)=>{
@@ -43,6 +40,19 @@ class MapComponent extends BaseComponent {
         document.querySelector('#map-container').setAttribute('aria-hidden', mapOpened != 'true');
       });
     });
+
+    if (!this._googleMaps) {
+      loadGoogleMapsApi({
+        key: 'AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w',
+        libraries: ['places'],
+      }).then((googleMaps)=>{
+        this._googleMaps = googleMaps;
+        this.initMap();
+      });
+    }
+    else {
+      this.initMap();
+    }    
   }
 
   /**
@@ -55,7 +65,7 @@ class MapComponent extends BaseComponent {
       lat: 40.722216,
       lng: -73.987501,
     };
-    this.model.map = new google.maps.Map(document.getElementById('map'), {
+    this.model.map = new this._googleMaps.Map(document.getElementById('map'), {
       zoom: 12,
       center: loc,
       scrollwheel: false,
