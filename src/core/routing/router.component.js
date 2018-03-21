@@ -19,7 +19,6 @@ class RouterComponent extends BaseComponent {
    * @memberof RouterComponent
    */
   afterRender() {
-    this.blockContent();
   }
 }
 

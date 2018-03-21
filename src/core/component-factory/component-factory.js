@@ -17,7 +17,7 @@ export const ComponentFactory = {
       let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
       startupElement.id = this.startupComponent._id;
   
-      this.startupComponent.render();
+      this.startupComponent.renderComponentContent(undefined, false);
       
       resolve();
     });
@@ -81,7 +81,13 @@ export const ComponentFactory = {
   setRouterComponent(componentName) {
     let componentTag = Utils.getTagByName(componentName);
 
-    document.querySelector('router-component').innerHTML = '<' + componentTag + '></' + componentTag + '>';
-    RouterComponent.render();
+    let routerComponentElement = document.querySelector('router-component');
+    routerComponentElement.innerHTML = '<' + componentTag + '></' + componentTag + '>';
+
+    let componentInfo = new ComponentInfo('RouterComponent', routerComponentElement);
+    let routerComponent = this.instantiate(componentInfo);
+    routerComponentElement.id = routerComponent._id;
+
+    routerComponent.renderDescendants();
   },
 };

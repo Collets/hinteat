@@ -44,7 +44,7 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   renderComponentContent(parent = this._wrapper, nested = true) {
-    parent.innerHTML = this.ENV.renderString('{% include "assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+    parent.innerHTML = this.ENV.renderString('{% include "../assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
     
     if(nested){
       this.renderDescendants();
@@ -60,8 +60,7 @@ export default class BaseComponent {
   render() {
     this.init()
     .then(()=>{
-      if(!this._blocked)
-        this._wrapper.innerHTML = this.ENV.renderString('{% include "assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
+      this._wrapper.innerHTML = this.ENV.renderString('{% include "../assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
       
       this.renderDescendants();
       this.afterRender();
@@ -101,12 +100,6 @@ export default class BaseComponent {
           component.render();
       });
     });
-  }
-  /**
-   * Block the content of the component, to avoid override on render
-   */
-  blockContent(){
-    this._blocked = true;
   }
 
   /**

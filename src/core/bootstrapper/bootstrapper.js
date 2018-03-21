@@ -9,7 +9,7 @@ import MapComponent from 'app/map/map.component';
 import ResultsComponent from 'app/results/results.component';
 import RestaurantPreviewComponent from 'app/restaurant/preview/restaurant-preview.component';
 import HomeComponent from 'app/home/home.component';
-import RouteComponent from 'core/routing/router.component';
+import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 
 import {RouteEngine} from 'core/routing/route';
@@ -32,12 +32,11 @@ export default function bootstrap(entrypoint) {
         MapComponent,
         ResultsComponent,
         RestaurantPreviewComponent,
-        RouteComponent,
+        RouterComponent,
         RestaurantComponent,
     ];
 
     ComponentFactory.startup(entrypoint).then(()=>{
         RouteEngine.initialize('http://localhost:9000/');
     });
-    // ComponentFactory.starterComponent.render();
 }
