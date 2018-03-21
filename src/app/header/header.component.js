@@ -12,9 +12,6 @@ class HeaderComponent extends BaseComponent {
   */
   constructor() {
     super();
-
-    this._model = {
-    };
   }
 
   /**

@@ -140,7 +140,7 @@ export default class BaseComponent {
 
   /**
    * Get wrapper element of component
-   * @return {string}
+   * @return {HTMLElement}
    */
   get _wrapper() {
     return document.querySelector('#'+ this._id);
