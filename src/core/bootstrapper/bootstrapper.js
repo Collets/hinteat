@@ -11,6 +11,7 @@ import RestaurantPreviewComponent from 'app/restaurant/preview/restaurant-previe
 import HomeComponent from 'app/home/home.component';
 import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
+import ReviewComponent from 'app/review/review.component';
 
 import {RouteEngine} from 'core/routing/route';
 
@@ -34,6 +35,7 @@ export default function bootstrap(entrypoint) {
         RestaurantPreviewComponent,
         RouterComponent,
         RestaurantComponent,
+        ReviewComponent,
     ];
 
     ComponentFactory.startup(entrypoint).then(()=>{

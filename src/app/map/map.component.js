@@ -15,7 +15,7 @@ class MapComponent extends BaseComponent {
     super(params);
 
     this._model.map = null;
-    this._model.showMap = document.body.clientWidth < 641;
+    this._model.hideMap = document.body.clientWidth < 641;
 
     if (this._model.showplaceholder === undefined)
       this._model.showplaceholder = 'true';
@@ -27,9 +27,9 @@ class MapComponent extends BaseComponent {
    * @memberof MapComponent
    */
   afterRender() {
-    if (this._model.showplaceholder === 'true') {
+    if (this._model.showplaceholder === 'true')
       MDCRipple.attachTo(document.querySelector('#open-map'));
-    }
+
 
     document.querySelectorAll('#open-map, #close-map').forEach((element) => {
       element.addEventListener('click', (e)=>{
@@ -49,10 +49,9 @@ class MapComponent extends BaseComponent {
         this._googleMaps = googleMaps;
         this.initMap();
       });
-    }
-    else {
+    } else {
       this.initMap();
-    }    
+    }
   }
 
   /**
@@ -70,7 +69,39 @@ class MapComponent extends BaseComponent {
       center: loc,
       scrollwheel: false,
     });
+
+    this.addMarkers();
   };
+
+  /**
+   * Add markers to map if passed down to this component
+   */
+  addMarkers() {
+    if (this._model.markerinfos && this._model.markerinfos.length > 0) {
+      this._model.markerinfos.forEach((markerInfo)=>{
+        this.addMarker(markerInfo);
+      });
+    }
+  }
+
+  /**
+   * Add a marker to current map
+   * @param {MarkerInfo} markerInfo
+   */
+  addMarker(markerInfo) {
+    let marker = new this._googleMaps.Marker({
+      position: markerInfo.position,
+      title: markerInfo.title,
+      url: markerInfo.url,
+      map: this.model.map,
+      animation: google.maps.Animation.DROP,
+    });
+
+    this._googleMaps.event.addListener(marker, 'click', () => {
+      window.location.href = marker.url;
+    });
+    this.model.map.markers.push(marker);
+  }
 }
 
 export default new MapComponent();

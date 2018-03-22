@@ -1,9 +1,11 @@
 import BaseComponent from 'core/base/base.component';
 import RestaurantFilters from 'app/restaurant/restaurant-filters';
 
+import {AppError} from 'core/models/errors';
 import * as RestaurantService from 'app/restaurant/restaurant.service';
 
 import './results.scss';
+import MarkerInfo from 'app/map/marker';
 
 /** Results Class */
 class ResultsComponent extends BaseComponent {
@@ -13,9 +15,7 @@ class ResultsComponent extends BaseComponent {
   constructor() {
     super();
 
-    this._model = {
-      restaurants: [],
-    };
+    this._model.restaurants = [];
   }
 
   /**
@@ -29,6 +29,7 @@ class ResultsComponent extends BaseComponent {
       RestaurantService.retrieve(filters)
       .then((restaurants)=>{
         this.model.restaurants = restaurants;
+        this.setMarkers();
 
         this.renderComponentContent();
         resolve();
@@ -40,7 +41,7 @@ class ResultsComponent extends BaseComponent {
           Notification.error(error);
       });
     });
-  
+
     return promise;
   }
 
@@ -56,6 +57,8 @@ class ResultsComponent extends BaseComponent {
       RestaurantService.retrieve(filters)
       .then((restaurants)=>{
         this.model.restaurants = restaurants;
+        this.setMarkers();
+
         resolve();
       })
       .catch((error)=>{
@@ -65,7 +68,7 @@ class ResultsComponent extends BaseComponent {
           Notification.error(error);
       });
     });
-    
+
     return promise;
   }
 
@@ -75,7 +78,19 @@ class ResultsComponent extends BaseComponent {
    * @memberof ResultsComponent
    */
   afterRender() {
-    //this.renderDescendants();
+  }
+
+  /**
+   * Set the markers of the results
+   */
+  setMarkers() {
+    this._model.markerInfos = [];
+
+    this._model.restaurants.forEach((restaurant) => {
+      this._model.markerInfos.push(new MarkerInfo(restaurant.name, restaurant.latlng, '/restaurant/' + restaurant.id));
+    });
+
+    this._model.setmarkers(this._model.markerInfos);
   }
 }
 

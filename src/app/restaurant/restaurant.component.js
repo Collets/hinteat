@@ -6,6 +6,7 @@ import {MDCIconToggle} from '@material/icon-toggle';
 import {MDCDialog} from '@material/dialog';
 
 import './restaurant.scss';
+import MarkerInfo from 'app/map/marker';
 
 /** Restaurant Class */
 class RestaurantComponent extends BaseComponent {
@@ -57,8 +58,8 @@ class RestaurantComponent extends BaseComponent {
     if (this._wrapper.querySelector('.add-favorites-button'))
       MDCIconToggle.attachTo(this._wrapper.querySelector('.add-favorites-button'));
 
-    if (this._wrapper.querySelector('#my-mdc-dialog'))
-      this._dialog = new MDCDialog(this._wrapper.querySelector('#my-mdc-dialog'));
+    if (this._wrapper.querySelector('#opening-hours-dialog'))
+      this._dialog = new MDCDialog(this._wrapper.querySelector('#opening-hours-dialog'));
   }
 
   /**
@@ -73,6 +74,9 @@ class RestaurantComponent extends BaseComponent {
       .then((restaurant)=>{
         this._model.restaurant = restaurant;
         this._model.actualHours = this.getActualHours();
+        this._model.markerInfos = [];
+        this._model.markerInfos.push(new MarkerInfo(restaurant.name, restaurant.latlng, '/restaurant/' + restaurant.id));
+
         resolve();
       })
       .catch((error)=>{

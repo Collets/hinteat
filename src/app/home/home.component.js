@@ -9,9 +9,8 @@ class HomeComponent extends BaseComponent {
   */
   constructor() {
     super();
-
-    this._model = {
-    };
+    
+    this._model.setMarkers = this.setMarkers;
   }
 
   /**
@@ -20,6 +19,14 @@ class HomeComponent extends BaseComponent {
    * @memberof HomeComponent
    */
   afterRender() {
+  }
+
+  /**
+   * Set the current markers information
+   * @param {MarkerInfos[]} markerInfos
+   */
+  setMarkers(markerInfos) {
+    this._model.markerInfos = markerInfos;
   }
 }
 

@@ -33,30 +33,20 @@
     <button class="mdc-button mdc-button--raised map-button" id="open-restaurant-map">
       OPEN MAP
     </button>
-	  <map-component data-in-show-placeholder="false"></map-component>
+	  <map-component data-in-show-placeholder="false" data-injs-markerinfos="markerInfos"></map-component>
   </div>
   <hr class="mdc-list-divider">
   <div class="reviews">
     <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">(15)</span></h2>
     <ul class="mdc-list mdc-list--two-line reviews-list">
       {% for review in restaurant.reviews %}
-        <li class="mdc-list-item reviews-list-item">
-          <span class="mdc-list-item__text">
-              {{review.name}}
-            <span class="mdc-list-item__secondary-text">{{review.comments}}</span>
-          </span>
-          <span class="mdc-list-item__meta reviews-list-item__rating">
-              <i class="material-icons">star</i>
-              <i class="material-icons">star</i>
-              <i class="material-icons">star</i>
-          </span>
-        </li>
+        <review-component data-injs-review="restaurant.reviews[{{ loop.index0 }}]"></review-component>        
       {% endfor %}
     </ul>
   </div>
 </main>
 
-<aside id="my-mdc-dialog"
+<aside id="opening-hours-dialog"
   class="mdc-dialog"
   role="alertdialog"
   aria-labelledby="my-mdc-dialog-label"
