@@ -15,6 +15,7 @@ class MapComponent extends BaseComponent {
     super(params);
 
     this._model.map = null;
+    this._model.markers = [];
     this._model.hideMap = document.body.clientWidth < 641;
 
     if (this._model.showplaceholder === undefined)
@@ -100,7 +101,7 @@ class MapComponent extends BaseComponent {
     this._googleMaps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url;
     });
-    this.model.map.markers.push(marker);
+    this.model.markers.push(marker);
   }
 }
 

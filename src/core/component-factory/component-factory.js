@@ -68,9 +68,14 @@ export const ComponentFactory = {
       if (key.startsWith('injs')) {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
-        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value});
-      } else if (key.startsWith('in'))
-        Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key]});
+
+        // if (value instanceof Function)
+        //   value = value.bind(context);
+
+        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value, writable: true, configurable: true});
+      } else if (key.startsWith('in')){
+        Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key], writable: true, configurable: true});
+      }
       else if (key.startsWith('outjs')) {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
@@ -78,7 +83,7 @@ export const ComponentFactory = {
         if (value instanceof Function)
           value = value.bind(context);
 
-        Reflect.defineProperty(params, key.replace('outjs', '').toLowerCase(), {value: value});
+        Reflect.defineProperty(params, key.replace('outjs', '').toLowerCase(), {value: value, writable: true, configurable: true});
       }
     });
 

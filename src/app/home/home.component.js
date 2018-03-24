@@ -1,6 +1,7 @@
 import BaseComponent from 'core/base/base.component';
 
 import './home.scss';
+import MapComponent from 'app/map/map.component';
 
 /** Home Class */
 class HomeComponent extends BaseComponent {
@@ -9,7 +10,7 @@ class HomeComponent extends BaseComponent {
   */
   constructor() {
     super();
-    
+
     this._model.setMarkers = this.setMarkers;
   }
 
@@ -27,6 +28,10 @@ class HomeComponent extends BaseComponent {
    */
   setMarkers(markerInfos) {
     this._model.markerInfos = markerInfos;
+
+    if(!MapComponent.model.markerinfos)
+      MapComponent.model.markerinfos = markerInfos;
+    MapComponent.addMarkers();
   }
 }
 
