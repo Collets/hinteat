@@ -1,4 +1,5 @@
 import BaseComponent from 'core/base/base.component';
+import Map from 'app/map/map';
 import loadGoogleMapsApi from 'load-google-maps-api';
 
 import {MDCRipple} from '@material/ripple';
@@ -15,6 +16,7 @@ class MapComponent extends BaseComponent {
     super(params);
 
     this._model.map = null;
+    this._mapLoading = false;
     this._model.markers = [];
     this._model.hideMap = document.body.clientWidth < 641;
 
@@ -42,17 +44,10 @@ class MapComponent extends BaseComponent {
       });
     });
 
-    if (!this._googleMaps) {
-      loadGoogleMapsApi({
-        key: 'AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w',
-        libraries: ['places'],
-      }).then((googleMaps)=>{
-        this._googleMaps = googleMaps;
-        this.initMap();
-      });
-    } else {
+    this.loadGoogleMapInstance()
+    .then(()=>{
       this.initMap();
-    }
+    });
   }
 
   /**
@@ -75,6 +70,30 @@ class MapComponent extends BaseComponent {
   };
 
   /**
+   * Load Google maps instance
+   * @return {Promise}
+   */
+  loadGoogleMapInstance() {
+    if (this._mapLoading) return this._loadingMapPromise;
+
+    this._mapLoading = true;
+    this._loadingMapPromise = new Promise((resolve, reject)=>{
+      if (this._googleMaps) resolve();
+
+      Map.loadMap()
+      .then((googleMaps)=>{
+        this._googleMaps = googleMaps;
+        resolve();
+      })
+      .catch(()=>{
+        reject();
+      });
+    });
+    
+    return this._loadingMapPromise;
+  }
+
+  /**
    * Add markers to map if passed down to this component
    */
   addMarkers() {
@@ -90,19 +109,44 @@ class MapComponent extends BaseComponent {
    * @param {MarkerInfo} markerInfo
    */
   addMarker(markerInfo) {
-    let marker = new this._googleMaps.Marker({
-      position: markerInfo.position,
-      title: markerInfo.title,
-      url: markerInfo.url,
-      map: this.model.map,
-      animation: google.maps.Animation.DROP,
+    this.loadGoogleMapInstance()
+    .then(()=>{
+      let marker = new this._googleMaps.Marker({
+        position: markerInfo.position,
+        title: markerInfo.title,
+        url: markerInfo.url,
+        map: this.model.map,
+        animation: google.maps.Animation.DROP,
+      });
+
+      this._googleMaps.event.addListener(marker, 'click', () => {
+        window.location.href = marker.url;
+      });
+      this.model.markers.push(marker);
     });
 
-    this._googleMaps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url;
-    });
-    this.model.markers.push(marker);
+    // if (this._googleMaps) {
+      
+    // }else {
+    //   Map.loadMap()
+    //   .then((googleMaps)=>{
+    //     this._googleMaps = googleMaps;
+    //     this.addMarker(markerInfo);
+    //   });
+    // }
+  }
+
+  /**
+   * Set the current markers and update the map
+   * @param {Object[]} markerinfos array of markers
+   */
+  updateMarkers(markerinfos) {
+    if (!markerinfos || markerinfos.length === 0) return;
+
+    this._model.markerinfos = [];
+    this._model.markerinfos.push(...markerinfos);
+    this.addMarkers();
   }
 }
 
-export default new MapComponent();
+export default MapComponent;

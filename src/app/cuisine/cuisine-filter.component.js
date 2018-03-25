@@ -13,9 +13,7 @@ class CuisineFilterComponent extends BaseComponent {
   constructor() {
     super();
 
-    this._model = {
-      cuisines: [],
-    };
+    this._model.cuisines = [];
   }
 
   /**
@@ -61,4 +59,4 @@ class CuisineFilterComponent extends BaseComponent {
   }
 }
 
-export default new CuisineFilterComponent();
+export default CuisineFilterComponent;

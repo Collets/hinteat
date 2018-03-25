@@ -9,9 +9,6 @@ class AppComponent extends BaseComponent {
   */
   constructor() {
     super();
-
-    this._model = {
-    };
   }
 
   /**
@@ -23,4 +20,4 @@ class AppComponent extends BaseComponent {
   }
 }
 
-export default new AppComponent();
+export default AppComponent;

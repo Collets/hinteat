@@ -11,21 +11,19 @@ class NavigationComponent extends BaseComponent {
   constructor() {
     super();
 
-    this._model = {
-      drawer: null,
-      menuVoices: [
-        {
-          url: '/',
-          label: 'Discover',
-          icon: 'explore',
-        },
-        {
-          url: '/favorites.html',
-          label: 'Favorites',
-          icon: 'favorite',
-        },
-      ],
-    };
+    this._model.drawer = null;
+    this._model.menuVoices = [
+      {
+        url: '/',
+        label: 'Discover',
+        icon: 'explore',
+      },
+      {
+        url: '/favorites.html',
+        label: 'Favorites',
+        icon: 'favorite',
+      },
+    ];
   }
 
   /**
@@ -38,4 +36,4 @@ class NavigationComponent extends BaseComponent {
   }
 }
 
-export default new NavigationComponent();
+export default NavigationComponent;

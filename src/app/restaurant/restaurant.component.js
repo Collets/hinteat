@@ -111,4 +111,4 @@ class RestaurantComponent extends BaseComponent {
   }
 }
 
-export default new RestaurantComponent();
+export default RestaurantComponent;

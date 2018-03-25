@@ -29,10 +29,8 @@ class HomeComponent extends BaseComponent {
   setMarkers(markerInfos) {
     this._model.markerInfos = markerInfos;
 
-    if(!MapComponent.model.markerinfos)
-      MapComponent.model.markerinfos = markerInfos;
-    MapComponent.addMarkers();
+    this.updatemarkers(markerInfos);
   }
 }
 
-export default new HomeComponent();
+export default HomeComponent;

@@ -8,9 +8,6 @@ class RouterComponent extends BaseComponent {
   */
   constructor() {
     super();
-
-    this._model = {
-    };
   }
 
   /**
@@ -22,4 +19,4 @@ class RouterComponent extends BaseComponent {
   }
 }
 
-export default new RouterComponent();
+export default RouterComponent;

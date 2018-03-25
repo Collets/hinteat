@@ -11,9 +11,10 @@ import MarkerInfo from 'app/map/marker';
 class ResultsComponent extends BaseComponent {
   /**
    * Constructor
+   * @param {Object} params
   */
-  constructor() {
-    super();
+  constructor(params) {
+    super(params);
 
     this._model.restaurants = [];
   }
@@ -94,4 +95,4 @@ class ResultsComponent extends BaseComponent {
   }
 }
 
-export default new ResultsComponent();
+export default ResultsComponent;

@@ -17,12 +17,10 @@ class FiltersComponent extends BaseComponent {
 
     this._listView = true;
 
-    this._model = {
-      listView: this._listView,
-      gridView: !this._listView,
-      cuisine: 'all-cuisines',
-      neighboorhood: 'all-neighborhoods',
-    };
+    this._model.listView = this._listView;
+    this._model.gridView = !this._listView;
+    this._model.cuisine = 'all-cuisines';
+    this._model.neighboorhood = 'all-neighborhoods';
   }
 
   /**
@@ -126,4 +124,4 @@ class FiltersComponent extends BaseComponent {
   }
 }
 
-export default new FiltersComponent();
+export default FiltersComponent;

@@ -44,11 +44,13 @@ export const ComponentFactory = {
     if (cls && cls.name) {
       let instance = new cls(inputs);
       Reflect.defineProperty(instance, '_id', {value: generatedId});
+      this.setInputFunction(componentInfo.Element, instance, context);
       return instance;
     } else {
       Reflect.defineProperty(cls, '_id', {value: generatedId});
 
       this._setModelByParams(cls, inputs);
+      this.setInputFunction(componentInfo.Element, cls, context);
 
       return cls;
     }
@@ -65,29 +67,53 @@ export const ComponentFactory = {
     let params = {};
 
     Object.keys(element.dataset).forEach((key) => {
-      if (key.startsWith('injs')) {
+      if (key.startsWith('injs') && !key.startsWith('injsfn')) {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
 
-        // if (value instanceof Function)
-        //   value = value.bind(context);
+        if (value instanceof Function) return;
 
-        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value, writable: true, configurable: true});
-      } else if (key.startsWith('in')){
-        Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {value: element.dataset[key], writable: true, configurable: true});
-      }
-      else if (key.startsWith('outjs')) {
+        Reflect.defineProperty(params, key.replace('injs', '').toLowerCase(), {value: value, writable: true, configurable: true, enumerable: true});
+      } else if (key.startsWith('in') && !key.startsWith('injsfn')) {
+        Reflect.defineProperty(params, key.replace('in', '').toLowerCase(), {
+          value: element.dataset[key],
+          writable: true,
+          configurable: true,
+        });
+      } else if (key.startsWith('outjs')) {
         let expr = 'model.' + element.dataset[key];
         let value = Utils.get(expr, context);
 
         if (value instanceof Function)
           value = value.bind(context);
 
-        Reflect.defineProperty(params, key.replace('outjs', '').toLowerCase(), {value: value, writable: true, configurable: true});
+        Reflect.defineProperty(params, key.replace('outjs', '').toLowerCase(), {value: value, writable: true, configurable: true, enumerable: true});
       }
     });
 
     return params;
+  },
+  /**
+   * Set the functions of current component to be exposed
+   *
+   * @param {HTMLElement} element element of the instance component
+   * @param {Object} context instance of the current component
+   * @param {Object} parentContext instance of the parent component
+   */
+  setInputFunction(element, context, parentContext) {
+    if (!element) return;
+
+    Object.keys(element.dataset).forEach((key) => {
+      if (!key.startsWith('injsfn')) return;
+
+      let fnName = element.dataset[key];
+      let fn = context[fnName];
+
+      if (fn instanceof Function) {
+        fn = fn.bind(context);
+        Reflect.defineProperty(parentContext, key.replace('injsfn', '').toLowerCase(), {value: fn});
+      }
+    });
   },
   /**
    * Set the starter component of the current page

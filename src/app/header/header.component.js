@@ -35,4 +35,4 @@ class HeaderComponent extends BaseComponent {
   }
 }
 
-export default new HeaderComponent();
+export default HeaderComponent;

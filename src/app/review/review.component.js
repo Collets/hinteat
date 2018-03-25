@@ -16,7 +16,7 @@ class ReviewComponent extends BaseComponent {
   constructor(params) {
     super(params);
 
-    this.model.id = Utils.guid();
+    this._model.id = Utils.guid();
   }
 
   /**

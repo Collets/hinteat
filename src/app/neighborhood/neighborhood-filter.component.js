@@ -13,9 +13,7 @@ class NeighborhoodFilterComponent extends BaseComponent {
   constructor() {
     super();
 
-    this._model = {
-      neighborhoods: [],
-    };
+    this._model.neighborhoods = [];
   }
 
   /**
@@ -61,4 +59,4 @@ class NeighborhoodFilterComponent extends BaseComponent {
   }
 }
 
-export default new NeighborhoodFilterComponent();
+export default NeighborhoodFilterComponent;
