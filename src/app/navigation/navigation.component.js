@@ -34,6 +34,14 @@ class NavigationComponent extends BaseComponent {
   afterRender() {
     this.model.drawer = MDCTemporaryDrawer.attachTo(document.querySelector('.mdc-drawer--temporary'));
   }
+
+  /**
+   * Open the menu
+   */
+  open(){
+
+    this._model.drawer.open = true;
+  }
 }
 
 export default NavigationComponent;

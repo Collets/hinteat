@@ -1,4 +1,7 @@
 import {ComponentFactory} from 'core/component-factory/component-factory';
+import {RouteEngine} from 'core/routing/route';
+
+// Import of components
 import AppComponent from 'app/app.component';
 import CuisineFilterComponent from 'app/cuisine/cuisine-filter.component';
 import NeighborhoodFilterComponent from 'app/neighborhood/neighborhood-filter.component';
@@ -12,10 +15,6 @@ import HomeComponent from 'app/home/home.component';
 import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 import ReviewComponent from 'app/review/review.component';
-
-import {RouteEngine} from 'core/routing/route';
-
-// Import of components
 
 /**
  * Bootsrapper of the application

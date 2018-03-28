@@ -124,16 +124,6 @@ class MapComponent extends BaseComponent {
       });
       this.model.markers.push(marker);
     });
-
-    // if (this._googleMaps) {
-      
-    // }else {
-    //   Map.loadMap()
-    //   .then((googleMaps)=>{
-    //     this._googleMaps = googleMaps;
-    //     this.addMarker(markerInfo);
-    //   });
-    // }
   }
 
   /**

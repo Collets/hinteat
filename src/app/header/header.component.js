@@ -9,9 +9,10 @@ import './header.scss';
 class HeaderComponent extends BaseComponent {
   /**
    * Constructor
+   * @param {Object} params
   */
-  constructor() {
-    super();
+  constructor(params) {
+    super(params);
   }
 
   /**
@@ -25,12 +26,13 @@ class HeaderComponent extends BaseComponent {
 
     document.querySelector('#menuHamburger').addEventListener('click', (e) => {
       e.preventDefault();
-      NavigationComponent.model.drawer.open = true;
+      this.open();
     });
 
     document.querySelector('#openFilters').addEventListener('click', (e) => {
       e.preventDefault();
-      FiltersComponent.toggle();
+      this._model.openfilters();
+      // FiltersComponent.toggle();
     });
   }
 }

@@ -11,9 +11,10 @@ import './filters.scss';
 class FiltersComponent extends BaseComponent {
   /**
    * Constructor
+   * @param {Object} params
   */
-  constructor() {
-    super();
+  constructor(params) {
+    super(params);
 
     this._listView = true;
 
@@ -21,6 +22,9 @@ class FiltersComponent extends BaseComponent {
     this._model.gridView = !this._listView;
     this._model.cuisine = 'all-cuisines';
     this._model.neighboorhood = 'all-neighborhoods';
+
+    this._model.setCuisine = this.setCuisine;
+    this._model.setNeighborhood = this.setNeighborhood;
   }
 
   /**
@@ -42,7 +46,8 @@ class FiltersComponent extends BaseComponent {
       e.preventDefault();
 
       let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
-      ResultsComponent.filter(filters);
+      this._model.filter(filters);
+      // ResultsComponent.filter(filters);
       this.toggle();
     });
 
@@ -56,6 +61,13 @@ class FiltersComponent extends BaseComponent {
     });
 
     this.count();
+  }
+
+  /**
+   * Open the filters
+   */
+  open() {
+    this.toggle();
   }
 
   /**
@@ -93,7 +105,7 @@ class FiltersComponent extends BaseComponent {
    *
    * @param {string} filter
    */
-  setNeighboorhood(filter) {
+  setNeighborhood(filter) {
     this.model.neighboorhood = filter.trim();
     this.count();
   }

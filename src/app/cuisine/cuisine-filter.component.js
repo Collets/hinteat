@@ -9,9 +9,10 @@ import FiltersComponent from 'app/filters/filters.component';
 class CuisineFilterComponent extends BaseComponent {
   /**
    * Constructor
+   * @param {Object} params
   */
-  constructor() {
-    super();
+  constructor(params) {
+    super(params);
 
     this._model.cuisines = [];
   }
@@ -54,7 +55,7 @@ class CuisineFilterComponent extends BaseComponent {
     select.listen('MDCSelect:change', () => {
       this.model.selected = select.value;
 
-      FiltersComponent.setCuisine(this.model.selected);
+      this._model.setvalue(this.model.selected);
     });
   }
 }

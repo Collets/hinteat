@@ -12,6 +12,8 @@ class HomeComponent extends BaseComponent {
     super();
 
     this._model.setMarkers = this.setMarkers;
+    this._model.openFilters = this.openFilters;
+    this._model.filter = this.filter;
   }
 
   /**
@@ -30,6 +32,22 @@ class HomeComponent extends BaseComponent {
     this._model.markerInfos = markerInfos;
 
     this.updatemarkers(markerInfos);
+  }
+
+  /**
+   * Open filters
+   */
+  openFilters(){
+
+    this.openfilters();
+  }
+
+  /**
+   * Call result filter function
+   */
+  filter(filters){
+
+    this.filter(filters);
   }
 }
 
