@@ -13,6 +13,11 @@
 .results-list__element{
     margin-bottom: 16px;
     flex: 1 1 auto;
+
+    @media screen and (min-width:576px) {
+      width: calc(50% - 12px);
+      flex: 0 0 auto;
+    }
 }
 
 .results-subtitle{
