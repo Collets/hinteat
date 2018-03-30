@@ -18,7 +18,7 @@ class MapComponent extends BaseComponent {
     this._model.map = null;
     this._mapLoading = false;
     this._model.markers = [];
-    this._model.hideMap = document.body.clientWidth < 641;
+    this._model.hideMap = document.body.clientWidth < 640;
 
     if (this._model.showplaceholder === undefined)
       this._model.showplaceholder = 'true';
@@ -89,7 +89,7 @@ class MapComponent extends BaseComponent {
         reject();
       });
     });
-    
+
     return this._loadingMapPromise;
   }
 
@@ -99,7 +99,16 @@ class MapComponent extends BaseComponent {
   addMarkers() {
     if (this._model.markerinfos && this._model.markerinfos.length > 0) {
       this._model.markerinfos.forEach((markerInfo)=>{
-        this.addMarker(markerInfo);
+        this.loadGoogleMapInstance()
+        .then(()=>{
+          if (this._model.markers) {
+            this._model.markers.forEach((marker) => {
+              marker.setMap(null);
+            });
+          }
+
+          this.addMarker(markerInfo);
+        });
       });
     }
   }

@@ -28,21 +28,25 @@
       <i class="material-icons">access_time</i> <h3 class="mdc-typography--body1 restaurant-now-open">Today: {{actualHours}}<br/> <a href="#" role="link" title="See all hours" class="mdc-typography--caption see-all-hours">See all</a></h3>
     </div>    
   </div>
-  <hr class="mdc-list-divider">
-  <div class="map-button-container">
-    <button class="mdc-button mdc-button--raised map-button" id="open-restaurant-map">
-      OPEN MAP
-    </button>
-	  <map-component data-in-show-placeholder="false" data-injs-markerinfos="markerInfos"></map-component>
-  </div>
-  <hr class="mdc-list-divider">
-  <div class="reviews">
-    <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">(15)</span></h2>
-    <ul class="mdc-list mdc-list--two-line reviews-list">
-      {% for review in restaurant.reviews %}
-        <review-component data-injs-review="restaurant.reviews[{{ loop.index0 }}]"></review-component>        
-      {% endfor %}
-    </ul>
+  <div class="restaurant-extra-informations">
+    <div class="restaurant-map-wrapper">
+      <hr class="mdc-list-divider">
+      <div class="map-button-container">
+        <button class="mdc-button mdc-button--raised map-button" id="open-restaurant-map">
+          OPEN MAP
+        </button>
+        <map-component data-in-show-placeholder="false" data-injs-markerinfos="markerInfos"></map-component>
+      </div>
+      <hr class="mdc-list-divider">
+    </div>    
+    <div class="reviews">
+      <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">(15)</span></h2>
+      <ul class="mdc-list mdc-list--two-line reviews-list">
+        {% for review in restaurant.reviews %}
+          <review-component data-injs-review="restaurant.reviews[{{ loop.index0 }}]"></review-component>        
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </main>
 

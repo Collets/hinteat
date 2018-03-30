@@ -1,5 +1,10 @@
+{% if isBig %}
+<div id="filters" class="filters-wrapper">
+	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar" aria-hidden="true">
+{% else %}
 <div id="filters" class="filters-wrapper" aria-hidden="true">
 	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar">
+{% endif %}
 		<div class="mdc-toolbar__row">
 			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
 					<a id="close-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon" aria-label="close filters">clear</a>
@@ -11,14 +16,14 @@
 		</div>
 	</div>
 	<div class="filters-content">
-		<cuisine-filter-component data-outjs-set-value="setCuisine"></cuisine-filter-component>
-		<neighborhood-filter-component data-outjs-set-value="setNeighborhood"></neighborhood-filter-component>
-		<button class="mdc-button cards-view-button" id="list-view-button" aria-pressed="{{ listView }}">
+		<cuisine-filter-component class="filter-select-wrapper" data-outjs-set-value="setCuisine"></cuisine-filter-component>
+		<neighborhood-filter-component class="filter-select-wrapper" data-outjs-set-value="setNeighborhood"></neighborhood-filter-component>
+		<!-- <button class="mdc-button cards-view-button" id="list-view-button" aria-pressed="{{ listView }}">
 			List view
 		</button>
 		<button class="mdc-button cards-view-button" id="grid-view-button" aria-pressed="{{ gridView }}">
 			Grid view
-		</button>
+		</button> -->
 	</div>
-	<div class="filters-results"><span id="total-results">{{ totalResults }}</span> Results</div>
+	<div class="filters-results"><span id="total-results">{{ totalResults }}</span><span> Results</span></div>
 </div>

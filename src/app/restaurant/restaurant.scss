@@ -98,9 +98,26 @@
     color: $mdc-theme-primary-dark;
 }
 
+.restaurant-extra-informations{    
+    @media screen and (min-width: 769px) {
+        display: flex;   
+        width: 100%;
+    }
+}
+
+.restaurant-map-wrapper{
+    @media screen and (min-width: 769px) {
+        flex: 1 0 50%;
+    }
+}
+
 .map-button-container{
     padding: 16px;
     height: 36px;
+
+    @media screen and (min-width: 640px) {
+        height: auto;
+    }
 }
 
 .map-button-container .map-placeholder{
@@ -108,11 +125,24 @@
 }
 
 .map-button{
-    width: 100%;
+    width: 100%;    
+
+}
+
+.mdc-button.mdc-button--raised.map-button{
+    @media screen and (min-width: 640px) {
+        display: none;
+    }
 }
 
 .reviews{
-    padding: 16px;
+    padding: 16px;    
+    box-sizing: border-box;
+
+    @media screen and (min-width: 769px) {
+        flex: 1 0 50%;
+        max-width: 50%;
+    }
 }
 
 .reviews-number{

@@ -33,6 +33,17 @@
 
   z-index: 10;
   opacity: 0;
+
+  
+  @media screen and (min-width:769px) {
+    height: auto;
+    position: relative;
+    top: unset;
+    left: unset;
+    opacity: 1;
+    z-index: 1;
+    flex-direction: row;
+  }
 }
 
 .filters-toolbar{
@@ -40,16 +51,49 @@
   @include mdc-theme-prop('color', 'text-primary-on-primary-light');
 }
 
+.mdc-toolbar.mdc-toolbar--fixed.filters-toolbar{  
+  @media screen and (min-width:769px) {
+    display: none;
+  }
+}
+
 .filters-content{
   position: static;
-  padding: 80px 15px 25px 15px;
+  padding: 80px 16px 25px 16px;
   overflow-y: scroll;
-  flex: 1;
+  flex: 1; 
+
+  @media screen and (min-width:769px) {
+    position: relative;
+    padding: 8px 16px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+}
+
+.filter-select-wrapper{
+  width: 100%;
+  display: block;
+  
+  @media screen and (min-width:769px) {
+    width: auto;
+    display: inline-block;
+    margin-right: 16px;
+  }
 }
 
 .filter-select{
   width: 100%;
   margin-bottom: 35px;  
+
+  @media screen and (min-width:426px) {
+    width: 395px;
+  }
+  
+  @media screen and (min-width:769px) {
+    width: auto;
+    margin-bottom: 0;  
+  }
 }
 
 .filters-results{
@@ -60,6 +104,21 @@
   @include mdc-typography("button");
   text-align: center;
   border-top:1px solid rgba(0,0,0,0.12); 
+  
+  @media screen and (min-width:769px) {
+    flex: 1 1 260px;
+    max-width: 260px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+#total-results{
+  
+  @media screen and (min-width:769px) {
+    margin-right: 8px;
+  }
 }
 
 .cards-view-button[aria-pressed="true"] { 

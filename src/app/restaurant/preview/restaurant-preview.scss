@@ -14,17 +14,22 @@
   }
 }
 
-.resturant__title,
-.resturant__subtitle{
+.restaurant-preview-preview{
+  height: 100%;
+  justify-content: space-between;
+}
+
+.restaurant-preview__title,
+.restaurant-preview__subtitle{
   margin: 0;
 }
 
-.restaurant-media{
+.restaurant-preview-media{
   padding-top: 56.25%;
   position: relative;
 }
 
-.restaurant-media__wrapper{
+.restaurant-preview-media__wrapper{
   width: 100%;
   height: 100%;
   position: absolute;
@@ -33,9 +38,15 @@
   overflow: hidden;
 }
 
-.restaurant-media__image{
+.restaurant-preview-media__image{
   max-width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+.mdc-card__content--secondary{
+  @media screen and (min-width: 576px) {
+    min-height: 40px;
+  }
 }

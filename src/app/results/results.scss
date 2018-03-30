@@ -2,22 +2,28 @@
 
 .results-list{
   list-style: outside none none;
-  margin: 16px 16px 0 16px;
+  margin: 16px 16px 16px 16px;
   padding: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
 
-.results-list__element{
-    margin-bottom: 16px;
-    flex: 1 1 auto;
-
-    @media screen and (min-width:576px) {
-      width: calc(50% - 12px);
-      flex: 0 0 auto;
-    }
+  @media screen and (min-width:576px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media screen and (min-width:768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media screen and (min-width:1280px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media screen and (min-width:1600px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 .results-subtitle{

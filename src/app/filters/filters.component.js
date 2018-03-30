@@ -25,6 +25,8 @@ class FiltersComponent extends BaseComponent {
 
     this._model.setCuisine = this.setCuisine;
     this._model.setNeighborhood = this.setNeighborhood;
+    
+    this._model.isBig = document.body.clientWidth > 768;
   }
 
   /**
@@ -80,6 +82,9 @@ class FiltersComponent extends BaseComponent {
     RestaurantService.retrieveCount(filters)
     .then((total)=>{
       this._wrapper.querySelector('#total-results').innerHTML = total;
+
+      if (this._model.isBig)
+        this._model.filter(filters);
     })
     .catch((error)=>{
       if (!(error instanceof AppError)) 
