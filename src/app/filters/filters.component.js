@@ -128,6 +128,7 @@ class FiltersComponent extends BaseComponent {
 
     if (closed) {
       this._wrapper.querySelector('#close-filters').focus();
+      
       Utils.setFocus(this._wrapper.querySelector('#close-filters'));
     }
   }
