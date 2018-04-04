@@ -40,7 +40,7 @@
       <hr class="mdc-list-divider">
     </div>    
     <div class="reviews">
-      <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">(15)</span></h2>
+      <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">({{ restaurant.reviews | length }})</span></h2>
       <ul class="mdc-list mdc-list--two-line reviews-list">
         {% for review in restaurant.reviews %}
           <review-component data-injs-review="restaurant.reviews[{{ loop.index0 }}]"></review-component>        

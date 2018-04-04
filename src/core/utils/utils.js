@@ -85,4 +85,12 @@ export default class Utils {
     .toString(16)
     .substring(1);
   }
+
+  /**
+   * Set focus state on element
+   * @param {HTMLElement} element The element to set focus
+   */
+  static setFocus(element) {
+    element.classList.add('mdc-ripple-upgraded--background-focused');
+  }
 }

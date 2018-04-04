@@ -14,7 +14,8 @@
   top:0;
   left: 0;
   z-index: 10;
-  opacity: 0;
+  opacity: 0;  
+  visibility: hidden;
   transform: translateX(130%);
 
   @media screen and (min-width:640px) {
@@ -29,13 +30,14 @@
   
   transform: translateX(0);
   opacity: 1;
-
+  visibility: visible;
 }
 
 #map-container[aria-hidden=true]{
   transform: translateX(130%);
   transition-timing-function: ease-in;
-  transition: 350ms;
+  transition: 350ms;  
+  visibility: hidden;
 }
 
 #map {
@@ -76,4 +78,34 @@
   @media screen and (min-width:640px) {
     display: none;
   }
+}
+
+a.skip-map {
+  display: none;
+
+  @media screen and (min-width:640px) {
+    display: block;
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+  }
+}
+
+a.skip-map:focus, a.skip-map:active {
+  color: #fff;
+  background-color: $mdc-theme-primary-light;
+  left: auto;
+  top: 80px;
+  width: 30%;
+  height: auto;
+  overflow:auto;
+  margin: 10px 35%;
+  padding:5px;
+  text-align:center;
+  font-size:1.2em;
+  z-index:999;
 }

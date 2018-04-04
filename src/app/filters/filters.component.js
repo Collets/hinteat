@@ -2,8 +2,8 @@ import BaseComponent from 'core/base/base.component';
 import {MDCToolbar} from '@material/toolbar';
 
 import RestaurantFilters from 'app/restaurant/restaurant-filters';
-import ResultsComponent from 'app/results/results.component';
 import * as RestaurantService from 'app/restaurant/restaurant.service';
+import Utils from 'core/utils/utils';
 
 import './filters.scss';
 
@@ -25,7 +25,7 @@ class FiltersComponent extends BaseComponent {
 
     this._model.setCuisine = this.setCuisine;
     this._model.setNeighborhood = this.setNeighborhood;
-    
+
     this._model.isBig = document.body.clientWidth > 768;
   }
 
@@ -87,11 +87,10 @@ class FiltersComponent extends BaseComponent {
         this._model.filter(filters);
     })
     .catch((error)=>{
-      if (!(error instanceof AppError)) 
+      if (!(error instanceof AppError))
         console.error(error);
-       else 
+       else
         Notification.error(error);
-      
     });
   }
 
@@ -126,6 +125,11 @@ class FiltersComponent extends BaseComponent {
 
     wrapper.setAttribute('aria-hidden', !closed);
     document.body.classList.toggle('noscroll', closed);
+
+    if (closed) {
+      this._wrapper.querySelector('#close-filters').focus();
+      Utils.setFocus(this._wrapper.querySelector('#close-filters'));
+    }
   }
 
   /**

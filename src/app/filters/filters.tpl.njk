@@ -1,17 +1,17 @@
 {% if isBig %}
 <div id="filters" class="filters-wrapper">
-	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar" aria-hidden="true">
+	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar">
 {% else %}
 <div id="filters" class="filters-wrapper" aria-hidden="true">
 	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar">
 {% endif %}
 		<div class="mdc-toolbar__row">
 			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-					<a id="close-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon" aria-label="close filters">clear</a>
+					<a id="close-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface" aria-label="close filters" tabindex="0">clear</a>
 					<span class="mdc-toolbar__title">Be more specific</span>
 			</section>
 			<section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
-					<a id="confirm-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface--primary" aria-label="confirm filters">done</a>
+					<a id="confirm-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary" aria-label="confirm filters" tabindex="0">done</a>
 			</section>
 		</div>
 	</div>

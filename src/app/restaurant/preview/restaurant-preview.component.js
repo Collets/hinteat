@@ -21,26 +21,30 @@ class RestaurantPreviewComponent extends BaseComponent {
    * @memberof RestaurantPreviewComponent
    */
   afterRender() {
-    document.querySelectorAll('#' + this._id + ' .mdc-card__primary-action').forEach((element) => {
+    this._wrapper.querySelectorAll('.mdc-card__primary-action').forEach((element) => {
       MDCRipple.attachTo(element);
     });
 
-    document.querySelectorAll('#' + this._id + ' .add-favorites-button').forEach((element) => {
+    this._wrapper.querySelectorAll('.add-favorites-button').forEach((element) => {
       MDCRipple.attachTo(element);
     });
 
-    document.querySelectorAll('#' + this._id + ' .open-detail-restaurant').forEach((element) => {
+    this._wrapper.querySelectorAll('.open-detail-restaurant').forEach((element) => {
       MDCRipple.attachTo(element);
     });
 
-    if (document.querySelector('#' + this._id + ' .mdc-icon-toggle'))
-      MDCIconToggle.attachTo(document.querySelector('#' + this._id + ' .mdc-icon-toggle'));
+    if (this._wrapper.querySelector('.mdc-icon-toggle'))
+      MDCIconToggle.attachTo(this._wrapper.querySelector('.mdc-icon-toggle'));
 
-    if (document.querySelector('#' + this._id + ' .open-detail-restaurant')) {
-      document.querySelector('#' + this._id + ' .open-detail-restaurant').addEventListener('click', (e)=>{
-        e.preventDefault();
+    if (this._wrapper.querySelectorAll('.open-detail-restaurant')) {
+      this._wrapper.querySelectorAll('.open-detail-restaurant')
+      .forEach((element)=>{
+        element.addEventListener('click', (e)=>{
+          e.preventDefault();
 
-        RouteEngine.router.navigate('/restaurant/1');
+          let id = e.currentTarget.getAttribute('data-id');
+          RouteEngine.router.navigate('/restaurant/' + id);
+        });
       });
     }
   }

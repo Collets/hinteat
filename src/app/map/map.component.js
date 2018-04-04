@@ -31,10 +31,10 @@ class MapComponent extends BaseComponent {
    */
   afterRender() {
     if (this._model.showplaceholder === 'true')
-      MDCRipple.attachTo(document.querySelector('#open-map'));
+      MDCRipple.attachTo(this._wrapper.querySelector('#open-map'));
 
 
-    document.querySelectorAll('#open-map, #close-map').forEach((element) => {
+    this._wrapper.querySelectorAll('#open-map, #close-map').forEach((element) => {
       element.addEventListener('click', (e)=>{
         e.preventDefault();
 
@@ -42,6 +42,19 @@ class MapComponent extends BaseComponent {
 
         document.querySelector('#map-container').setAttribute('aria-hidden', mapOpened != 'true');
       });
+    });
+
+    this._wrapper.querySelector('.skip-map').addEventListener('click', (e)=>{
+      e.preventDefault();
+
+      let element = document.querySelector('#afterMap');
+      let yPosition = element.getBoundingClientRect().y;
+
+      location.href = '#';
+      location.href = '#afterMap';
+
+      window.scrollTo(0, yPosition - 80);
+      element.focus();
     });
 
     this.loadGoogleMapInstance()
