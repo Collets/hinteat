@@ -1,6 +1,6 @@
 <div class="mdc-select filter-select" role="listbox" id="cuisines-select">
   <div class="mdc-select__surface" tabindex="0">
-    <div class="mdc-select__label">Pick a Cuisine</div>
+    <div class="mdc-select__label {{ 'mdc-select__label--float-above' if value and value != 'all-cuisines' }}">Pick a Cuisine</div>
     <div class="mdc-select__selected-text"></div>
     <div class="mdc-select__bottom-line"></div>
   </div>
@@ -10,7 +10,7 @@
         All cuisines
       </li>
       {% for cuisine in cuisines %}
-        <li class="mdc-list-item" role="option" tabindex="0" id="{{cuisine}}">
+        <li class="mdc-list-item" role="option" tabindex="0" id="{{cuisine}}" {{ "aria-selected" if value == cuisine }}>
           {{ cuisine }}
         </li>
       {% endfor %}

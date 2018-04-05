@@ -1,6 +1,6 @@
 import BaseComponent from 'core/base/base.component';
 import Map from 'app/map/map';
-import loadGoogleMapsApi from 'load-google-maps-api';
+let createFocusTrap = require('focus-trap');
 
 import {MDCRipple} from '@material/ripple';
 
@@ -38,9 +38,7 @@ class MapComponent extends BaseComponent {
       element.addEventListener('click', (e)=>{
         e.preventDefault();
 
-        let mapOpened = document.querySelector('#map-container').getAttribute('aria-hidden') || 'true';
-
-        document.querySelector('#map-container').setAttribute('aria-hidden', mapOpened != 'true');
+        this.open(e.currentTarget);
       });
     });
 
@@ -61,6 +59,35 @@ class MapComponent extends BaseComponent {
     .then(()=>{
       this.initMap();
     });
+  }
+
+  /**
+   * Open map on mobile
+   * @param {HTMLElement} target
+   * @memberof MapComponent
+   */
+  open(target) {
+    let wrapper = document.querySelector('#map-container');
+    let mapOpened = wrapper.getAttribute('aria-hidden') || 'true';
+
+    wrapper.setAttribute('aria-hidden', mapOpened != 'true');
+
+    if (mapOpened == 'true') {
+      if(target)
+        target.setAttribute('tabindex', '-1');
+      
+      this._focusTrap = createFocusTrap(wrapper, {
+        fallbackFocus: '#open-map',
+      });
+      setTimeout(() => {
+        this._focusTrap.activate();
+      }, 350);
+    } else {
+      if (this._focusTrap) {
+        this._focusTrap.deactivate();
+        document.querySelector('#open-map').setAttribute('tabindex', '0');
+      }
+    }
   }
 
   /**

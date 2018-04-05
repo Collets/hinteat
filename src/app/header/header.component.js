@@ -22,11 +22,6 @@ class HeaderComponent extends BaseComponent {
     this._toolbar = MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
     this._toolbar.fixedAdjustElement = document.querySelector('#maincontent');
 
-    document.querySelector('#menuHamburger').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.open();
-    });
-
     document.querySelector('#openFilters').addEventListener('click', (e) => {
       e.preventDefault();
       this._model.openfilters();

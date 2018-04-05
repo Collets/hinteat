@@ -1,6 +1,6 @@
 <div class="mdc-select filter-select" role="listbox" id="neighborhoods-select">
   <div class="mdc-select__surface" tabindex="0">
-    <div class="mdc-select__label">Pick a Neighborhood</div>
+    <div class="mdc-select__label {{ 'mdc-select__label--float-above' if value and value != 'all-neighborhoods' }}">Pick a Neighborhood</div>
     <div class="mdc-select__selected-text"></div>
     <div class="mdc-select__bottom-line"></div>
   </div>
@@ -10,7 +10,7 @@
         All neighborhood
       </li>
       {% for neighborhood in neighborhoods %}
-        <li class="mdc-list-item" role="option" tabindex="0" id="{{neighborhood}}">
+        <li class="mdc-list-item" role="option" tabindex="0" id="{{neighborhood}}" {{ "aria-selected" if value == neighborhood }}>
           {{ neighborhood }}
         </li>
       {% endfor %}

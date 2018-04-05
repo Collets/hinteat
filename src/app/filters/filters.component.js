@@ -1,9 +1,9 @@
 import BaseComponent from 'core/base/base.component';
 import {MDCToolbar} from '@material/toolbar';
+let createFocusTrap = require('focus-trap');
 
 import RestaurantFilters from 'app/restaurant/restaurant-filters';
 import * as RestaurantService from 'app/restaurant/restaurant.service';
-import Utils from 'core/utils/utils';
 
 import './filters.scss';
 
@@ -20,8 +20,8 @@ class FiltersComponent extends BaseComponent {
 
     this._model.listView = this._listView;
     this._model.gridView = !this._listView;
-    this._model.cuisine = 'all-cuisines';
-    this._model.neighboorhood = 'all-neighborhoods';
+    this._model.cuisine = this._selectedFilters ? this._selectedFilters.Cuisine : 'all-cuisines';
+    this._model.neighboorhood = this._selectedFilters ? this._selectedFilters.Neighboorhood : 'all-neighborhoods';
 
     this._model.setCuisine = this.setCuisine;
     this._model.setNeighborhood = this.setNeighborhood;
@@ -47,10 +47,7 @@ class FiltersComponent extends BaseComponent {
     document.querySelector('#confirm-filters').addEventListener('click', (e)=>{
       e.preventDefault();
 
-      let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
-      this._model.filter(filters);
-      // ResultsComponent.filter(filters);
-      this.toggle();
+      this.filter();
     });
 
     document.querySelectorAll('.cards-view-button').forEach((element)=>{
@@ -95,6 +92,19 @@ class FiltersComponent extends BaseComponent {
   }
 
   /**
+   * Filter the results
+   *
+   * @memberof FiltersComponent
+   */
+  filter() {
+    let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
+    this._selectedFilters = filters;
+    this._model.filter(filters);
+
+    this.toggle();
+  }
+
+  /**
    * Set the current cuisine filter
    *
    * @param {string} filter
@@ -127,9 +137,13 @@ class FiltersComponent extends BaseComponent {
     document.body.classList.toggle('noscroll', closed);
 
     if (closed) {
-      this._wrapper.querySelector('#close-filters').focus();
-      
-      Utils.setFocus(this._wrapper.querySelector('#close-filters'));
+      setTimeout(() => {
+        this._focusTrap = createFocusTrap(wrapper);
+        this._focusTrap.activate();
+      }, 350);
+    } else {
+      if (this._focusTrap)
+        this._focusTrap.deactivate();
     }
   }
 
@@ -143,6 +157,14 @@ class FiltersComponent extends BaseComponent {
 
     document.querySelector('#list-view-button').setAttribute('aria-pressed', this._listView);
     document.querySelector('#grid-view-button').setAttribute('aria-pressed', !this._listView);
+  }
+
+  /**
+   * Know if filters are visible
+   * @return {boolean}
+   */
+  isOnPage() {
+    return document.body.clientWidth > 768;
   }
 }
 

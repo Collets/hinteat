@@ -52,7 +52,7 @@ class RestaurantComponent extends BaseComponent {
     this._wrapper.querySelector('#open-restaurant-map').addEventListener('click', (e)=>{
       e.preventDefault();
       
-      this._wrapper.querySelector('#map-container').setAttribute('aria-hidden', 'false');
+      this.openmap();
     });
     
     if (this._wrapper.querySelector('.add-favorites-button'))

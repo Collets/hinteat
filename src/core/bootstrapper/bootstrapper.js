@@ -15,6 +15,7 @@ import HomeComponent from 'app/home/home.component';
 import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 import ReviewComponent from 'app/review/review.component';
+import FooterComponent from 'app/footer/footer.component';
 
 /**
  * Bootsrapper of the application
@@ -35,6 +36,7 @@ export default function bootstrap(entrypoint) {
         RouterComponent,
         RestaurantComponent,
         ReviewComponent,
+        FooterComponent,
     ];
 
     ComponentFactory.startup(entrypoint).then(()=>{
