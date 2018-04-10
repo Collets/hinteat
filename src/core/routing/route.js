@@ -1,5 +1,6 @@
 import Navigo from 'navigo';
 import {ComponentFactory} from 'core/component-factory/component-factory';
+import { SYSPARAMS } from 'core/utils/system.params';
 
 export const RouteEngine = {
   routes: [
@@ -19,7 +20,7 @@ export const RouteEngine = {
    */
   initialize(root) {
     this.router = new Navigo(root);
-
+    
     if (this.routes) {
       this.routes.forEach((route)=>{
         if (!route.url) {
@@ -28,12 +29,24 @@ export const RouteEngine = {
           });
 
           this.router.on(()=>{
-            ComponentFactory.setRouterComponent(route.component);
+            ComponentFactory.setRouterComponent(route.component)
+            .then(()=>{
+              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
+                document.querySelector('.loader').classList.add('hidden');
+                SYSPARAMS.FIRSTLOAD = false;
+              }
+            });
           });
         } else {
           let routeObj = {};
           routeObj[route.url] = (params)=>{
-            ComponentFactory.setRouterComponent(route.component, params);
+            ComponentFactory.setRouterComponent(route.component, params)
+            .then(()=>{
+              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
+                document.querySelector('.loader').classList.add('hidden');
+                SYSPARAMS.FIRSTLOAD = false;
+              }
+            });
           };
 
           this.router.on(routeObj);

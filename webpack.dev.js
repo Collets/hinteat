@@ -6,8 +6,8 @@ var merge = require('webpack-merge');
 var common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-  output: {
-    publicPath: '/',
+  entry: {
+    main: ['webpack-dev-server/client?http://localhost:9000', path.resolve(__dirname, 'src/main.js')],
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -15,12 +15,18 @@ module.exports = merge(common, {
     port: 9000,
     disableHostCheck: true,
     host: 'localhost',
+    historyApiFallback: true,
+    open: true,
+    hot: true,
+    stats: {
+      colors: true
+    },
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
-        'BASEURL': JSON.stringify('http://localhost:9000/'),
+        'BASEURL': JSON.stringify('http://localhost:9000/')
       }
     })
   ],

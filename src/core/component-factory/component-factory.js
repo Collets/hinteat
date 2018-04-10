@@ -17,9 +17,10 @@ export const ComponentFactory = {
       let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
       startupElement.id = this.startupComponent._id;
 
-      this.startupComponent.renderComponentContent(undefined, false);
-
-      resolve();
+      this.startupComponent.renderComponentContent(undefined, false)
+      .then(()=>{
+        resolve();
+      });
     });
 
     return promise;
@@ -119,19 +120,33 @@ export const ComponentFactory = {
    * Set the starter component of the current page
    * @param {string} componentName
    * @param {Array} params
+   * @return {Promise}
    */
   setRouterComponent(componentName, params) {
-    let componentTag = Utils.getTagByName(componentName);
+    let promise = new Promise((resolve, reject)=>{
+      let componentTag = Utils.getTagByName(componentName);
 
-    let routerComponentElement = document.querySelector('router-component');
-    routerComponentElement.innerHTML = '<' + componentTag + '></' + componentTag + '>';
-
-    if (params)
-      this._setParams(params, componentTag, routerComponentElement);
-
-    let routerComponent = this._instantiateRouting();
-
-    routerComponent.renderDescendants();
+      let routerComponentElement = document.querySelector('router-component');
+      routerComponentElement.innerHTML = '<' + componentTag + '></' + componentTag + '>';
+  
+      if (params)
+        this._setParams(params, componentTag, routerComponentElement);
+  
+      let routerComponent = this._instantiateRouting();
+  
+      routerComponent.renderDescendants()
+      .then(()=>{
+        resolve();
+      });
+    });
+    
+    return promise;
+  },
+  /**
+   * Called when the render engine ended
+   */
+  endRender() {
+    console.log('ENDED');
   },
   /**
    * Helper to instantiate router component

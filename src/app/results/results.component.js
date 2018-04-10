@@ -32,8 +32,10 @@ class ResultsComponent extends BaseComponent {
         this.model.restaurants = restaurants;
         this.setMarkers();
 
-        this.renderComponentContent();
-        resolve();
+        this.renderComponentContent()
+        .then(()=>{
+          resolve();
+        });
       })
       .catch((error)=>{
         if (!(error instanceof AppError))

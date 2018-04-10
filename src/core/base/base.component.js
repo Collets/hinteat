@@ -9,7 +9,7 @@ import ComponentInfo from 'core/component-factory/component-info';
 export default class BaseComponent {
   /** Constructor of base component */
   constructor(params) {
-    this.ENV = nunjucks.configure({web: {async: false}});
+    this.ENV = nunjucks.configure({web: {async: true}});
     this._model = {};
 
     if(params)
@@ -48,12 +48,29 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   renderComponentContent(parent = this._wrapper, nested = true) {
-    parent.innerHTML = this.ENV.renderString('{% include "../assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
-    
-    if(nested){
-      this.renderDescendants();
-    }
-    this.afterRender();
+    let promise = new Promise((resolve, reject)=>{
+      this.ENV.renderString('{% include "' + this._name + '.tpl.njk" ignore missing %}', 
+        this.model,
+        (err, res) => {
+
+          parent.innerHTML = res;
+
+          if(nested){
+            this.renderDescendants()
+            .then(()=>{
+              this.afterRender();
+              resolve();
+            });
+          }
+          else{
+            this.afterRender();
+            resolve();
+          }          
+        }
+      );
+    });
+
+    return promise;
   }
 
   /**
@@ -62,48 +79,70 @@ export default class BaseComponent {
    * @memberof BaseComponent
    */
   render() {
-    this.init()
-    .then(()=>{
-      this._wrapper.innerHTML = this.ENV.renderString('{% include "../assets/templates/' + this._name + '.tpl.njk" ignore missing %}', this.model);
-      
-      this.renderDescendants();
-      this.afterRender();
-    })
-    .catch((error)=>{
-      if (!(error instanceof AppError)) {
-        console.error(error);
-      }
-      else{
-        Notification.error(error);
-      }
+    let promise = new Promise((resolve, reject)=>{
+      this.init()
+      .then(()=>{
+        this.ENV.renderString('{% include "' + this._name + '.tpl.njk" ignore missing %}', 
+        this.model, 
+        (err, res) =>{
+          this._wrapper.innerHTML = res;
+          this.renderDescendants()
+          .then(()=>{
+            this.afterRender();
+            resolve();
+          });          
+        });
+      })
+      .catch((error)=>{
+        if (!(error instanceof AppError)) {
+          console.error(error);
+          error = new AppError('Unexpected error');
+        }
+
+        reject(error);
+      });
     });
+
+    return promise;
   }
 
   /**
    * Render the descendants present in this templates
   */
   renderDescendants() {
-    let html = this._wrapper.innerHTML;
-    let componentNames = html.match(/(?<=\/)(.*?)(?=-component>)/ig);
-
-    if(!componentNames) return;
-
-    componentNames = componentNames.filter((v, i) => componentNames.indexOf(v) == i);
-
-    componentNames.forEach((componentName)=> {
-
-      this._wrapper.querySelectorAll(componentName + '-component').forEach((element)=>{
-
-        let componentInfo = new ComponentInfo(Utils.getNameByTag(componentName) + 'Component', element);
+    let promise = new Promise((resolve, reject)=>{
+      let html = this._wrapper.innerHTML;
+      let componentNames = html.match(/(?<=\/)(.*?)(?=-component>)/ig);
   
-        let component = ComponentFactory.instantiate(componentInfo, this);
-
-        element.id = component._id;
+      if(!componentNames) {
+        resolve();
+      }
   
-        if(component)
-          component.render();
+      componentNames = componentNames.filter((v, i) => componentNames.indexOf(v) == i);
+  
+      let promises = [];
+      componentNames.forEach((componentName)=> {
+  
+        this._wrapper.querySelectorAll(componentName + '-component').forEach((element)=>{
+  
+          let componentInfo = new ComponentInfo(Utils.getNameByTag(componentName) + 'Component', element);
+    
+          let component = ComponentFactory.instantiate(componentInfo, this);
+  
+          element.id = component._id;
+    
+          if(component)
+            promises.push(component.render());
+        });
+      });
+
+      Promise.all(promises)
+      .then((values)=>{
+        resolve();
       });
     });
+
+    return promise;    
   }
 
   /**

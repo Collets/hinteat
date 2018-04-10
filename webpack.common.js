@@ -9,10 +9,6 @@ var extractSASS = new ExtractTextPlugin('styles/[name].min.css');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: {
-    main: path.resolve(__dirname, 'src/main.js'),
-    restaurant: path.resolve(__dirname, 'src/restaurant_info.js')
-  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].min.js'
@@ -87,15 +83,10 @@ module.exports = {
         from: './src/assets/data',
         to: 'assets/data'
       },
-      {
-        from: './src/**/*.njk',
-        to: 'assets/templates',
-        flatten: true
-      }
     ]),
     new webpack.optimize.CommonsChunkPlugin({
       names: 'vendor',
-      minChunks: 2
+      minChunks: 3
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -108,16 +99,5 @@ module.exports = {
         collapseWhitespace: true
       }
     }),
-    new HtmlWebpackPlugin({
-      filename: 'restaurant.html',
-      template: './src/restaurant.html',
-      inject: 'body',
-      chunks: ['restaurant', 'vendor'],
-      hash: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true
-      }
-    })
   ]
 };

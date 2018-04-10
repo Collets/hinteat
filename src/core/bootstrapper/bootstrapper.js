@@ -1,5 +1,6 @@
 import {ComponentFactory} from 'core/component-factory/component-factory';
 import {RouteEngine} from 'core/routing/route';
+import * as Templates from 'lib/templates';
 
 // Import of components
 import AppComponent from 'app/app.component';
