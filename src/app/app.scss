@@ -1,0 +1,24 @@
+@charset "utf-8";
+@import "../../node_modules/toastr/toastr.scss";
+
+@import "./colors/colors";
+@import "@material/theme/mdc-theme";
+@import "@material/typography/mdc-typography";
+
+.noscroll{
+  overflow: hidden;
+}
+
+body,td,th,p{
+  @include mdc-typography-base();
+  @include mdc-typography("body1");
+}
+
+html{
+  background-color: white;
+}
+
+body {
+  margin: 0;
+  position:relative;
+}

@@ -1,0 +1,29 @@
+{% if isBig %}
+<div id="filters" class="filters-wrapper">
+	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar">
+{% else %}
+<div id="filters" class="filters-wrapper" aria-hidden="true">
+	<div class="mdc-toolbar mdc-toolbar--fixed filters-toolbar">
+{% endif %}
+		<div class="mdc-toolbar__row">
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+					<a id="close-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface" aria-label="close filters" tabindex="0">clear</a>
+					<span class="mdc-toolbar__title">Be more specific</span>
+			</section>
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
+					<a id="confirm-filters" href="#" class="material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary" aria-label="confirm filters" tabindex="0">done</a>
+			</section>
+		</div>
+	</div>
+	<div class="filters-content">
+		<cuisine-filter-component class="filter-select-wrapper" data-outjs-set-value="setCuisine" data-injs-value="cuisine"></cuisine-filter-component>
+		<neighborhood-filter-component class="filter-select-wrapper" data-outjs-set-value="setNeighborhood" data-injs-value="neighboorhood"></neighborhood-filter-component>
+		<!-- <button class="mdc-button cards-view-button" id="list-view-button" aria-pressed="{{ listView }}">
+			List view
+		</button>
+		<button class="mdc-button cards-view-button" id="grid-view-button" aria-pressed="{{ gridView }}">
+			Grid view
+		</button> -->
+	</div>
+	<div class="filters-results"><span id="total-results">{{ totalResults }}</span><span> Results</span></div>
+</div>

@@ -1,0 +1,23 @@
+@import "../colors/colors";
+
+.footer-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo{
+  box-sizing: border-box;
+  position: relative;
+  padding: 12px 5px 5px 5px;
+  display: flex;
+  align-items: center;
+  max-width: 110px;
+
+  &__text{
+      margin: 0;
+  }
+
+  &__image{
+      max-width: 100px;
+  }
+}

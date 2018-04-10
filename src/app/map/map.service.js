@@ -1,0 +1,21 @@
+import DbService from 'app/db/db.service';
+import Map from 'app/map/map';
+
+/**
+ * Add markers for current restaurants to the map.
+ * @param {any[]} restaurants
+ */
+export function addMarkersToMap(restaurants) {
+  if (typeof google != 'object' || typeof google.maps != 'object') return;
+
+  restaurants.forEach((restaurant) => {
+    // Add marker to the map
+    const marker = DbService.mapMarkerForRestaurant(restaurant, Map.entity);
+    google.maps.event.addListener(marker, 'click', () => {
+      window.location.href = marker.url;
+    });
+    Map.markers.push(marker);
+  });
+};
+
+export default {addMarkersToMap};

@@ -1,0 +1,12 @@
+<section class="results">
+  <div class="results-subtitle">
+    <h1 class="results-subtitle__text">The meal you are looking for is really close:</h1>
+  </div>
+  <ul class="results-list">    
+    {% for restaurant in restaurants %}
+      <li class="results-list__element">
+        <restaurant-preview-component data-injs-restaurant="restaurants[{{ loop.index0 }}]"></restaurant-preview-component>
+      </li>
+    {% endfor %}    
+  </ul>
+</section>

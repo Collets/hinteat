@@ -1,0 +1,129 @@
+@import "../colors/colors";
+@import "@material/theme/mdc-theme";
+@import "@material/list/mdc-list";
+@import "@material/menu/mdc-menu";
+@import "@material/button/mdc-button";
+@import "@material/toolbar/mdc-toolbar";
+@import "@material/select/mdc-select";
+@import "@material/typography/mdc-typography";
+
+#filters[aria-hidden="true"]  { 
+  transform: translateX(130%);
+  transition-timing-function: ease-in;
+  transition: 350ms;
+}
+#filters[aria-hidden="false"] { 
+  transition: 350ms;
+  transition-timing-function: ease-out;
+  
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.filters-wrapper{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $mdc-theme-background;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+
+  
+  @media screen and (min-width:769px) {
+    height: auto;
+    position: relative;
+    top: unset;
+    left: unset;
+    opacity: 1;
+    z-index: 1;
+    flex-direction: row;
+    visibility: visible;
+  }
+}
+
+.filters-toolbar{
+  background-color: $mdc-theme-background;
+  @include mdc-theme-prop('color', 'text-primary-on-primary-light');
+}
+
+.mdc-toolbar.mdc-toolbar--fixed.filters-toolbar{  
+  @media screen and (min-width:769px) {
+    display: none;
+  }
+}
+
+.filters-content{
+  position: static;
+  padding: 80px 16px 25px 16px;
+  overflow-y: scroll;
+  flex: 1; 
+
+  @media screen and (min-width:769px) {
+    position: relative;
+    padding: 8px 16px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+}
+
+.filter-select-wrapper{
+  width: 100%;
+  display: block;
+  
+  @media screen and (min-width:769px) {
+    width: auto;
+    display: inline-block;
+    margin-right: 16px;
+  }
+}
+
+.filter-select{
+  width: 100%;
+  margin-bottom: 35px;  
+
+  @media screen and (min-width:426px) {
+    width: 395px;
+  }
+  
+  @media screen and (min-width:769px) {
+    width: auto;
+    margin-bottom: 0;  
+  }
+}
+
+.filters-results{
+  padding: 15px;
+  // background-color: $mdc-theme-background;
+  @include mdc-theme-prop('background-color', 'primary');
+  @include mdc-theme-prop('color', 'text-primary-on-primary-dark');
+  @include mdc-typography("button");
+  text-align: center;
+  border-top:1px solid rgba(0,0,0,0.12); 
+  
+  @media screen and (min-width:769px) {
+    flex: 1 1 260px;
+    max-width: 260px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+#total-results{
+  
+  @media screen and (min-width:769px) {
+    margin-right: 8px;
+  }
+}
+
+.cards-view-button[aria-pressed="true"] { 
+  @include mdc-button-filled-accessible($mdc-theme-primary)
+}

@@ -1,0 +1,73 @@
+{
+  "name": "HintEat",
+  "version": "1.0.0",
+  "description": "Portal for restaurant and meal reviews",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp webserver",
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collets/mws-restaurant-stage-1.git"
+  },
+  "author": "Simone Coletta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Collets/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/Collets/mws-restaurant-stage-1#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.4.1",
+    "cross-env": "^5.1.4",
+    "css-loader": "^0.28.9",
+    "del": "^3.0.0",
+    "eslint": "^4.18.1",
+    "eslint-config-google": "^0.9.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.9",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-nunjucks": "^3.1.1",
+    "gulp-print": "^5.0.0",
+    "gulp-util": "^3.0.8",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
+    "htmllint-loader": "^2.1.4",
+    "node-sass": "^4.7.2",
+    "nunjucks-loader": "^2.4.9",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "sass-loader": "^6.0.6",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "url-loader": "^0.6.2",
+    "vinyl-paths": "^2.1.0",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.2",
+    "webpack-merge": "^4.1.1",
+    "webpack-stream": "^4.0.3"
+  },
+  "dependencies": {
+    "@material/button": "^0.32.0",
+    "@material/card": "^0.32.0",
+    "@material/dialog": "^0.33.0",
+    "@material/drawer": "^0.30.0",
+    "@material/grid-list": "^0.30.0",
+    "@material/icon-toggle": "^0.32.0",
+    "@material/list": "^0.32.0",
+    "@material/select": "^0.32.0",
+    "@material/toolbar": "^0.32.0",
+    "firebase": "^4.12.0",
+    "firebaseui": "^2.7.0",
+    "focus-trap": "^2.4.3",
+    "load-google-maps-api": "^1.1.1",
+    "navigo": "^7.1.1",
+    "nunjucks": "^3.1.2",
+    "toastr": "^2.1.4"
+  }
+}
