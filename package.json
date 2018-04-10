@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open --historyApiFallback --progress --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start": "gulp webserver",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
