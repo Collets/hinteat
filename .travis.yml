@@ -13,7 +13,7 @@ before_script:
   - npm install
 
 script:
-  - cross-env BASEURL="$BASEURL" MAPSAPIKEY="$MAPSAPIKEY" gulp webpack:build:prod
+  - cross-env BASEURL="$BASEURL_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod
 
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN

@@ -11,14 +11,14 @@
       "command": "gulp webpack:serve:dev",
       "env":{
         "BASEURL": "http://localhost:9000/",
-        "MAPSAPIKEY": "AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w"
+        "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng"
       }
     },
     "build.dev": {
       "command": "gulp webpack:build:dev",
       "env": {
         "BASEURL": "http://dev.hinteat.io/",
-        "MAPSAPIKEY": "AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w"
+        "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng"
       }
     }
   },
