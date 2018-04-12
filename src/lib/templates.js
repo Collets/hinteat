@@ -30,32 +30,9 @@ var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<footer>\r\n  <div class=\"footer-container mdc-theme--secondary-bg\">\r\n    <a class=\"logo\" href=\"/\" alt=\"Home page\">\r\n      <img class=\"logo__image\" src=\"/assets/img/logo/hinteat.png\" srcset=\"/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x\" alt=\"HintEat\"> \r\n    </a>\r\n  </div>\r\n</footer>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
-;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
-}
-}
-return {
-root: root
-};
-
-})();
-})();
-
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["home.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-output += "<header-component data-outjs-open-filters=\"openFilters\"></header-component>\r\n<main id=\"maincontent\">\r\n\t<map-component data-in-show-placeholder=\"true\" data-injsfn-update-markers=\"updateMarkers\"></map-component>\r\n\t<filters-component data-injsfn-open-filters=\"open\" data-outjs-filter=\"filter\"></filters-component>\r\n\t<results-component data-outjs-set-markers=\"setMarkers\" data-injsfn-filter=\"filter\"></results-component>\r\n</main>\r\n<footer-component></footer-component>";
+output += "<footer>\r\n  <div class=\"footer-container mdc-theme--secondary-bg\">\r\n    <a class=\"logo\" href=\"/\" alt=\"Home page\">\r\n      <img class=\"logo__image\" src=\"/assets/img/logo/hinteat.png\" srcset=\"/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x\" alt=\"HintEat\"> \r\n    </a>\r\n    <span class=\"version\">Version UI ";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "version"), env.opts.autoescape);
+output += "</span>\r\n  </div>\r\n</footer>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -98,20 +75,14 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["map.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["home.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-if(runtime.contextOrFrameLookup(context, frame, "showplaceholder") === "true") {
-output += "\r\n  <div class=\"map-placeholder\">\r\n    <picture>\r\n      <source media=\"(min-width: 450px)\" \r\n        srcset=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=640x400&format=JPEG&style=feature:all|element:label|visibility:off\">\r\n      <img class=\"map-placeholder__image\" alt=\"Map placeholde. Press following button to open the map.\"\r\n        src=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off\" \r\n        srcset=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off, \r\n              https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&scale=2&format=JPEG&style=feature:all|element:label|visibility:off 2x\"/>\r\n    </picture>  \r\n    <button class=\"mdc-button mdc-button--raised mdc-button--dense\" id=\"open-map\">\r\n      Open map\r\n    </button>\r\n  </div>\r\n";
-;
-}
-output += "\r\n<div id=\"map-container\" class=\"map-wrapper\" aria-hidden=\"";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "hideMap"), env.opts.autoescape);
-output += "\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed map-toolbar\">\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-map\" href=\"#\" class=\"material-icons mdc-toolbar__icon\" aria-label=\"close map\">arrow_back</a>\r\n\t\t\t\t\t<!-- <span class=\"mdc-toolbar__title\">Be more specific</span> -->\r\n\t\t\t</section>\r\n\t\t</div>\r\n  </div>\r\n  <a class=\"skip-map\" aria-label=\"Skip map\" href=\"#\">Skip map</a>\r\n  <div id=\"map\"></div>\r\n  <div id=\"afterMap\"></div>\r\n</div>";
+output += "<header-component data-outjs-open-filters=\"openFilters\"></header-component>\r\n<main id=\"maincontent\">\r\n\t<map-component data-in-show-placeholder=\"true\" data-injsfn-update-markers=\"updateMarkers\"></map-component>\r\n\t<filters-component data-injsfn-open-filters=\"open\" data-outjs-filter=\"filter\"></filters-component>\r\n\t<results-component data-outjs-set-markers=\"setMarkers\" data-injsfn-filter=\"filter\"></results-component>\r\n</main>\r\n<footer-component></footer-component>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -129,42 +100,20 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["map.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
-output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("cuisine", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\" ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
-output += ">\r\n          ";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\r\n        </li>\r\n      ";
+if(runtime.contextOrFrameLookup(context, frame, "showplaceholder") === "true") {
+output += "\r\n  <div class=\"map-placeholder\">\r\n    <picture>\r\n      <source media=\"(min-width: 450px)\" \r\n        srcset=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=640x400&format=JPEG&style=feature:all|element:label|visibility:off\">\r\n      <img class=\"map-placeholder__image\" alt=\"Map placeholde. Press following button to open the map.\"\r\n        src=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off\" \r\n        srcset=\"https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&format=JPEG&style=feature:all|element:label|visibility:off, \r\n              https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=15&size=450x350&scale=2&format=JPEG&style=feature:all|element:label|visibility:off 2x\"/>\r\n    </picture>  \r\n    <button class=\"mdc-button mdc-button--raised mdc-button--dense\" id=\"open-map\">\r\n      Open map\r\n    </button>\r\n  </div>\r\n";
 ;
 }
-}
-frame = frame.pop();
-output += "\r\n    </ul>\r\n  </div>\r\n</div>";
+output += "\r\n<div id=\"map-container\" class=\"map-wrapper\" aria-hidden=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "hideMap"), env.opts.autoescape);
+output += "\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed map-toolbar\">\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-map\" href=\"#\" class=\"material-icons mdc-toolbar__icon\" aria-label=\"close map\">arrow_back</a>\r\n\t\t\t\t\t<!-- <span class=\"mdc-toolbar__title\">Be more specific</span> -->\r\n\t\t\t</section>\r\n\t\t</div>\r\n  </div>\r\n  <a class=\"skip-map\" aria-label=\"Skip map\" href=\"#\">Skip map</a>\r\n  <div id=\"map\"></div>\r\n  <div id=\"afterMap\"></div>\r\n</div>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -288,6 +237,98 @@ root: root
 })();
 })();
 
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["filters.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+if(runtime.contextOrFrameLookup(context, frame, "isBig")) {
+output += "\r\n<div id=\"filters\" class=\"filters-wrapper\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
+;
+}
+else {
+output += "\r\n<div id=\"filters\" class=\"filters-wrapper\" aria-hidden=\"true\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
+;
+}
+output += "\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface\" aria-label=\"close filters\" tabindex=\"0\">clear</a>\r\n\t\t\t\t\t<span class=\"mdc-toolbar__title\">Be more specific</span>\r\n\t\t\t</section>\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit\">\r\n\t\t\t\t\t<a id=\"confirm-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary\" aria-label=\"confirm filters\" tabindex=\"0\">done</a>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"filters-content\">\r\n\t\t<cuisine-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setCuisine\" data-injs-value=\"cuisine\"></cuisine-filter-component>\r\n\t\t<neighborhood-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setNeighborhood\" data-injs-value=\"neighboorhood\"></neighborhood-filter-component>\r\n\t\t<!-- <button class=\"mdc-button cards-view-button\" id=\"list-view-button\" aria-pressed=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "listView"), env.opts.autoescape);
+output += "\">\r\n\t\t\tList view\r\n\t\t</button>\r\n\t\t<button class=\"mdc-button cards-view-button\" id=\"grid-view-button\" aria-pressed=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "gridView"), env.opts.autoescape);
+output += "\">\r\n\t\t\tGrid view\r\n\t\t</button> -->\r\n\t</div>\r\n\t<div class=\"filters-results\"><span id=\"total-results\">";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "totalResults"), env.opts.autoescape);
+output += "</span><span> Results</span></div>\r\n</div>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
+output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
+frame = frame.push();
+var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("cuisine", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\" ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
+output += ">\r\n          ";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\r\n        </li>\r\n      ";
+;
+}
+}
+frame = frame.pop();
+output += "\r\n    </ul>\r\n  </div>\r\n</div>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
@@ -318,45 +359,6 @@ output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
 }
 frame = frame.pop();
 output += "    \r\n  </ul>\r\n</section>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
-;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
-}
-}
-return {
-root: root
-};
-
-})();
-})();
-
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["filters.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-if(runtime.contextOrFrameLookup(context, frame, "isBig")) {
-output += "\r\n<div id=\"filters\" class=\"filters-wrapper\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
-;
-}
-else {
-output += "\r\n<div id=\"filters\" class=\"filters-wrapper\" aria-hidden=\"true\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
-;
-}
-output += "\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface\" aria-label=\"close filters\" tabindex=\"0\">clear</a>\r\n\t\t\t\t\t<span class=\"mdc-toolbar__title\">Be more specific</span>\r\n\t\t\t</section>\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit\">\r\n\t\t\t\t\t<a id=\"confirm-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary\" aria-label=\"confirm filters\" tabindex=\"0\">done</a>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"filters-content\">\r\n\t\t<cuisine-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setCuisine\" data-injs-value=\"cuisine\"></cuisine-filter-component>\r\n\t\t<neighborhood-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setNeighborhood\" data-injs-value=\"neighboorhood\"></neighborhood-filter-component>\r\n\t\t<!-- <button class=\"mdc-button cards-view-button\" id=\"list-view-button\" aria-pressed=\"";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "listView"), env.opts.autoescape);
-output += "\">\r\n\t\t\tList view\r\n\t\t</button>\r\n\t\t<button class=\"mdc-button cards-view-button\" id=\"grid-view-button\" aria-pressed=\"";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "gridView"), env.opts.autoescape);
-output += "\">\r\n\t\t\tGrid view\r\n\t\t</button> -->\r\n\t</div>\r\n\t<div class=\"filters-results\"><span id=\"total-results\">";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "totalResults"), env.opts.autoescape);
-output += "</span><span> Results</span></div>\r\n</div>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {

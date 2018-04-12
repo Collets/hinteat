@@ -1,9 +1,15 @@
 @import "../colors/colors";
+@import "@material/theme/mdc-theme";
+@import "@material/typography/mdc-typography";
 
 .footer-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5px;
+  @include mdc-theme-prop("color", "text-primary-on-primary-dark");
+  @include mdc-typography("caption");
 }
 .logo{
   box-sizing: border-box;

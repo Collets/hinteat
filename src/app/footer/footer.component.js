@@ -1,5 +1,4 @@
 import BaseComponent from 'core/base/base.component';
-import {MDCToolbar} from '@material/toolbar';
 
 import './footer.scss';
 
@@ -11,6 +10,8 @@ class FooterComponent extends BaseComponent {
   */
   constructor(params) {
     super(params);
+
+    this._model.version = process.env.VERSION;
   }
 
   /**

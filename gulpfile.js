@@ -37,7 +37,7 @@ gulp.task('nunjucks:precompile', () =>
 		.pipe(gulp.dest('src/lib'))
 );
 
-gulp.task('webpack:serve:dev', () => {
+gulp.task('webpack:serve:dev', ['nunjucks:precompile'], () => {
   var myConfig = Object.create(SERVE_DEV_CONFIG);
 
   new WebpackDevServer(webpack(myConfig), {
