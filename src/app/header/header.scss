@@ -1,0 +1,8 @@
+@import "../colors/colors";
+@import "@material/toolbar/mdc-toolbar";
+
+#openFilters{  
+  @media screen and (min-width:769px) {
+    display: none;
+  }
+}

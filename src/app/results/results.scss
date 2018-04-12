@@ -1,0 +1,35 @@
+@import "@material/typography/mdc-typography";
+
+.results-list{
+  list-style: outside none none;
+  margin: 16px 16px 16px 16px;
+  padding: 0;
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+
+  @media screen and (min-width:576px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media screen and (min-width:768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media screen and (min-width:1280px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media screen and (min-width:1600px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.results-subtitle{
+  padding: 0 16px;
+}
+
+.results-subtitle__text{
+  @include mdc-typography("subheading1");
+}

@@ -1,0 +1,18 @@
+<aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+  <nav class="mdc-drawer__drawer">
+
+    <span class="menu-logo mdc-theme--secondary-bg">
+      <a class="menu-logo__link" href="/" alt="Home page">
+        <img class="menu-logo__image" src="assets/img/logo/hinteat.png" srcset="assets/img/logo/hinteat.png 1x, assets/img/logo/hinteat@2x.png 2x" alt="HintEat"> 
+      </a>
+    </span>
+    <nav id="icon-with-text-demo" class="mdc-drawer__content mdc-list">
+      {% for menuVoice in menuVoices %}
+        <a class="mdc-list-item" href="{{ menuVoice.url }}">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">{{ menuVoice.icon }}</i>{{ menuVoice.label }}
+          <!-- <i class="material-icons">{{ menuVoice.icon }}</i> -->
+        </a>
+      {% endfor %}
+    </nav>
+  </nav>
+</aside>
