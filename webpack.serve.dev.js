@@ -26,7 +26,6 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
-        'BASEURL': JSON.stringify('http://localhost:9000/')
       }
     })
   ],

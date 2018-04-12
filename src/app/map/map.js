@@ -48,7 +48,7 @@ class Map {
     let promise = new Promise((resolve, reject)=>{
       if (!this._entity) {
         loadGoogleMapsApi({
-          key: 'AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w',
+          key: process.env.MAPSAPIKEY,
           libraries: ['places'],
         }).then((googleMaps)=>{
           this._entity = googleMaps;

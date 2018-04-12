@@ -1,6 +1,6 @@
 import Navigo from 'navigo';
 import {ComponentFactory} from 'core/component-factory/component-factory';
-import { SYSPARAMS } from 'core/utils/system.params';
+import {SYSPARAMS} from 'core/utils/system.params';
 
 export const RouteEngine = {
   routes: [
@@ -9,7 +9,7 @@ export const RouteEngine = {
       component: 'RestaurantComponent',
     },
     {
-      url: null,
+      url: '/',
       component: 'HomeComponent',
     },
   ],

@@ -8,8 +8,7 @@ export default class DbService {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 9000; // Change this to your server port
-    return `http://localhost:${port}/assets/data/restaurants.json`;
+    return '/assets/data/restaurants.json';
   }
 
   /**

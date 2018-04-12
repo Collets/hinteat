@@ -10,6 +10,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].min.js'
   },
@@ -97,6 +98,12 @@ module.exports = {
       minify: {
         removeComments: true,
         collapseWhitespace: true
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'BASEURL': JSON.stringify(process.env.BASEURL),
+        'MAPSAPIKEY': JSON.stringify(process.env.MAPSAPIKEY),
       }
     }),
   ]

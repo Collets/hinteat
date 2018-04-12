@@ -8,12 +8,16 @@ const gprint = require('gulp-print');
 const gutil = require("gulp-util");
 const del = require('del');
 const vinylPaths = require('vinyl-paths');
-const webpackStream = require('webpack-stream')
-const webpackProdConfig = require('./webpack.prod.js');
-const webpackDevConfig = require('./webpack.dev.js');
-const webpack = require("webpack");
-const WebpackDevServer = require("webpack-dev-server");
 const open = require('opn');
+
+const webpack = require("webpack");
+const webpackStream = require('webpack-stream');
+const WebpackDevServer = require("webpack-dev-server");
+
+/* CONFIG FILES */
+const BUILD_DEV_CONFIG = require('./webpack.build.dev.js');
+const BUILD_PROD_CONFIG = require('./webpack.build.prod.js');
+const SERVE_DEV_CONFIG = require('./webpack.serve.dev.js');
 
 
 const paths = {
@@ -21,7 +25,7 @@ const paths = {
   build: './dist/'
 };
 
-gulp.task('precompile-templates', () =>
+gulp.task('nunjucks:precompile', () =>
 	gulp.src('src/app/**/*.+(njk)')
     .pipe(nunjucks.precompile({
       name: file => { 
@@ -33,13 +37,8 @@ gulp.task('precompile-templates', () =>
 		.pipe(gulp.dest('src/lib'))
 );
 
-gulp.task('webpack:build', ['precompile-templates'] ,() => {
-  return webpackStream(webpackProdConfig)
-      .pipe(gulp.dest(`${paths.build}`));
-});
-
-gulp.task('webpack:web.server', () => {
-  var myConfig = Object.create(webpackDevConfig);
+gulp.task('webpack:serve:dev', () => {
+  var myConfig = Object.create(SERVE_DEV_CONFIG);
 
   new WebpackDevServer(webpack(myConfig), {
     port: 9000,
@@ -53,11 +52,17 @@ gulp.task('webpack:web.server', () => {
     },
   }).listen(9000, "localhost", function(err) {
     if (err) throw new gutil.PluginError("webpack-dev-server", err);
-    gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
 
-    open('http://localhost:9000/');
+    open(process.env.BASEURL);
   });
 });
 
-gulp.task('default', ['webpack:build']);
-gulp.task('webserver', ['webpack:web.server']);
+gulp.task('webpack:build:prod', ['nunjucks:precompile'] ,() => {
+  return webpackStream(BUILD_PROD_CONFIG)
+      .pipe(gulp.dest(`${paths.build}`));
+});
+
+gulp.task('webpack:build:dev', ['nunjucks:precompile'] ,() => {
+  return webpackStream(BUILD_DEV_CONFIG)
+      .pipe(gulp.dest(`${paths.build}`));
+});

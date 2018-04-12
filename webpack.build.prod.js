@@ -13,9 +13,6 @@ module.exports = merge(common, {
   entry: {
     main: path.resolve(__dirname, 'src/main.js'),
   },
-  output: {
-    publicPath: './'
-  },
   plugins: [
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/,

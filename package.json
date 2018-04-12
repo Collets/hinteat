@@ -4,9 +4,23 @@
   "description": "Portal for restaurant and meal reviews",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp webserver",
-    "build": "gulp"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "betterScripts": {
+    "serve.dev":{
+      "command": "gulp webpack:serve:dev",
+      "env":{
+        "BASEURL": "http://localhost:9000/",
+        "MAPSAPIKEY": "AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w"
+      }
+    },
+    "build.dev": {
+      "command": "gulp webpack:build:dev",
+      "env": {
+        "BASEURL": "http://dev.hinteat.io/",
+        "MAPSAPIKEY": "AIzaSyAOkAj3CSayTd27Md2c1rRi3m_t5aqDm4w"
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -23,6 +37,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "better-npm-run": "^0.1.0",
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.4.1",
     "cross-env": "^5.1.4",
