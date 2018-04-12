@@ -41,6 +41,6 @@ export default function bootstrap(entrypoint) {
     ];
 
     ComponentFactory.startup(entrypoint).then(()=>{
-        RouteEngine.initialize('http://localhost:9000/');
+        RouteEngine.initialize(process.env.BASEURL);
     });
 }
