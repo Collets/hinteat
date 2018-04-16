@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "betterScripts": {
-    "serve.dev":{
+    "serve.dev": {
       "command": "gulp webpack:serve:dev",
-      "env":{
+      "env": {
         "BASEURL": "http://localhost:9000/",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng"
       }
@@ -65,7 +65,8 @@
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.1",
-    "webpack-stream": "^4.0.3"
+    "webpack-stream": "^4.0.3",
+    "workbox-webpack-plugin": "^3.0.1"
   },
   "dependencies": {
     "@material/button": "^0.32.0",
