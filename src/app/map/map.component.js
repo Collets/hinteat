@@ -1,6 +1,7 @@
 import BaseComponent from 'core/base/base.component';
 import Map from 'app/map/map';
 let createFocusTrap = require('focus-trap');
+import {RouteEngine} from 'core/routing/route';
 
 import {MDCRipple} from '@material/ripple';
 
@@ -169,7 +170,7 @@ class MapComponent extends BaseComponent {
       });
 
       this._googleMaps.event.addListener(marker, 'click', () => {
-        window.location.href = marker.url;
+        RouteEngine.router.navigate(marker.url);
       });
       this.model.markers.push(marker);
     });

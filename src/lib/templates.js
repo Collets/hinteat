@@ -23,69 +23,28 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["filters.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
-output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("cuisine", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\" ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
-output += ">\r\n          ";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\r\n        </li>\r\n      ";
+if(runtime.contextOrFrameLookup(context, frame, "isBig")) {
+output += "\r\n<div id=\"filters\" class=\"filters-wrapper\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
 ;
 }
-}
-frame = frame.pop();
-output += "\r\n    </ul>\r\n  </div>\r\n</div>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
+else {
+output += "\r\n<div id=\"filters\" class=\"filters-wrapper\" aria-hidden=\"true\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
 ;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
 }
-}
-return {
-root: root
-};
-
-})();
-})();
-
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["footer.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-output += "<footer>\r\n  <div class=\"footer-container mdc-theme--secondary-bg\">\r\n    <a class=\"logo\" href=\"/\" alt=\"Home page\">\r\n      <img class=\"logo__image\" src=\"/assets/img/logo/hinteat.png\" srcset=\"/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x\" alt=\"HintEat\"> \r\n    </a>\r\n    <span class=\"version\">Version UI ";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "version"), env.opts.autoescape);
-output += "</span>\r\n  </div>\r\n</footer>";
+output += "\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface\" aria-label=\"close filters\" tabindex=\"0\">clear</a>\r\n\t\t\t\t\t<span class=\"mdc-toolbar__title\">Be more specific</span>\r\n\t\t\t</section>\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit\">\r\n\t\t\t\t\t<a id=\"confirm-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary\" aria-label=\"confirm filters\" tabindex=\"0\">done</a>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"filters-content\">\r\n\t\t<cuisine-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setCuisine\" data-injs-value=\"cuisine\"></cuisine-filter-component>\r\n\t\t<neighborhood-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setNeighborhood\" data-injs-value=\"neighboorhood\"></neighborhood-filter-component>\r\n\t\t<!-- <button class=\"mdc-button cards-view-button\" id=\"list-view-button\" aria-pressed=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "listView"), env.opts.autoescape);
+output += "\">\r\n\t\t\tList view\r\n\t\t</button>\r\n\t\t<button class=\"mdc-button cards-view-button\" id=\"grid-view-button\" aria-pressed=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "gridView"), env.opts.autoescape);
+output += "\">\r\n\t\t\tGrid view\r\n\t\t</button> -->\r\n\t</div>\r\n\t<div class=\"filters-results\"><span id=\"total-results\">";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "totalResults"), env.opts.autoescape);
+output += "</span><span> Results</span></div>\r\n</div>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -290,28 +249,127 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["filters.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-if(runtime.contextOrFrameLookup(context, frame, "isBig")) {
-output += "\r\n<div id=\"filters\" class=\"filters-wrapper\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
+output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
+frame = frame.push();
+var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("restaurant", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
+output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
+;
+}
+}
+frame = frame.pop();
+output += "    \r\n  </ul>\r\n</section>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["review.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<a class=\"mdc-list-item reviews-list-item\" role=\"link\" tabindex=\"0\" href=\"#\">\r\n  <span class=\"mdc-list-item__text\">\r\n      ";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"name"), env.opts.autoescape);
+output += "\r\n    <span class=\"mdc-list-item__secondary-text\">";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"comments"), env.opts.autoescape);
+output += "</span>\r\n  </span>\r\n  <span class=\"mdc-list-item__meta reviews-list-item__rating\">\r\n      ";
+frame = frame.push();
+var t_3 = (lineno = 6, colno = 21, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [0,5]));
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("i", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+if(t_4 < runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"rating")) {
+output += "\r\n          <i class=\"material-icons\">star</i>\r\n        ";
 ;
 }
 else {
-output += "\r\n<div id=\"filters\" class=\"filters-wrapper\" aria-hidden=\"true\">\r\n\t<div class=\"mdc-toolbar mdc-toolbar--fixed filters-toolbar\">\r\n";
+output += "\r\n          <i class=\"material-icons\">star_border</i>\r\n        ";
 ;
 }
-output += "\r\n\t\t<div class=\"mdc-toolbar__row\">\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n\t\t\t\t\t<a id=\"close-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface\" aria-label=\"close filters\" tabindex=\"0\">clear</a>\r\n\t\t\t\t\t<span class=\"mdc-toolbar__title\">Be more specific</span>\r\n\t\t\t</section>\r\n\t\t\t<section class=\"mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit\">\r\n\t\t\t\t\t<a id=\"confirm-filters\" href=\"#\" class=\"material-icons mdc-toolbar__icon filters-toolbar__icon mdc-ripple-surface mdc-ripple-surface--primary\" aria-label=\"confirm filters\" tabindex=\"0\">done</a>\r\n\t\t\t</section>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"filters-content\">\r\n\t\t<cuisine-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setCuisine\" data-injs-value=\"cuisine\"></cuisine-filter-component>\r\n\t\t<neighborhood-filter-component class=\"filter-select-wrapper\" data-outjs-set-value=\"setNeighborhood\" data-injs-value=\"neighboorhood\"></neighborhood-filter-component>\r\n\t\t<!-- <button class=\"mdc-button cards-view-button\" id=\"list-view-button\" aria-pressed=\"";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "listView"), env.opts.autoescape);
-output += "\">\r\n\t\t\tList view\r\n\t\t</button>\r\n\t\t<button class=\"mdc-button cards-view-button\" id=\"grid-view-button\" aria-pressed=\"";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "gridView"), env.opts.autoescape);
-output += "\">\r\n\t\t\tGrid view\r\n\t\t</button> -->\r\n\t</div>\r\n\t<div class=\"filters-results\"><span id=\"total-results\">";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "totalResults"), env.opts.autoescape);
-output += "</span><span> Results</span></div>\r\n</div>";
+;
+}
+}
+frame = frame.pop();
+output += "\r\n  </span>\r\n</a>\r\n\r\n<aside id=\"review-detail-";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "id"), env.opts.autoescape);
+output += "\"\r\n  class=\"mdc-dialog\"\r\n  role=\"alertdialog\"\r\n  aria-labelledby=\"my-mdc-dialog-label\"\r\n  aria-describedby=\"my-mdc-dialog-description\">\r\n  <div class=\"mdc-dialog__surface\">\r\n    <header class=\"mdc-dialog__header\">\r\n      <h2 id=\"my-mdc-dialog-label\" class=\"mdc-dialog__header__title\">\r\n        ";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"name"), env.opts.autoescape);
+output += "\r\n      </h2>\r\n      <span class=\"reviews-list-item__rating\">\r\n          ";
+frame = frame.push();
+var t_7 = (lineno = 27, colno = 25, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [0,5]));
+if(t_7) {t_7 = runtime.fromIterator(t_7);
+var t_6 = t_7.length;
+for(var t_5=0; t_5 < t_7.length; t_5++) {
+var t_8 = t_7[t_5];
+frame.set("i", t_8);
+frame.set("loop.index", t_5 + 1);
+frame.set("loop.index0", t_5);
+frame.set("loop.revindex", t_6 - t_5);
+frame.set("loop.revindex0", t_6 - t_5 - 1);
+frame.set("loop.first", t_5 === 0);
+frame.set("loop.last", t_5 === t_6 - 1);
+frame.set("loop.length", t_6);
+if(t_8 < runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"rating")) {
+output += "\r\n              <i class=\"material-icons\">star</i>\r\n            ";
+;
+}
+else {
+output += "\r\n              <i class=\"material-icons\">star_border</i>\r\n            ";
+;
+}
+;
+}
+}
+frame = frame.pop();
+output += "\r\n      </span>\r\n    </header>\r\n    <section id=\"my-mdc-dialog-description\" class=\"mdc-dialog__body\">\r\n      <span class=\"mdc-typography--caption\">";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"date"), env.opts.autoescape);
+output += "</span>\r\n      <p>";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"comments"), env.opts.autoescape);
+output += "</p>\r\n    </section>\r\n    <footer class=\"mdc-dialog__footer\">\r\n      <button type=\"button\" class=\"mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel\">CLOSE</button>\r\n    </footer>\r\n  </div>\r\n  <div class=\"mdc-dialog__backdrop\"></div>\r\n</aside>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -441,25 +499,23 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["review.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<a class=\"mdc-list-item reviews-list-item\" role=\"link\" tabindex=\"0\" href=\"#\">\r\n  <span class=\"mdc-list-item__text\">\r\n      ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"name"), env.opts.autoescape);
-output += "\r\n    <span class=\"mdc-list-item__secondary-text\">";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"comments"), env.opts.autoescape);
-output += "</span>\r\n  </span>\r\n  <span class=\"mdc-list-item__meta reviews-list-item__rating\">\r\n      ";
+output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
+output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
 frame = frame.push();
-var t_3 = (lineno = 6, colno = 21, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [0,5]));
+var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
 if(t_3) {t_3 = runtime.fromIterator(t_3);
 var t_2 = t_3.length;
 for(var t_1=0; t_1 < t_3.length; t_1++) {
 var t_4 = t_3[t_1];
-frame.set("i", t_4);
+frame.set("cuisine", t_4);
 frame.set("loop.index", t_1 + 1);
 frame.set("loop.index0", t_1);
 frame.set("loop.revindex", t_2 - t_1);
@@ -467,54 +523,18 @@ frame.set("loop.revindex0", t_2 - t_1 - 1);
 frame.set("loop.first", t_1 === 0);
 frame.set("loop.last", t_1 === t_2 - 1);
 frame.set("loop.length", t_2);
-if(t_4 < runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"rating")) {
-output += "\r\n          <i class=\"material-icons\">star</i>\r\n        ";
-;
-}
-else {
-output += "\r\n          <i class=\"material-icons\">star_border</i>\r\n        ";
-;
-}
-;
-}
-}
-frame = frame.pop();
-output += "\r\n  </span>\r\n</a>\r\n\r\n<aside id=\"review-detail-";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "id"), env.opts.autoescape);
-output += "\"\r\n  class=\"mdc-dialog\"\r\n  role=\"alertdialog\"\r\n  aria-labelledby=\"my-mdc-dialog-label\"\r\n  aria-describedby=\"my-mdc-dialog-description\">\r\n  <div class=\"mdc-dialog__surface\">\r\n    <header class=\"mdc-dialog__header\">\r\n      <h2 id=\"my-mdc-dialog-label\" class=\"mdc-dialog__header__title\">\r\n        ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"name"), env.opts.autoescape);
-output += "\r\n      </h2>\r\n      <span class=\"reviews-list-item__rating\">\r\n          ";
-frame = frame.push();
-var t_7 = (lineno = 27, colno = 25, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [0,5]));
-if(t_7) {t_7 = runtime.fromIterator(t_7);
-var t_6 = t_7.length;
-for(var t_5=0; t_5 < t_7.length; t_5++) {
-var t_8 = t_7[t_5];
-frame.set("i", t_8);
-frame.set("loop.index", t_5 + 1);
-frame.set("loop.index0", t_5);
-frame.set("loop.revindex", t_6 - t_5);
-frame.set("loop.revindex0", t_6 - t_5 - 1);
-frame.set("loop.first", t_5 === 0);
-frame.set("loop.last", t_5 === t_6 - 1);
-frame.set("loop.length", t_6);
-if(t_8 < runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"rating")) {
-output += "\r\n              <i class=\"material-icons\">star</i>\r\n            ";
-;
-}
-else {
-output += "\r\n              <i class=\"material-icons\">star_border</i>\r\n            ";
-;
-}
+output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\" ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
+output += ">\r\n          ";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\r\n        </li>\r\n      ";
 ;
 }
 }
 frame = frame.pop();
-output += "\r\n      </span>\r\n    </header>\r\n    <section id=\"my-mdc-dialog-description\" class=\"mdc-dialog__body\">\r\n      <span class=\"mdc-typography--caption\">";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"date"), env.opts.autoescape);
-output += "</span>\r\n      <p>";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"comments"), env.opts.autoescape);
-output += "</p>\r\n    </section>\r\n    <footer class=\"mdc-dialog__footer\">\r\n      <button type=\"button\" class=\"mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel\">CLOSE</button>\r\n    </footer>\r\n  </div>\r\n  <div class=\"mdc-dialog__backdrop\"></div>\r\n</aside>";
+output += "\r\n    </ul>\r\n  </div>\r\n</div>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
@@ -532,36 +552,16 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["footer.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
 var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("restaurant", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
-output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
-;
-}
-}
-frame = frame.pop();
-output += "    \r\n  </ul>\r\n</section>";
+output += "<footer>\r\n  <div class=\"footer-container mdc-theme--secondary-bg\">\r\n    <a class=\"logo\" href=\"/\" alt=\"Home page\">\r\n      <img class=\"logo__image\" src=\"/assets/img/logo/hinteat.png\" srcset=\"/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x\" alt=\"HintEat\"> \r\n    </a>\r\n    <span class=\"version\">Version UI ";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "version"), env.opts.autoescape);
+output += "</span>\r\n  </div>\r\n</footer>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
