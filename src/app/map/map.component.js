@@ -72,6 +72,7 @@ class MapComponent extends BaseComponent {
     let mapOpened = wrapper.getAttribute('aria-hidden') || 'true';
 
     wrapper.setAttribute('aria-hidden', mapOpened != 'true');
+    document.body.classList.toggle('noscroll', mapOpened == 'true');
 
     if (mapOpened == 'true') {
       if(target)
