@@ -32,7 +32,10 @@ export const RouteEngine = {
             ComponentFactory.setRouterComponent(route.component)
             .then(()=>{
               if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                document.querySelector('.loader').classList.add('hidden');
+                setTimeout(()=>{
+                  document.querySelector('.loader').classList.add('hidden');
+                }, 2000);
+                
                 SYSPARAMS.FIRSTLOAD = false;
               }
             });
@@ -43,7 +46,10 @@ export const RouteEngine = {
             ComponentFactory.setRouterComponent(route.component, params)
             .then(()=>{
               if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                document.querySelector('.loader').classList.add('hidden');
+                setTimeout(()=>{
+                  document.querySelector('.loader').classList.add('hidden');
+                }, 1000);
+
                 SYSPARAMS.FIRSTLOAD = false;
               }
             });

@@ -14,7 +14,21 @@
   </div>
   <div class="restaurant-cover__wrapper">
     <span class="restaurant-cover__overlay"></span>
-    <img class="restaurant-cover__image" src="/assets/img/{{restaurant.photograph}}" alt="{{restaurant.name}}"/>
+    <picture>
+      <source media="(max-width:599px)"
+        srcset="/assets/img/headers/{{restaurant.photograph}}@599.webp"/>
+      <source media="(max-width:800px)"
+        srcset="/assets/img/headers/{{restaurant.photograph}}@800.webp"/>
+      <source media="(max-width:1200px)"
+        srcset="/assets/img/headers/{{restaurant.photograph}}@1200.webp"/>
+      <source media="(max-width:1600px)"
+        srcset="/assets/img/headers/{{restaurant.photograph}}@1600.webp"/>
+      <source media="(min-width:1601px)"
+        srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
+      <img class="restaurant-cover__image" alt="{{restaurant.name}}"
+        src="/assets/img/headers/{{restaurant.photograph}}.jpg"
+        srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
+    </picture>  
   </div>
 </header>
 <main class="mdc-toolbar-fixed-adjust restaurant-content">

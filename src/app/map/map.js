@@ -25,21 +25,6 @@ class Map {
     this._entity = value;
   }
 
-  // /**
-  //  * markers getter
-  // */
-  // get markers() {
-  //   return this._markers;
-  // }
-
-  // /**
-  //  * markers setter
-  //  * @param {object[]} values
-  // */
-  // set markers(values) {
-  //   this._markers = values;
-  // }
-
   /**
    * Load map from Google Maps API
    * @return {Promise}
