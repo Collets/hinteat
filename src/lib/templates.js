@@ -23,6 +23,59 @@ root: root
 })();
 })();
 
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
+output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
+frame = frame.push();
+var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("cuisine", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\" ";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
+output += ">\r\n          ";
+output += runtime.suppressValue(t_4, env.opts.autoescape);
+output += "\r\n        </li>\r\n      ";
+;
+}
+}
+frame = frame.pop();
+output += "\r\n    </ul>\r\n  </div>\r\n</div>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["footer.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
@@ -276,106 +329,6 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["cuisine-filter.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-output += "<div class=\"mdc-select filter-select\" role=\"listbox\" id=\"cuisines-select\">\r\n  <div class=\"mdc-select__surface\" tabindex=\"0\">\r\n    <div class=\"mdc-select__label ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") && runtime.contextOrFrameLookup(context, frame, "value") != "all-cuisines"?"mdc-select__label--float-above":""), env.opts.autoescape);
-output += "\">Pick a Cuisine</div>\r\n    <div class=\"mdc-select__selected-text\"></div>\r\n    <div class=\"mdc-select__bottom-line\"></div>\r\n  </div>\r\n  <div class=\"mdc-menu mdc-select__menu\">\r\n    <ul class=\"mdc-list mdc-menu__items\">\r\n      <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"all-cuisines\">\r\n        All cuisines\r\n      </li>\r\n      ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "cuisines");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("cuisine", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n        <li class=\"mdc-list-item\" role=\"option\" tabindex=\"0\" id=\"";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\" ";
-output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "value") == t_4?"aria-selected":""), env.opts.autoescape);
-output += ">\r\n          ";
-output += runtime.suppressValue(t_4, env.opts.autoescape);
-output += "\r\n        </li>\r\n      ";
-;
-}
-}
-frame = frame.pop();
-output += "\r\n    </ul>\r\n  </div>\r\n</div>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
-;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
-}
-}
-return {
-root: root
-};
-
-})();
-})();
-
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("restaurant", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
-output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
-;
-}
-}
-frame = frame.pop();
-output += "    \r\n  </ul>\r\n</section>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
-;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
-}
-}
-return {
-root: root
-};
-
-})();
-})();
-
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["restaurant.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
@@ -562,6 +515,53 @@ output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLook
 output += "</span>\r\n      <p>";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "review")),"comments"), env.opts.autoescape);
 output += "</p>\r\n    </section>\r\n    <footer class=\"mdc-dialog__footer\">\r\n      <button type=\"button\" class=\"mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel\">CLOSE</button>\r\n    </footer>\r\n  </div>\r\n  <div class=\"mdc-dialog__backdrop\"></div>\r\n</aside>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
+frame = frame.push();
+var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("restaurant", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
+output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
+;
+}
+}
+frame = frame.pop();
+output += "    \r\n  </ul>\r\n</section>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
