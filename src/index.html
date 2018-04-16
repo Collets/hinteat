@@ -24,6 +24,11 @@
       justify-content:center;
       align-items:center;
       z-index:10;
+      box-sizing: border-box;
+      padding: 0 45px;
+    }
+    .loader__logo{
+      max-width:100%;
     }
     .loader.hidden{
       display: none;
@@ -37,7 +42,15 @@
   <!-- <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer> -->
-
+  <script>
+    // Check that service workers are registered
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
 </body>
 
 </html>

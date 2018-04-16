@@ -329,53 +329,6 @@ root: root
 })();
 })();
 
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
-function root(env, context, frame, runtime, cb) {
-var lineno = null;
-var colno = null;
-var output = "";
-try {
-var parentTemplate = null;
-output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
-frame = frame.push();
-var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
-if(t_3) {t_3 = runtime.fromIterator(t_3);
-var t_2 = t_3.length;
-for(var t_1=0; t_1 < t_3.length; t_1++) {
-var t_4 = t_3[t_1];
-frame.set("restaurant", t_4);
-frame.set("loop.index", t_1 + 1);
-frame.set("loop.index0", t_1);
-frame.set("loop.revindex", t_2 - t_1);
-frame.set("loop.revindex0", t_2 - t_1 - 1);
-frame.set("loop.first", t_1 === 0);
-frame.set("loop.last", t_1 === t_2 - 1);
-frame.set("loop.length", t_2);
-output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
-output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
-;
-}
-}
-frame = frame.pop();
-output += "    \r\n  </ul>\r\n</section>";
-if(parentTemplate) {
-parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
-} else {
-cb(null, output);
-}
-;
-} catch (e) {
-  cb(runtime.handleError(e, lineno, colno));
-}
-}
-return {
-root: root
-};
-
-})();
-})();
-
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["restaurant.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
@@ -383,11 +336,23 @@ var colno = null;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<header class=\"mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior mdc-toolbar--flexible-space-maximized restaurant\">\r\n  <div class=\"mdc-toolbar__row restaurant-header\">\r\n    <section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n      <a id=\"back-to-home\" href=\"#\" class=\"material-icons mdc-toolbar__icon\" aria-label=\"Back to home\">arrow_back</a>\r\n    </section>\r\n    <section class=\"mdc-toolbar__section mdc-toolbar__section--align-end\" role=\"toolbar\">      \r\n      <a href=\"#\" class=\"material-icons mdc-toolbar__icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded\" aria-label=\"Bookmark this page\" alt=\"Bookmark this page\">share</a>\r\n      <span class=\"material-icons mdc-toolbar__icon add-favorites-button\"\r\n        tabindex=\"0\" role=\"button\" aria-pressed=\"false\" aria-label=\"Add to favorites\" title=\"Add to favorites\"\r\n        data-toggle-on='{\"label\": \"Remove from favorites\", \"content\": \"favorite\"}'\r\n        data-toggle-off='{\"label\": \"Add to favorites\", \"content\": \"favorite_border\"}'>favorite_border</span>\r\n    </section>\r\n    <span class=\"mdc-toolbar__title\"></span>\r\n  </div>\r\n  <div class=\"restaurant-cover__wrapper\">\r\n    <span class=\"restaurant-cover__overlay\"></span>\r\n    <img class=\"restaurant-cover__image\" src=\"/assets/img/";
+output += "<header class=\"mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior mdc-toolbar--flexible-space-maximized restaurant\">\r\n  <div class=\"mdc-toolbar__row restaurant-header\">\r\n    <section class=\"mdc-toolbar__section mdc-toolbar__section--align-start\">\r\n      <a id=\"back-to-home\" href=\"#\" class=\"material-icons mdc-toolbar__icon\" aria-label=\"Back to home\">arrow_back</a>\r\n    </section>\r\n    <section class=\"mdc-toolbar__section mdc-toolbar__section--align-end\" role=\"toolbar\">      \r\n      <a href=\"#\" class=\"material-icons mdc-toolbar__icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded\" aria-label=\"Bookmark this page\" alt=\"Bookmark this page\">share</a>\r\n      <span class=\"material-icons mdc-toolbar__icon add-favorites-button\"\r\n        tabindex=\"0\" role=\"button\" aria-pressed=\"false\" aria-label=\"Add to favorites\" title=\"Add to favorites\"\r\n        data-toggle-on='{\"label\": \"Remove from favorites\", \"content\": \"favorite\"}'\r\n        data-toggle-off='{\"label\": \"Add to favorites\", \"content\": \"favorite_border\"}'>favorite_border</span>\r\n    </section>\r\n    <span class=\"mdc-toolbar__title\"></span>\r\n  </div>\r\n  <div class=\"restaurant-cover__wrapper\">\r\n    <span class=\"restaurant-cover__overlay\"></span>\r\n    <picture>\r\n      <source media=\"(max-width:599px)\"\r\n        srcset=\"/assets/img/headers/";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
-output += "\" alt=\"";
+output += "@599.webp\"/>\r\n      <source media=\"(max-width:800px)\"\r\n        srcset=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += "@800.webp\"/>\r\n      <source media=\"(max-width:1200px)\"\r\n        srcset=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += "@1200.webp\"/>\r\n      <source media=\"(max-width:1600px)\"\r\n        srcset=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += "@1600.webp\"/>\r\n      <source media=\"(min-width:1601px)\"\r\n        srcset=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += ".webp\"/>\r\n      <img class=\"restaurant-cover__image\" alt=\"";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"name"), env.opts.autoescape);
-output += "\"/>\r\n  </div>\r\n</header>\r\n<main class=\"mdc-toolbar-fixed-adjust restaurant-content\">\r\n  <div class=\"restaurant-intro\">\r\n    <h1 class=\"restaurant__title mdc-typography--headline\">";
+output += "\"\r\n        src=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += ".jpg\"\r\n        srcset=\"/assets/img/headers/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += ".webp\"/>\r\n    </picture>  \r\n  </div>\r\n</header>\r\n<main class=\"mdc-toolbar-fixed-adjust restaurant-content\">\r\n  <div class=\"restaurant-intro\">\r\n    <h1 class=\"restaurant__title mdc-typography--headline\">";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"name"), env.opts.autoescape);
 output += "</h1>\r\n    <h3 class=\"mdc-typography--body2 restaurant__cuisine\">";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"cuisine_type"), env.opts.autoescape);
@@ -579,6 +544,53 @@ root: root
 })();
 })();
 
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["results.tpl.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<section class=\"results\">\r\n  <div class=\"results-subtitle\">\r\n    <h1 class=\"results-subtitle__text\">The meal you are looking for is really close:</h1>\r\n  </div>\r\n  <ul class=\"results-list\">    \r\n    ";
+frame = frame.push();
+var t_3 = runtime.contextOrFrameLookup(context, frame, "restaurants");
+if(t_3) {t_3 = runtime.fromIterator(t_3);
+var t_2 = t_3.length;
+for(var t_1=0; t_1 < t_3.length; t_1++) {
+var t_4 = t_3[t_1];
+frame.set("restaurant", t_4);
+frame.set("loop.index", t_1 + 1);
+frame.set("loop.index0", t_1);
+frame.set("loop.revindex", t_2 - t_1);
+frame.set("loop.revindex0", t_2 - t_1 - 1);
+frame.set("loop.first", t_1 === 0);
+frame.set("loop.last", t_1 === t_2 - 1);
+frame.set("loop.length", t_2);
+output += "\r\n      <li class=\"results-list__element\">\r\n        <restaurant-preview-component data-injs-restaurant=\"restaurants[";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
+output += "]\"></restaurant-preview-component>\r\n      </li>\r\n    ";
+;
+}
+}
+frame = frame.pop();
+output += "    \r\n  </ul>\r\n</section>";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["restaurant-preview.tpl.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = null;
@@ -590,11 +602,19 @@ output += "<div class=\"mdc-card restaurant-preview\">\r\n  <a class=\"mdc-card_
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"id"), env.opts.autoescape);
 output += "\" data-id=\"";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"id"), env.opts.autoescape);
-output += "\">\r\n    <div class=\"restaurant-preview-media\">\r\n      <div class=\"restaurant-preview-media__wrapper\">\r\n        <img class=\"restaurant-preview-media__image\" src=\"assets/img/";
+output += "\">\r\n    <div class=\"restaurant-preview-media\">\r\n      <div class=\"restaurant-preview-media__wrapper\">\r\n        <picture>\r\n          <source media=\"(max-width:388px)\"\r\n            srcset=\"assets/img/previews/";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
-output += "\" alt=\"";
+output += "@340.webp\"/>\r\n          <source media=\"(min-width:576px) and (max-width:1069px)\"\r\n            srcset=\"assets/img/previews/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += "@340.webp\"/>\r\n          <source media=\"(min-width:1280px) and (max-width:1430px)\"\r\n            srcset=\"assets/img/previews/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += "@340.webp\"/>\r\n          <img class=\"restaurant-preview-media__image\" alt=\"";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"name"), env.opts.autoescape);
-output += "\"/>\r\n      </div>      \r\n    </div>\r\n    <div class=\"mdc-card__content\">\r\n      <h2 class=\"mdc-typography--title restaurant-preview__title\">";
+output += "\"\r\n            src=\"assets/img/previews/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += ".jpg\"\r\n            srcset=\"/assets/img/previews/";
+output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"photograph"), env.opts.autoescape);
+output += ".webp\"/>\r\n        </picture>  \r\n      </div>      \r\n    </div>\r\n    <div class=\"mdc-card__content\">\r\n      <h2 class=\"mdc-typography--title restaurant-preview__title\">";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"name"), env.opts.autoescape);
 output += "</h2>\r\n      <h3 class=\"mdc-typography--subheading1 restaurant-preview__subtitle\">";
 output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "restaurant")),"neighborhood"), env.opts.autoescape);

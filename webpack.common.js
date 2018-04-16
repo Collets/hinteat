@@ -7,6 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractSASS = new ExtractTextPlugin('styles/[name].min.css');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const {InjectManifest} = require('workbox-webpack-plugin');
 
 module.exports = {
   output: {
@@ -106,6 +107,9 @@ module.exports = {
         'MAPSAPIKEY': JSON.stringify(process.env.MAPSAPIKEY),
         'VERSION': JSON.stringify(require('./package.json').version),
       }
+    }),
+    new InjectManifest({
+      swSrc: './src/sw.js'
     }),
   ]
 };
