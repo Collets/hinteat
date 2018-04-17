@@ -75,9 +75,9 @@ class MapComponent extends BaseComponent {
     document.body.classList.toggle('noscroll', mapOpened == 'true');
 
     if (mapOpened == 'true') {
-      if(target)
+      if (target)
         target.setAttribute('tabindex', '-1');
-      
+
       this._focusTrap = createFocusTrap(wrapper, {
         fallbackFocus: '#open-map',
       });
@@ -90,6 +90,15 @@ class MapComponent extends BaseComponent {
         document.querySelector('#open-map').setAttribute('tabindex', '0');
       }
     }
+  }
+
+  /**
+   * Remove attributes on map when opened
+   */
+  removeMapAttachment() {
+    document.body.classList.toggle('noscroll', false);
+    this._focusTrap.deactivate();
+    document.querySelector('#open-map').setAttribute('tabindex', '0');
   }
 
   /**
@@ -171,6 +180,7 @@ class MapComponent extends BaseComponent {
       });
 
       this._googleMaps.event.addListener(marker, 'click', () => {
+        this.removeMapAttachment();
         RouteEngine.router.navigate(marker.url);
       });
       this.model.markers.push(marker);
