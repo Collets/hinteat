@@ -1,7 +1,7 @@
 {
   "name": "HintEat",
   "version": "0.2.1-alpha",
-  "description": "Portal for restaurant and meal reviews",
+  "description": "The portal for restaurant and meal reviews",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

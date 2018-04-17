@@ -1,1 +1,0 @@
-node_modules\nunjucks\bin\precompile.cmd .\src\app --include "\.njk$" --exclude "\.html$" --exclude "\.scss$" --exclude "\.js$" > .\src\lib\templates.js
