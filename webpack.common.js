@@ -85,6 +85,10 @@ module.exports = {
         from: './src/assets/data',
         to: 'assets/data'
       },
+      {
+        from: './manifest.json',
+        to: './'
+      }
     ]),
     new webpack.optimize.CommonsChunkPlugin({
       names: 'vendor',
