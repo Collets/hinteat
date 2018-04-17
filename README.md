@@ -55,6 +55,10 @@ The projects is ready to deploy using GitHub, Firebase and Travis CI.
 
 **TODO** Add instruction to deploy using same configuration but with others accounts.
 
+## Demo APP
+
+A demo app is available at this url: [https://hint-eat.firebaseapp.com/](https://hint-eat.firebaseapp.com/)
+
 ## Functionality
 
 * Component style structure
