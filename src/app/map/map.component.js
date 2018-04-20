@@ -56,10 +56,11 @@ class MapComponent extends BaseComponent {
       element.focus();
     });
 
-    this.loadGoogleMapInstance()
-    .then(()=>{
-      this.initMap();
-    });
+    if(!this._model.hideMap)
+      this.loadGoogleMapInstance()
+      .then(()=>{
+        this.initMap();
+      });
   }
 
   /**
@@ -75,15 +76,21 @@ class MapComponent extends BaseComponent {
     document.body.classList.toggle('noscroll', mapOpened == 'true');
 
     if (mapOpened == 'true') {
-      if (target)
+
+      this.loadGoogleMapInstance()
+      .then(()=>{
+        this.initMap();
+
+        if (target)
         target.setAttribute('tabindex', '-1');
 
-      this._focusTrap = createFocusTrap(wrapper, {
-        fallbackFocus: '#open-map',
-      });
-      setTimeout(() => {
-        this._focusTrap.activate();
-      }, 350);
+        this._focusTrap = createFocusTrap(wrapper, {
+          fallbackFocus: '#open-map',
+        });
+        setTimeout(() => {
+          this._focusTrap.activate();
+        }, 350);
+      });      
     } else {
       if (this._focusTrap) {
         this._focusTrap.deactivate();
