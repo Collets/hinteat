@@ -2,8 +2,6 @@
 
 var webpack = require('webpack');
 var path = require('path');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var merge = require('webpack-merge');
@@ -27,12 +25,17 @@ module.exports = merge(common, {
       sourceMap: true,
       uglifyOptions:{
         compress: true,
-        warnings: false,
         output: {
           comments: true,
           beautify: true
         },
-        keep_fnames: true
+        keep_classnames: true,
+        keep_fnames: true,
+        ie8: false,
+        nameCache: null, 
+        safari10: false,
+        toplevel: false,
+        warnings: false,
       }
     }),
     new webpack.DefinePlugin({

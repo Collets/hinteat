@@ -12,7 +12,7 @@ To run the application on development environment the project uses:
 **BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
 
 ```bash
-git clone https://github.com/Collets/mws-restaurant-stage-1.git
+git clone https://github.com/Collets/hinteat-client.git
 ```
 
 ```bash
@@ -76,4 +76,4 @@ Android & Chrome
 
 ## TODOS
 
-List of all planned improvements on [issue tracker page](https://github.com/Collets/mws-restaurant-stage-1/issues/18).
+List of all planned improvements on [issue tracker page](https://github.com/Collets/hinteat-client/issues/18).
