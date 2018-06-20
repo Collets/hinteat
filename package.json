@@ -31,14 +31,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Collets/hinteat.git"
+    "url": "git+https://github.com/Collets/hinteat-client.git"
   },
   "author": "Simone Coletta",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Collets/hinteat/issues"
+    "url": "https://github.com/Collets/hinteat-client/issues"
   },
-  "homepage": "https://github.com/Collets/hinteat#readme",
+  "homepage": "https://github.com/Collets/hinteat-client#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
