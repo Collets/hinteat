@@ -104,8 +104,13 @@ class MapComponent extends BaseComponent {
    */
   removeMapAttachment() {
     document.body.classList.toggle('noscroll', false);
-    this._focusTrap.deactivate();
-    document.querySelector('#open-map').setAttribute('tabindex', '0');
+    
+    if (this._focusTrap)
+      this._focusTrap.deactivate();
+     
+    let openMapElement = document.querySelector('#open-map');
+    if (openMapElement)
+      openMapElement.setAttribute('tabindex', '0');
   }
 
   /**
