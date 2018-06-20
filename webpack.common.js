@@ -109,6 +109,7 @@ module.exports = {
       'process.env': {
         'BASEURL': JSON.stringify(process.env.BASEURL),
         'MAPSAPIKEY': JSON.stringify(process.env.MAPSAPIKEY),
+        'APIBASEURL': JSON.stringify(process.env.APIBASEURL),
         'VERSION': JSON.stringify(require('./package.json').version),
       }
     }),

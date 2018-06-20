@@ -7,8 +7,8 @@ export default class DbService {
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
-  static get DATABASE_URL() {
-    return '/assets/data/restaurants.json';
+  static get APIBASEURL() {
+    return process.env.APIBASEURL; // '/assets/data/restaurants.json';
   }
 
   /**
@@ -17,19 +17,20 @@ export default class DbService {
    */
   static fetchRestaurants() {
     let promise = new Promise((resolve, reject)=>{
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', DbService.DATABASE_URL);
-      xhr.onload = () => {
-        if (xhr.status === 200) { // Got a success response from server!
-          const json = JSON.parse(xhr.responseText);
-          const restaurants = json.restaurants;
-          resolve(restaurants);
+      let url = `${DbService.APIBASEURL}/restaurants/`;
+
+      fetch(url, {
+        method: 'GET',
+      }).then((response)=>{
+        if (response.ok) {
+          response.json().then((restaurants) => {
+            resolve(restaurants);
+          });
         } else { // Oops!. Got an error from server.
-          const error = new AppError(`Request failed. Returned status of ${xhr.status}`);
+          const error = new AppError(`Request failed. Returned status of ${response.status}`);
           reject(error);
         }
-      };
-      xhr.send();
+      });
     });
 
     return promise;
@@ -42,22 +43,20 @@ export default class DbService {
    */
   static fetchRestaurantById(id) {
     let promise = new Promise((resolve, reject)=>{
-      // fetch all restaurants with proper error handling.
-      DbService.fetchRestaurants()
-      .then((restaurants)=>{
-        const restaurant = restaurants.find((r) => r.id == id);
-        if (restaurant) { // Got the restaurant
-          resolve(restaurant);
-        } else { // Restaurant does not exist in the database
-          reject('Restaurant does not exist');
-        }
-      }).catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
+      let url = `${DbService.APIBASEURL}/restaurants/${id}`;
 
-        reject(error);
+      fetch(url, {
+        method: 'GET',
+      }).then((response)=>{
+        if (response.ok) {
+          response.json().then((json) => {
+            const restaurant = json;
+            resolve(restaurant);
+          });
+        } else { // Oops!. Got an error from server.
+          const error = new AppError(`Request failed. Returned status of ${response.status}`);
+          reject(error);
+        }
       });
     });
 

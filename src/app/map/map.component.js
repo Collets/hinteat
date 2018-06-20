@@ -56,7 +56,7 @@ class MapComponent extends BaseComponent {
       element.focus();
     });
 
-    if(!this._model.hideMap)
+    if (!this._model.hideMap)
       this.loadGoogleMapInstance()
       .then(()=>{
         this.initMap();
@@ -76,7 +76,6 @@ class MapComponent extends BaseComponent {
     document.body.classList.toggle('noscroll', mapOpened == 'true');
 
     if (mapOpened == 'true') {
-
       this.loadGoogleMapInstance()
       .then(()=>{
         this.initMap();
