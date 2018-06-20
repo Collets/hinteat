@@ -1,5 +1,9 @@
 @import "@material/typography/mdc-typography";
 
+.results{
+  max-width: 1920px;
+  margin: auto;
+}
 .results-list{
   list-style: outside none none;
   margin: 16px 16px 16px 16px;

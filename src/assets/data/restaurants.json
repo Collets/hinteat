@@ -2,6 +2,7 @@
   "restaurants": [{
     "id": 1,
     "name": "Mission Chinese Food",
+    "description": "Mission Chinese Food Restaurant, the plates seems very spicy",
     "neighborhood": "Manhattan",
     "photograph": "Mission-Chinese-Food",    
     "address": "171 E Broadway, New York, NY 10002",
@@ -41,6 +42,7 @@
   }, {
     "id": 2,
     "name": "Emily",
+    "description": "Emily Restaurant, how awesome pizza!",
     "neighborhood": "Brooklyn",
     "photograph": "Emily",    
     "address": "919 Fulton St, Brooklyn, NY 11238",
@@ -80,6 +82,7 @@
   }, {
     "id": 3,
     "name": "Kang Ho Dong Baekjeong",
+    "description": "Kang Ho Dong Baekjeong Restaurant, with an open kitchen",
     "neighborhood": "Manhattan",
     "photograph": "Kang-Ho-Dong-Baekjeong",    
     "address": "1 E 32nd St, New York, NY 10016",
@@ -119,6 +122,7 @@
   }, {
     "id": 4,
     "name": "Katz's Delicatessen",
+    "description": "Katz's Delicatessen Restaurant, looks a very new york restaurant",
     "neighborhood": "Manhattan",
     "photograph": "Katz-s-Delicatessen",    
     "address": "205 E Houston St, New York, NY 10002",
@@ -158,6 +162,7 @@
   }, {
     "id": 5,
     "name": "Roberta's Pizza",
+    "description": "Roberta's Pizza Restaurant, with a very characteristic entrance",
     "neighborhood": "Brooklyn",
     "photograph": "Roberta-s-Pizza",    
     "address": "261 Moore St, Brooklyn, NY 11206",
@@ -197,6 +202,7 @@
   }, {
     "id": 6,
     "name": "Hometown BBQ",
+    "description": "Hometown BBQ Restaurant, wooden tables and america's flag",
     "neighborhood": "Brooklyn",
     "photograph": "Hometown-BBQ",    
     "address": "454 Van Brunt St, Brooklyn, NY 11231",
@@ -236,6 +242,7 @@
   }, {
     "id": 7,
     "name": "Superiority Burger",
+    "description": "Superiority Burger Restaurant, a very tiny but clean entrance",
     "neighborhood": "Manhattan",
     "photograph": "Superiority-Burger",    
     "address": "430 E 9th St, New York, NY 10009",
@@ -275,6 +282,7 @@
   }, {
     "id": 8,
     "name": "The Dutch",
+    "description": "The Dutch Restaurant, looks like an european bistro",
     "neighborhood": "Manhattan",
     "photograph": "The-Dutch",    
     "address": "131 Sullivan St, New York, NY 10012",
@@ -314,6 +322,7 @@
   }, {
     "id": 9,
     "name": "Mu Ramen",
+    "description": "Mu Ramen Restaurant, the ramen seems very good",
     "neighborhood": "Queens",
     "photograph": "Mu-Ramen",    
     "address": "1209 Jackson Ave, Queens, NY 11101",
@@ -353,6 +362,7 @@
   }, {
     "id": 10,
     "name": "Casa Enrique",
+    "description": "Casa Enrique Restaurant, on the tables nachos and spicy soup",
     "neighborhood": "Queens",
     "photograph": "Casa-Enrique",    
     "address": "5-48 49th Ave, Queens, NY 11101",
