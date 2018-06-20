@@ -1,5 +1,6 @@
 import {ComponentFactory} from 'core/component-factory/component-factory';
 import {RouteEngine} from 'core/routing/route';
+import {Store} from 'core/store/store';
 import * as Templates from 'lib/templates';
 
 // Import of components
@@ -40,7 +41,9 @@ export default function bootstrap(entrypoint) {
         FooterComponent,
     ];
 
-    ComponentFactory.startup(entrypoint).then(()=>{
-        RouteEngine.initialize(process.env.BASEURL);
+    Store.open().then(() => {
+        ComponentFactory.startup(entrypoint).then(()=>{
+            RouteEngine.initialize(process.env.BASEURL);
+        });
     });
 }
