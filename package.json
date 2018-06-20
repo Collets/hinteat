@@ -20,6 +20,13 @@
         "BASEURL": "http://dev.hinteat.io/",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng"
       }
+    },
+    "build.prod": {
+      "command": "gulp webpack:build:prod",
+      "env": {
+        "BASEURL": "http://dev.hinteat.io/",
+        "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng"
+      }
     }
   },
   "repository": {
