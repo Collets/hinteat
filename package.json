@@ -31,14 +31,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Collets/mws-restaurant-stage-1.git"
+    "url": "git+https://github.com/Collets/hinteat.git"
   },
   "author": "Simone Coletta",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Collets/mws-restaurant-stage-1/issues"
+    "url": "https://github.com/Collets/hinteat/issues"
   },
-  "homepage": "https://github.com/Collets/mws-restaurant-stage-1#readme",
+  "homepage": "https://github.com/Collets/hinteat#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
