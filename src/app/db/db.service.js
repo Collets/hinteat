@@ -1,4 +1,5 @@
 import {AppError} from 'core/models/errors';
+import {Store} from 'core/store/store';
 /**
  * Common database helper functions.
  */
@@ -16,24 +17,31 @@ export default class DbService {
    * @return {promise}
    */
   static fetchRestaurants() {
-    let promise = new Promise((resolve, reject)=>{
-      let url = `${DbService.APIBASEURL}/restaurants/`;
+    let url = `${DbService.APIBASEURL}/restaurants/`;
 
-      fetch(url, {
-        method: 'GET',
-      }).then((response)=>{
-        if (response.ok) {
-          response.json().then((restaurants) => {
-            resolve(restaurants);
-          });
-        } else { // Oops!. Got an error from server.
-          const error = new AppError(`Request failed. Returned status of ${response.status}`);
-          reject(error);
-        }
+    return fetch(url, {
+      method: 'GET',
+    }).then((response) => {
+      if (response.ok) {
+        return response.json().then((restaurants) => {
+          if (Store.instance)
+            Store.sync(restaurants);
+
+          return restaurants;
+        });
+      }
+
+      throw response;
+    })
+    .catch((error) => {
+      if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+      return Store.instance.then((db) => {
+        const tx = db.transaction('restaurants');
+        return tx.objectStore('restaurants')
+        .getAll();
       });
     });
-
-    return promise;
   }
 
   /**

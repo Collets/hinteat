@@ -28,7 +28,7 @@
       "env": {
         "BASEURL": "http://dev.hinteat.io/",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
-        "APIBASEURL": ""
+        "APIBASEURL": "http://localhost:1337"
       }
     }
   },

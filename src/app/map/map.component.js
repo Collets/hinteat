@@ -56,11 +56,12 @@ class MapComponent extends BaseComponent {
       element.focus();
     });
 
-    if (!this._model.hideMap)
+    if (!this._model.hideMap) {
       this.loadGoogleMapInstance()
       .then(()=>{
         this.initMap();
       });
+    }
   }
 
   /**
@@ -89,7 +90,7 @@ class MapComponent extends BaseComponent {
         setTimeout(() => {
           this._focusTrap.activate();
         }, 350);
-      });      
+      });
     } else {
       if (this._focusTrap) {
         this._focusTrap.deactivate();
@@ -103,10 +104,10 @@ class MapComponent extends BaseComponent {
    */
   removeMapAttachment() {
     document.body.classList.toggle('noscroll', false);
-    
+
     if (this._focusTrap)
       this._focusTrap.deactivate();
-     
+
     let openMapElement = document.querySelector('#open-map');
     if (openMapElement)
       openMapElement.setAttribute('tabindex', '0');

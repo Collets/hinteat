@@ -29,13 +29,8 @@ module.exports = merge(common, {
           comments: true,
           beautify: true
         },
-        keep_classnames: true,
         keep_fnames: true,
-        ie8: false,
-        nameCache: null, 
-        safari10: false,
-        toplevel: false,
-        warnings: false,
+        warnings: false
       }
     }),
     new webpack.DefinePlugin({

@@ -5,6 +5,7 @@ node_js:
 branches:
   only:
     - master
+    - develop
 
 before_script:
   - npm install -g firebase-tools
@@ -16,7 +17,10 @@ script:
   - cross-env BASEURL="$BASEURL_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod
 
 after_success:
-  - firebase deploy --token $FIREBASE_TOKEN
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase use default --token $FIREBASE_DEV_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase deploy --non-interactive --token $FIREBASE_DEV_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase use default --token $FIREBASE_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase dev --non-interactive --token $FIREBASE_TOKEN; fi
 
 notifications:
   email:

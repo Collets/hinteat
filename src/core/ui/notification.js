@@ -1,4 +1,5 @@
 import * as Toastr from 'toastr';
+import {Severity, AppError} from '../models/errors';
 
 /** Notification helper class. */
 export default class Notification {
