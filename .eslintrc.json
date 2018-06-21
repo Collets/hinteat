@@ -19,6 +19,7 @@
         "curly": [
             "error",
             "multi-or-nest"
-        ]
+        ],
+        "max-len":"off"
     }
 }

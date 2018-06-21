@@ -4,10 +4,7 @@ const gulp = require('gulp');
 const nunjucks = require('gulp-nunjucks');
 const concat = require('gulp-concat');
 
-const gprint = require('gulp-print');
 const gutil = require("gulp-util");
-const del = require('del');
-const vinylPaths = require('vinyl-paths');
 const open = require('opn');
 
 const webpack = require("webpack");

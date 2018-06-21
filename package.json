@@ -28,7 +28,7 @@
       "env": {
         "BASEURL": "http://dev.hinteat.io/",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
-        "APIBASEURL": ""
+        "APIBASEURL": "http://localhost:1337"
       }
     }
   },
@@ -91,6 +91,7 @@
     "firebase": "^4.12.0",
     "firebaseui": "^2.7.0",
     "focus-trap": "^2.4.3",
+    "idb": "^2.1.2",
     "load-google-maps-api": "^1.1.1",
     "navigo": "^7.1.1",
     "nunjucks": "^3.1.2",
