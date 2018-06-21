@@ -17,10 +17,10 @@ script:
   - cross-env BASEURL="$BASEURL_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase use default --token $FIREBASE_DEV_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase use dev --token $FIREBASE_DEV_TOKEN; fi
   - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase deploy --non-interactive --token $FIREBASE_DEV_TOKEN; fi
   - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase use default --token $FIREBASE_TOKEN; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase dev --non-interactive --token $FIREBASE_TOKEN; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase deploy --non-interactive --token $FIREBASE_TOKEN; fi
 
 notifications:
   email:
