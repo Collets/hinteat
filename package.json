@@ -18,7 +18,7 @@
     "build.dev": {
       "command": "gulp webpack:build:dev",
       "env": {
-        "BASEURL": "http://dev.hinteat.io/",
+        "BASEURL": "https://127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -26,7 +26,15 @@
     "build.prod": {
       "command": "gulp webpack:build:prod",
       "env": {
-        "BASEURL": "http://localhost:9000/",
+        "BASEURL": "https://127.0.0.1",
+        "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
+        "APIBASEURL": "http://localhost:1337"
+      }
+    },
+    "build.optimized.prod": {
+      "command": "gulp webpack:build:prod && cd dist && sudo ws --http2 --spa index.html --compress --port 443",
+      "env": {
+        "BASEURL": "https://127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }

@@ -69,6 +69,9 @@ module.exports = {
       query: {
           root: __dirname + '/assets/templates'
       }
+    },{ 
+      test: /\.woff2$/, 
+      loader: 'file-loader?limit=65000&mimetype=application/font-woff2&name=src/assets/fonts/[name].[ext]' 
     }]
   },
   plugins: [

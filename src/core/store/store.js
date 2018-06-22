@@ -28,41 +28,48 @@ export const Store = {
             restaurantsStore.createIndex('name', 'name');
             restaurantsStore.createIndex('creationDate', 'createdAt');
             restaurantsStore.createIndex('updatingDate', 'updatedAt');
-            
-            upgradeDB.createObjectStore('lastupdate');
         },
     },
     sync(restaurants) {
         this.syncRestaurants(restaurants)
-        .then(() => {
-            this.syncDBupdateDate();
-        })
         .catch((err) => {
             Notification.error(err.message);
         });
     },
     syncRestaurants(restaurants) {
+        let toSyncs = [...restaurants];
+
         return this.instance.then((db) => {
-            const tx = db.transaction(['restaurants', 'lastupdate'], 'readwrite');
-            tx.objectStore('lastupdate')
-            .get(0)
-            .then((lastupdate) => {
-                restaurants.forEach((restaurant) => {
-                    let updatedAt = Date.parse(restaurant.updatedAt);
-                    if (!lastupdate || lastupdate < updatedAt)
-                        tx.objectStore('restaurants').put(restaurant);
-                });
+            const tx = db.transaction('restaurants', 'readwrite');
+            tx.objectStore('restaurants')
+            .iterateCursor((cursor) => {
+                if (!cursor) return;
+                let toUpdate = restaurants.find((restaurant) => restaurant.id === cursor.value.id && restaurant.updatedAt > cursor.value.updatedAt );
+                toSyncs = toSyncs.filter((restaurant) => restaurant.id != cursor.value.id);
+                if (toUpdate) {
+                    cursor.update(toUpdate)
+                    .catch((err) => Notification.error(err));
+                }
+                cursor.continue();
             });
 
-            return tx;
+            tx.complete.then(() => {
+                const txAdd = db.transaction('restaurants', 'readwrite');
+                toSyncs.forEach((restaurant) => {
+                    txAdd.objectStore('restaurants').put(restaurant);
+                });
+            });
         });
     },
-    syncDBupdateDate() {
+    syncRestaurant(restaurant) {
         return this.instance.then((db) => {
-            const tx = db.transaction('lastupdate', 'readwrite');
-            tx.objectStore('lastupdate').put(Date.now(), 0);
-
-            return tx.complete;
+            const tx = db.transaction('restaurants', 'readwrite');
+            tx.objectStore('restaurants')
+            .get(restaurant.id)
+            .then((stored) => {
+                if (!stored || stored.updatedAt < restaurant.updatedAt)
+                    tx.objectStore('restaurants').put(restaurant);
+            });
         });
     },
 };

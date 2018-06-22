@@ -24,6 +24,7 @@ npm install
 ## Usage
 
 HintEat uses the Better NPM Run package to run the scripts needed to launch the project or build it.
+There is some script to help the automation, in order to get the production ready version of the app with all the optimization use [optimized local version](optimized-local-version).
 
 ### Serve in a local server
 
@@ -48,6 +49,23 @@ bnr build.dev
 ```
 
 the build files will be generated in dist directory.
+
+### Optimized local version
+
+This workflow build a production ready version of the app, and serve it on a local server with some optimization adopted.
+
+The server has this functionality enabled:
+* HTTPS
+* gzip of the files
+* single page application logic
+
+In order to get the "green padlock" on the browser please follow this guide: [enable "green padlock"](https://github.com/lwsjs/local-web-server/wiki/How-to-get-the-%22green-padlock%22-using-the-built-in-certificate).
+
+The script is
+
+```bash
+bnr build.optimized.prod
+```
 
 ## Deployments
 
