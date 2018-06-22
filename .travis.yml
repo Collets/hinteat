@@ -14,7 +14,8 @@ before_script:
   - npm install
 
 script:
-  - cross-env BASEURL="$BASEURL_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then cross-env BASEURL="$BASEURL_DEV_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then cross-env BASEURL="$BASEURL_TOKEN" MAPSAPIKEY="$MAPSAPIKEY_TOKEN" gulp webpack:build:prod; fi
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "develop" ]; then firebase use dev --token $FIREBASE_DEV_TOKEN; fi

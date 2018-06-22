@@ -26,7 +26,7 @@
     "build.prod": {
       "command": "gulp webpack:build:prod",
       "env": {
-        "BASEURL": "http://dev.hinteat.io/",
+        "BASEURL": "http://localhost:9000/",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
