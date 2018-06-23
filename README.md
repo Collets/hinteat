@@ -4,12 +4,21 @@
 ## Prerequisites
 
 To run the application on development environment the project uses:
-* node >=6.9.0
+* node >=6.11.2
 * gulp-cli installed globally
+* local-web-server installed globally for the best performance
+
+In order to test locally the Stage 2 of the app, a server is needed. I forked the project provided by Udacity to fit some little difference in data structure.
+
+So, the server side presequisites are:
+* my repository intalled
+* sails.js
 
 ## Installation
 
 **BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
+
+### Client project
 
 ```bash
 git clone https://github.com/Collets/hinteat-client.git
@@ -17,6 +26,19 @@ git clone https://github.com/Collets/hinteat-client.git
 
 ```bash
 npm install -g gulp-cli
+npm install -g local-web-server
+
+npm install
+```
+
+### Server project
+
+```bash
+git clone https://github.com/Collets/hinteat-server.git
+```
+
+```bash
+npm install -g sails
 
 npm install
 ```
@@ -67,11 +89,22 @@ The script is
 bnr build.optimized.prod
 ```
 
+In order to fetch the data, run the API server previously installed (see [Server project](#server-project)).
+
+In another terminal, open the folder of the server side project and run the script:
+
+```bash
+node server
+```
+
 ## Deployments
 
 The projects is ready to deploy using GitHub, Firebase and Travis CI.
 
-**TODO** Add instruction to deploy using same configuration but with others accounts.
+**TODO** 
+
+* Add instruction to deploy using same configuration but with others accounts.
+* Add a server side API endpoints. Evaluate the use of firebase for this step too.
 
 ## Demo APP
 
@@ -83,7 +116,7 @@ A demo app is available at this url: [https://hint-eat.firebaseapp.com/](https:/
 * Single page application like navigation ([navigo](https://github.com/krasimir/navigo))
 * Templating ([nunjucks](https://mozilla.github.io/nunjucks/))
 * Material style UI ([Material Components for the Web](https://material.io/components/web/))
-* Offline capability ([Workbox](https://developers.google.com/web/tools/workbox/) for Webpack integration)
+* Offline capability ([Workbox](https://developers.google.com/web/tools/workbox/) for Webpack integration and [idb](https://github.com/jakearchibald/idb) for IndexedDB)
 * Progressive Web App capability (tested on Android and Chrome)
 
 ## Compatibility
