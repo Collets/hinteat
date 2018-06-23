@@ -11,6 +11,7 @@ module.exports = merge(common, {
   entry: {
     main: path.resolve(__dirname, 'src/main.js'),
   },
+  devtool: 'hidden-source-map',
   plugins: [
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/,
@@ -22,15 +23,18 @@ module.exports = merge(common, {
     }),
     new UglifyJsPlugin({
       test: /\.js($|\?)/i,
+      parallel: true,
       sourceMap: true,
       uglifyOptions:{
         compress: true,
         output: {
-          comments: true,
-          beautify: true
+          comments: false,
+          beautify: false
         },
+        toplevel:true,
+        keep_classnames:true,
         keep_fnames: true,
-        warnings: false
+        //warnings: false
       }
     }),
     new webpack.DefinePlugin({

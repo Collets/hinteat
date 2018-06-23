@@ -22,6 +22,7 @@ import FooterComponent from 'app/footer/footer.component';
 /**
  * Bootsrapper of the application
  * @param {string} entrypoint
+ * @return {Promise}
 */
 export default function bootstrap(entrypoint) {
     ComponentFactory.components = [
@@ -41,8 +42,8 @@ export default function bootstrap(entrypoint) {
         FooterComponent,
     ];
 
-    Store.open().then(() => {
-        ComponentFactory.startup(entrypoint).then(()=>{
+    return Store.open().then(() => {
+        return ComponentFactory.startup(entrypoint).then(()=>{
             RouteEngine.initialize(process.env.BASEURL);
         });
     });

@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style">
   <title>HintEat - Discover awesome food around you</title>
 
   <link rel="manifest" href="/manifest.json">
@@ -20,35 +18,85 @@
   <meta name="theme-color" content="#273043">
 </head>
 
-<body>
-  <style>
-    .loader{
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height: 100%;
-      background-color: #273043;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:10;
-      box-sizing: border-box;
-      padding: 0 45px;
-    }
-    .loader__logo{
-      max-width:100%;
-    }
-    .loader.hidden{
-      display: none;
-    }
-  </style>
-  <div class="loader">
-    <img class="loader__logo" src="/assets/img/logo/hinteat.png" srcset="/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x" alt="HintEat"> 
-  </div>
+<body>  
+  <noscript>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <style>
+      html,
+      body{
+        height:100%;
+      }
+      header{
+        background-color:#ff3d00;
+        width: 100%;
+        height:64px;
+      }
+      .content{
+        display:block;
+        min-height: calc(100% - 169px);
+        padding:80px 0 0 120px;
+        box-sizing: border-box;
+      }
+      .line{
+        display:block;
+        width:45px;
+        height:3px;
+        background-color:#ff3d00;
+      }
+      h1{
+        font-family: 'Roboto', sans-serif;
+        font-weight:300;
+        font-size: 38px;
+        margin:0;
+        line-height:65px;
+      }
+      .footer-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 5px;
+        background-color:#273043;
+        height:100px;
+      }
+      .logo{
+        box-sizing: border-box;
+        position: relative;
+        padding: 12px 5px 5px 5px;
+        display: flex;
+        align-items: center;
+        max-width: 110px;
+      }
+      .logo__text{
+          margin: 0;
+      }
+      .logo__image{
+          max-width: 100px;
+      }
+    </style>
+    <header>
+    </header>
+    <section class="content">
+      <h1>
+        <span class="line"></span>
+        <span style="display:block;">Welcome to HintEat</span>
+        <span style="display:block;">This app depends deeply</span>
+        <span style="display:block;">from JavaScript, please enable it</span>
+        <span style="display:block;">and start to search your next meal!</span>
+      </h1>
+    </section>
+    <footer>
+      <div class="footer-container mdc-theme--secondary-bg">
+        <a class="logo" href="/" alt="Home page">
+          <img class="logo__image" src="/assets/img/logo/hinteat.png" srcset="/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x" alt="HintEat"> 
+        </a>
+      </div>
+    </footer>
+  </noscript>
   <app-component></app-component>
 
   <script>
+
     // Check that service workers are registered
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant
@@ -56,27 +104,6 @@
         navigator.serviceWorker.register('/sw.js');
       });
     }
-  </script>
-  <script type="text/javascript">
-  
-    var defer = document.getElementsByTagName('title')[0];
-
-    /* First CSS File 
-    var element = document.createElement('link');
-    element.rel = 'stylesheet';
-    element.href = '//normalize-css.googlecode.com/svn/trunk/normalize.css';
-    element.type = 'text/css';
-    
-    defer.parentNode.insertBefore(element, defer);*/
-    
-    /* Second CSS File */
-    element = document.createElement('link');
-    element.rel = 'stylesheet';
-    element.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-    element.type = 'text/css';
-
-    defer.parentNode.insertBefore(element, defer);
-
   </script>
 </body>
 

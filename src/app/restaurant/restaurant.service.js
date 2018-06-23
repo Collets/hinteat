@@ -1,5 +1,5 @@
 import DbService from 'app/db/db.service';
-import RestaurantFilters from 'app/restaurant//restaurant-filters';
+import RestaurantFilters from 'app/restaurant/restaurant-filters';
 
 import Utils from 'core/utils/utils';
 import {AppError} from 'core/models/errors';

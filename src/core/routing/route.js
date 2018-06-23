@@ -29,30 +29,12 @@ export const RouteEngine = {
           });
 
           this.router.on(()=>{
-            ComponentFactory.setRouterComponent(route.component)
-            .then(()=>{
-              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                setTimeout(()=>{
-                  document.querySelector('.loader').classList.add('hidden');
-                }, 2000);
-                
-                SYSPARAMS.FIRSTLOAD = false;
-              }
-            });
+            ComponentFactory.setRouterComponent(route.component);
           });
         } else {
           let routeObj = {};
           routeObj[route.url] = (params)=>{
-            ComponentFactory.setRouterComponent(route.component, params)
-            .then(()=>{
-              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                setTimeout(()=>{
-                  document.querySelector('.loader').classList.add('hidden');
-                }, 1000);
-
-                SYSPARAMS.FIRSTLOAD = false;
-              }
-            });
+            ComponentFactory.setRouterComponent(route.component, params);
           };
 
           this.router.on(routeObj);

@@ -9,7 +9,7 @@ export default class DbService {
    * Change this to restaurants.json file location on your server.
    */
   static get APIBASEURL() {
-    return process.env.APIBASEURL; // '/assets/data/restaurants.json';
+    return process.env.APIBASEURL;
   }
 
   /**
@@ -50,25 +50,31 @@ export default class DbService {
    * @return {promise}
    */
   static fetchRestaurantById(id) {
-    let promise = new Promise((resolve, reject)=>{
-      let url = `${DbService.APIBASEURL}/restaurants/${id}`;
+    let url = `${DbService.APIBASEURL}/restaurants/${id}`;
 
-      fetch(url, {
-        method: 'GET',
-      }).then((response)=>{
-        if (response.ok) {
-          response.json().then((json) => {
-            const restaurant = json;
-            resolve(restaurant);
-          });
-        } else { // Oops!. Got an error from server.
-          const error = new AppError(`Request failed. Returned status of ${response.status}`);
-          reject(error);
-        }
+    return fetch(url, {
+      method: 'GET',
+    }).then((response) => {
+      if (response.ok) {
+        return response.json().then((restaurant) => {
+          if (Store.instance)
+            Store.syncRestaurant(restaurant);
+
+          return restaurant;
+        });
+      }
+
+      throw response;
+    })
+    .catch((error) => {
+      if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+      return Store.instance.then((db) => {
+        const tx = db.transaction('restaurants');
+        return tx.objectStore('restaurants')
+        .get(+id);
       });
     });
-
-    return promise;
   }
 
   /**
