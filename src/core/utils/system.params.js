@@ -1,3 +1,3 @@
 export const SYSPARAMS = {
-  FIRSTLOAD: true,
+  APIBASEURL: process.env.APIBASEURL,
 };

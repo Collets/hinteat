@@ -1,0 +1,8 @@
+<div class="reviews">
+  <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">({{ reviews | length }})</span></h2>
+  <ul class="mdc-list mdc-list--two-line reviews-list">
+    {% for review in reviews %}
+      <review-component data-injs-review="reviews[{{ loop.index0 }}]"></review-component>        
+    {% endfor %}
+  </ul>
+</div>

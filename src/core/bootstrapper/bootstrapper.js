@@ -18,6 +18,7 @@ import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 import ReviewComponent from 'app/review/review.component';
 import FooterComponent from 'app/footer/footer.component';
+import ReviewListComponent from 'app/review-list/reviewList.component';
 
 /**
  * Bootsrapper of the application
@@ -40,6 +41,7 @@ export default function bootstrap(entrypoint) {
         RestaurantComponent,
         ReviewComponent,
         FooterComponent,
+        ReviewListComponent,
     ];
 
     return Store.open().then(() => {
