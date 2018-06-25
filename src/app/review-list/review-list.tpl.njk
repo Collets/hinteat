@@ -5,4 +5,14 @@
       <review-component data-injs-review="reviews[{{ loop.index0 }}]"></review-component>        
     {% endfor %}
   </ul>
+  <div class="add-review">
+    <div class="add-review__stars">
+      <a class="mdc-icon-button material-icons add-review__star" data-index="1">star_border</a>
+      <a class="mdc-icon-button material-icons add-review__star" data-index="2">star_border</a>
+      <a class="mdc-icon-button material-icons add-review__star" data-index="3">star_border</a>
+      <a class="mdc-icon-button material-icons add-review__star" data-index="4">star_border</a>
+      <a class="mdc-icon-button material-icons add-review__star" data-index="5">star_border</a>
+    </div>
+    <button class="add-review__rate-button mdc-button" disabled>Rate</button>
+  </div>
 </div>

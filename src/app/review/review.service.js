@@ -54,3 +54,23 @@ export function getByRestaurant(id) {
     throw response;
   });
 };
+
+/**
+ * Create a new review
+ * @param {Object} review
+ * @return {Promise}
+ */
+export function create(review) {
+  if (!review) return;
+
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/`;
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(review),
+  }).then((response) => {
+    if (response.ok)
+      return response.json();
+
+    throw response;
+  });
+}
