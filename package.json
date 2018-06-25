@@ -1,6 +1,6 @@
 {
   "name": "HintEat",
-  "version": "0.5.0-alpha",
+  "version": "0.5.1-alpha",
   "description": "The portal for restaurant and meal reviews",
   "main": "main.js",
   "scripts": {

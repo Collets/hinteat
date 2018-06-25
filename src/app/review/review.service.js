@@ -1,48 +1,56 @@
+import {SYSPARAMS} from 'core/utils/system.params';
+import {Store} from 'core/store/store';
+import {AppError} from 'core/models/errors';
+
 /**
- * Create review HTML and add it to the webpage.
- * @param {object} review
- * @return {string}
+ * Fetch the review by id.
+ * @param {string} id - id of the review
+ * @return {Promise}
  */
-export let createReviewHTML = (review) => {
-  const li = document.createElement('li');
-  const name = document.createElement('p');
-  name.innerHTML = review.name;
-  li.appendChild(name);
+export function get(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/${id}`;
 
-  const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok)
+      return response.json();
 
-  const rating = document.createElement('p');
-  rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
-
-  const comments = document.createElement('p');
-  comments.innerHTML = review.comments;
-  li.appendChild(comments);
-
-  return li;
+    throw response;
+  });
 };
 
 /**
- * Create all reviews HTML and add them to the webpage.
- * @param {object[]} reviews
+ * Fetch all the reviews
+ * @return {Promise}
  */
-export let fillReviewsHTML = (reviews) => {
-  const container = document.getElementById('reviews-container');
-  const title = document.createElement('h2');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
+export function getAll() {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/`;
 
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach((review) => {
-    ul.appendChild(createReviewHTML(review));
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok)
+      return response.json();
+
+    throw response;
   });
-  container.appendChild(ul);
+};
+
+/**
+ * Fetch the reviews by restaurant id.
+ * @param {string} id - id of the restaurant
+ * @return {Promise}
+ */
+export function getByRestaurant(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/?restaurant_id=${id}`;
+
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok)
+      return response.json();
+
+    throw response;
+  });
 };

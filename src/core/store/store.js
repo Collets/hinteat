@@ -47,8 +47,11 @@ export const Store = {
                 let toUpdate = restaurants.find((restaurant) => restaurant.id === cursor.value.id && restaurant.updatedAt > cursor.value.updatedAt );
                 toSyncs = toSyncs.filter((restaurant) => restaurant.id != cursor.value.id);
                 if (toUpdate) {
-                    cursor.update(toUpdate)
-                    .catch((err) => Notification.error(err));
+                    let updateResponse = cursor.update(toUpdate);
+
+                    updateResponse.onerror = function() {
+                        Notification.error(updateResponse.error);
+                    };
                 }
                 cursor.continue();
             });
