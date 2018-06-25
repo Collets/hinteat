@@ -2,6 +2,7 @@ import BaseComponent from 'core/base/base.component';
 import * as ReviewService from 'app/review/review.service';
 import {MDCRipple} from '@material/ripple';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {MDCDialog} from '@material/dialog';
 
 import './reviewList.scss';
 
@@ -24,9 +25,6 @@ class ReviewListComponent extends BaseComponent {
    * @memberof ReviewListComponent
    */
   afterRender() {
-    if (this._wrapper.querySelector('.add-review__rate-button'))
-      this._rateButtonRipple = new MDCRipple(this._wrapper.querySelector('.add-review__rate-button'));
-
     if (this._wrapper.querySelectorAll('.add-review__star')) {
       this._wrapper.querySelectorAll('.add-review__star').forEach((element) => {
         let ripple = new MDCRipple(element);
@@ -41,12 +39,27 @@ class ReviewListComponent extends BaseComponent {
         });
 
         this._stars.push(element);
-
       });
     }
 
     if (this._wrapper.querySelector('.reviews-list'))
       this._scrollbar = new PerfectScrollbar(this._wrapper.querySelector('.reviews-list'));
+
+    if (this._wrapper.querySelector('.add-review__rate-button'))
+      this._rateButtonRipple = new MDCRipple(this._wrapper.querySelector('.add-review__rate-button'));
+    
+    if (this._wrapper.querySelector('#add-review-modal'))
+      this._dialog = new MDCDialog(this._wrapper.querySelector('#add-review-modal'));
+
+    this._wrapper.querySelector('.add-review__rate-button').addEventListener('click', (e)=>{
+      e.preventDefault();
+
+      this._dialog.show();
+    });
+
+    this._dialog.listen('MDCDialog:accept', function() {
+      console.log('accepted');
+    });
   }
 
    /**
