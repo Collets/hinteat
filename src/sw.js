@@ -3,6 +3,18 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
+  const bgSyncPlugin = new workbox.backgroundSync.Plugin('myQueueName', {
+    maxRetentionTime: 24 * 60, // Retry for max of 24 Hours
+  });
+
+  workbox.routing.registerRoute(
+    /\/reviews\/.*\/*/,
+    workbox.strategies.networkOnly({
+      plugins: [bgSyncPlugin],
+    }),
+    'POST'
+  );
+
   workbox.routing.registerRoute(
     new RegExp('.*\.js'),
     workbox.strategies.networkFirst()

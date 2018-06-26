@@ -3,6 +3,7 @@
 @import "@material/button/mdc-button";
 @import "@material/icon-button/mdc-icon-button";
 @import "@material/dialog/mdc-dialog";
+@import "@material/textfield/mdc-text-field";
 
 review-list-component{
   padding: 16px;    
@@ -42,6 +43,21 @@ review-list-component{
 
 .add-review__rate-button:disabled{
   color: #999;
+}
+
+.add-review-modal__surface{
+  width: 400px;
+  min-width: 400px;
+}
+
+.name-wrapper.mdc-text-field--upgraded:not(.mdc-text-field--fullwidth):not(.mdc-text-field--box),
+.message-wrapper.mdc-text-field--upgraded:not(.mdc-text-field--fullwidth):not(.mdc-text-field--box){
+  display: flex;
+  width: 100%;
+}
+
+#message{
+  width: 100%;
 }
 
 //perfect scrollbar
