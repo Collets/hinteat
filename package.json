@@ -32,7 +32,7 @@
       }
     },
     "build.optimized.prod": {
-      "command": "gulp webpack:build:prod && cd dist && sudo ws --http2 --spa index.html --compress --port 443",
+      "command": "gulp webpack:build:prod && cd dist && sudo ws --https --spa index.html --compress --port 443",
       "env": {
         "BASEURL": "https://127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",

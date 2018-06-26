@@ -16,10 +16,9 @@ export const RouteEngine = {
   router: null,
   /**
    * Initialize the router engine
-   * @param {string} root
    */
-  initialize(root) {
-    this.router = new Navigo(root);
+  initialize() {
+    this.router = new Navigo();
     
     if (this.routes) {
       this.routes.forEach((route)=>{
