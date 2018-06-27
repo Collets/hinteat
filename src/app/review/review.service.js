@@ -1,6 +1,5 @@
 import {SYSPARAMS} from 'core/utils/system.params';
 import {Store} from 'core/store/store';
-import {AppError} from 'core/models/errors';
 
 /**
  * Fetch the review by id.
@@ -13,10 +12,25 @@ export function get(id) {
   return fetch(url, {
     method: 'GET',
   }).then((response) => {
-    if (response.ok)
-      return response.json();
+    if (response.ok) {
+      return response.json().then((review) => {
+        if (Store.instance)
+          Store.syncReview(review);
+
+        return review;
+      });
+    }
 
     throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      return tx.objectStore('reviews')
+      .get(+id);
+    });
   });
 };
 
@@ -30,10 +44,25 @@ export function getAll() {
   return fetch(url, {
     method: 'GET',
   }).then((response) => {
-    if (response.ok)
-      return response.json();
+    if (response.ok) {
+      return response.json().then((reviews) => {
+        if (Store.instance)
+          Store.sync(null, reviews);
+
+        return reviews;
+      });
+    }
 
     throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      return tx.objectStore('reviews')
+      .getAll();
+    });
   });
 };
 
@@ -48,10 +77,26 @@ export function getByRestaurant(id) {
   return fetch(url, {
     method: 'GET',
   }).then((response) => {
-    if (response.ok)
-      return response.json();
+    if (response.ok) {
+      return response.json().then((reviews) => {
+        if (Store.instance)
+          Store.sync(null, reviews);
+
+        return reviews;
+      });
+    }
 
     throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      const objStore = tx.objectStore('reviews');
+      return objStore.index('restaurant_id')
+      .getAll(+id);
+    });
   });
 };
 
@@ -72,5 +117,8 @@ export function create(review) {
       return response.json();
 
     throw response;
+  })
+  .catch((error)=>{
+    return Store.syncReview(review);
   });
 }

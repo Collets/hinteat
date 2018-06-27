@@ -46,7 +46,7 @@ export default function bootstrap(entrypoint) {
 
     return Store.open().then(() => {
         return ComponentFactory.startup(entrypoint).then(()=>{
-            RouteEngine.initialize();
+            RouteEngine.initialize(process.env.BASEURL);
         });
     });
 }

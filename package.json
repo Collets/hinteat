@@ -10,7 +10,7 @@
     "serve.dev": {
       "command": "gulp webpack:serve:dev",
       "env": {
-        "BASEURL": "http://localhost:9000/",
+        "BASEURL": "localhost:9000",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -18,7 +18,7 @@
     "build.dev": {
       "command": "gulp webpack:build:dev",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -26,7 +26,7 @@
     "build.prod": {
       "command": "gulp webpack:build:prod",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -34,7 +34,7 @@
     "build.optimized.prod": {
       "command": "gulp webpack:build:prod && cd dist && sudo ws --https --spa index.html --compress --port 443",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }

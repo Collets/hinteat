@@ -17,8 +17,8 @@ export const RouteEngine = {
   /**
    * Initialize the router engine
    */
-  initialize() {
-    this.router = new Navigo();
+  initialize(root) {
+    this.router = new Navigo(`${location.protocol}//${root}`);
     
     if (this.routes) {
       this.routes.forEach((route)=>{
