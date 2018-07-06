@@ -5,6 +5,7 @@ const nunjucks = require('gulp-nunjucks');
 const concat = require('gulp-concat');
 
 const gutil = require("gulp-util");
+const watch = require('gulp-watch');
 const open = require('opn');
 
 const webpack = require("webpack");
@@ -63,3 +64,4 @@ gulp.task('webpack:build:dev', ['nunjucks:precompile'] ,() => {
   return webpackStream(BUILD_DEV_CONFIG)
       .pipe(gulp.dest(`${paths.build}`));
 });
+

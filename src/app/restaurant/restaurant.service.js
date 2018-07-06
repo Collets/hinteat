@@ -11,29 +11,29 @@ import {AppError} from 'core/models/errors';
 export function get(id) {
   let url = `${SYSPARAMS.APIBASEURL}/restaurants/${id}`;
 
-    return fetch(url, {
-      method: 'GET',
-    }).then((response) => {
-      if (response.ok) {
-        return response.json().then((restaurant) => {
-          if (Store.instance)
-            Store.syncRestaurant(restaurant);
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((restaurant) => {
+        if (Store.instance)
+          Store.syncRestaurant(restaurant);
 
-          return restaurant;
-        });
-      }
-
-      throw response;
-    })
-    .catch((error) => {
-      if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
-
-      return Store.instance.then((db) => {
-        const tx = db.transaction('restaurants');
-        return tx.objectStore('restaurants')
-        .get(+id);
+        return restaurant;
       });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('restaurants');
+      return tx.objectStore('restaurants')
+      .get(id);
     });
+  });
 };
 
 /**
@@ -44,29 +44,29 @@ export function get(id) {
 export function getAll() {
   let url = `${SYSPARAMS.APIBASEURL}/restaurants/`;
 
-    return fetch(url, {
-      method: 'GET',
-    }).then((response) => {
-      if (response.ok) {
-        return response.json().then((restaurants) => {
-          if (Store.instance)
-            Store.sync(restaurants);
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((restaurants) => {
+        if (Store.instance)
+          Store.sync(restaurants);
 
-          return restaurants;
-        });
-      }
-
-      throw response;
-    })
-    .catch((error) => {
-      if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
-
-      return Store.instance.then((db) => {
-        const tx = db.transaction('restaurants');
-        return tx.objectStore('restaurants')
-        .getAll();
+        return restaurants;
       });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('restaurants');
+      return tx.objectStore('restaurants')
+      .getAll();
     });
+  });
 }
 
 /**

@@ -10,7 +10,7 @@
     "serve.dev": {
       "command": "gulp webpack:serve:dev",
       "env": {
-        "BASEURL": "http://localhost:9000/",
+        "BASEURL": "localhost:9000",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -18,7 +18,7 @@
     "build.dev": {
       "command": "gulp webpack:build:dev",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -26,15 +26,15 @@
     "build.prod": {
       "command": "gulp webpack:build:prod",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
     },
     "build.optimized.prod": {
-      "command": "gulp webpack:build:prod && cd dist && sudo ws --http2 --spa index.html --compress --port 443",
+      "command": "gulp webpack:build:prod && cd dist && sudo ws --https --spa index.html --compress --port 443",
       "env": {
-        "BASEURL": "https://127.0.0.1",
+        "BASEURL": "127.0.0.1",
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
@@ -70,6 +70,7 @@
     "gulp-nunjucks": "^3.1.1",
     "gulp-print": "^5.0.0",
     "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
     "htmllint-loader": "^2.1.4",
@@ -92,9 +93,11 @@
     "@material/dialog": "^0.33.0",
     "@material/drawer": "^0.30.0",
     "@material/grid-list": "^0.30.0",
+    "@material/icon-button": "^0.36.0",
     "@material/icon-toggle": "^0.32.0",
     "@material/list": "^0.32.0",
     "@material/select": "^0.32.0",
+    "@material/textfield": "^0.32.0",
     "@material/toolbar": "^0.32.0",
     "firebase": "^4.12.0",
     "firebaseui": "^2.7.0",
@@ -103,6 +106,8 @@
     "load-google-maps-api": "^1.1.1",
     "navigo": "^7.1.1",
     "nunjucks": "^3.1.2",
-    "toastr": "^2.1.4"
+    "perfect-scrollbar": "^1.4.0",
+    "toastr": "^2.1.4",
+    "uuid": "^3.3.2"
   }
 }

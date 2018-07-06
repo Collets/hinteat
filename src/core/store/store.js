@@ -29,12 +29,30 @@ export const Store = {
             restaurantsStore.createIndex('creationDate', 'createdAt');
             restaurantsStore.createIndex('updatingDate', 'updatedAt');
         },
+        v2: (upgradeDB) => {
+            upgradeDB.createObjectStore('reviews', {keyPath: 'id'});
+            let reviewsStore = upgradeDB.transaction.objectStore('reviews');
+            reviewsStore.createIndex('name', 'name');
+            reviewsStore.createIndex('creationDate', 'createdAt');
+            reviewsStore.createIndex('updatingDate', 'updatedAt');
+            reviewsStore.createIndex('rating', 'rating');
+            reviewsStore.createIndex('restaurant_id', 'restaurant_id');
+        },
     },
-    sync(restaurants) {
-        this.syncRestaurants(restaurants)
-        .catch((err) => {
-            Notification.error(err.message);
-        });
+    sync(restaurants, reviews) {
+        if (restaurants) {
+            this.syncRestaurants(restaurants)
+            .catch((err) => {
+                Notification.error(err.message);
+            });
+        }
+
+        if (reviews) {
+            this.syncReviews(reviews)
+            .catch((err) => {
+                Notification.error(err.message);
+            });
+        }
     },
     syncRestaurants(restaurants) {
         let toSyncs = [...restaurants];
@@ -72,6 +90,45 @@ export const Store = {
             .then((stored) => {
                 if (!stored || stored.updatedAt < restaurant.updatedAt)
                     tx.objectStore('restaurants').put(restaurant);
+            });
+        });
+    },
+    syncReviews(reviews) {
+        let toSyncs = [...reviews];
+
+        return this.instance.then((db) => {
+            const tx = db.transaction('reviews', 'readwrite');
+            tx.objectStore('reviews')
+            .iterateCursor((cursor) => {
+                if (!cursor) return;
+                let toUpdate = reviews.find((review) => review.id === cursor.value.id && review.updatedAt > cursor.value.updatedAt );
+                toSyncs = toSyncs.filter((review) => review.id != cursor.value.id);
+                if (toUpdate) {
+                    let updateResponse = cursor.update(toUpdate);
+
+                    updateResponse.onerror = function() {
+                        Notification.error(updateResponse.error);
+                    };
+                }
+                cursor.continue();
+            });
+
+            tx.complete.then(() => {
+                const txAdd = db.transaction('reviews', 'readwrite');
+                toSyncs.forEach((review) => {
+                    txAdd.objectStore('reviews').put(review);
+                });
+            });
+        });
+    },
+    syncReview(review) {
+        return this.instance.then((db) => {
+            const tx = db.transaction('reviews', 'readwrite');
+            tx.objectStore('reviews')
+            .get(review.id)
+            .then((stored) => {
+                if (!stored || stored.updatedAt < review.updatedAt)
+                    tx.objectStore('reviews').put(review);
             });
         });
     },
