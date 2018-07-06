@@ -39,6 +39,18 @@ export const Store = {
             reviewsStore.createIndex('restaurant_id', 'restaurant_id');
         },
     },
+    updateRestaurant(restaurant) {
+        if (!restaurant) return null;
+
+        return this.instance.then((db)=>{
+            const tx = db.transaction('restaurants', 'readwrite');
+
+            tx.objectStore('restaurants')
+            .put(restaurant);
+
+            return tx.complete;
+        });
+    },
     sync(restaurants, reviews) {
         if (restaurants) {
             this.syncRestaurants(restaurants)
