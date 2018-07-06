@@ -31,7 +31,7 @@ export function get(id) {
     return Store.instance.then((db) => {
       const tx = db.transaction('restaurants');
       return tx.objectStore('restaurants')
-      .get(+id);
+      .get(id);
     });
   });
 };

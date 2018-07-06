@@ -1,5 +1,6 @@
 import {SYSPARAMS} from 'core/utils/system.params';
 import {Store} from 'core/store/store';
+import uuidv4 from 'uuid/v4';
 
 /**
  * Fetch the review by id.
@@ -29,7 +30,7 @@ export function get(id) {
     return Store.instance.then((db) => {
       const tx = db.transaction('reviews');
       return tx.objectStore('reviews')
-      .get(+id);
+      .get(id);
     });
   });
 };
@@ -95,7 +96,7 @@ export function getByRestaurant(id) {
       const tx = db.transaction('reviews');
       const objStore = tx.objectStore('reviews');
       return objStore.index('restaurant_id')
-      .getAll(+id);
+      .getAll(id);
     });
   });
 };
@@ -108,7 +109,9 @@ export function getByRestaurant(id) {
 export function create(review) {
   if (!review) return;
 
+  review.id = uuidv4();
   let url = `${SYSPARAMS.APIBASEURL}/reviews/`;
+
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(review),

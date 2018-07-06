@@ -7,7 +7,6 @@ import {MDCTextField} from '@material/textfield';
 import Notification from 'core/ui/notification';
 
 import './reviewList.scss';
-
 /** Review Class */
 class ReviewListComponent extends BaseComponent {
   /**
