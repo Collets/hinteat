@@ -31,10 +31,10 @@ npm install -g local-web-server
 npm install
 ```
 
-### Server project
+### API Server project
 
 ```bash
-git clone https://github.com/Collets/hinteat-server.git
+git clone https://github.com/Collets/hinteat-api.git
 ```
 
 ```bash
@@ -46,7 +46,7 @@ npm install
 ## Usage
 
 HintEat uses the Better NPM Run package to run the scripts needed to launch the project or build it.
-There is some script to help the automation, in order to get the production ready version of the app with all the optimization use [optimized local version](optimized-local-version).
+There is some script to help the automation, in order to get the production ready version of the app with all the optimization use [optimized local version](#optimized-local-version).
 
 ### Serve in a local server
 
@@ -89,7 +89,17 @@ The script is
 bnr build.optimized.prod
 ```
 
-In order to fetch the data, run the API server previously installed (see [Server project](#server-project)).
+Some version of lighthouse is not able to give the full PWA score if the HTTPS trafic is not redirected to HTTPS.
+If needed, there is an additiona command to make this possible:
+* open another terminal, and open the same frontend folder
+* after the build (see previous step), move in dist folder
+* run the script
+
+```bash
+sudo ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
+```
+
+In order to fetch the data, run the API server previously installed (see [API Server project](#API-server-project)).
 
 In another terminal, open the folder of the server side project and run the script:
 

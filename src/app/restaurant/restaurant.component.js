@@ -51,12 +51,22 @@ class RestaurantComponent extends BaseComponent {
 
     this._wrapper.querySelector('#open-restaurant-map').addEventListener('click', (e)=>{
       e.preventDefault();
-      
+
       this.openmap();
     });
-    
-    if (this._wrapper.querySelector('.add-favorites-button'))
-      MDCIconToggle.attachTo(this._wrapper.querySelector('.add-favorites-button'));
+
+    if (this._wrapper.querySelector('.add-favorites-button')) {
+      this._model.favoriteToggle = MDCIconToggle.attachTo(this._wrapper.querySelector('.add-favorites-button'));
+
+      this._model.favoriteToggle.on = this._model.restaurant.is_favorite === 'true';
+
+      this._wrapper.querySelector('.add-favorites-button').addEventListener('click', (e)=>{
+        e.preventDefault();
+
+        RestaurantService.toggleFavorite(this._model.id);
+      });
+    }
+
 
     if (this._wrapper.querySelector('#opening-hours-dialog'))
       this._dialog = new MDCDialog(this._wrapper.querySelector('#opening-hours-dialog'));

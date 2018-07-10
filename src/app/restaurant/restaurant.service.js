@@ -70,6 +70,30 @@ export function getAll() {
 }
 
 /**
+ * Toggle the favorite state of a restaurant
+ * @param {string} id Id of the restaurant
+ * @return {Promise}
+ */
+export function toggleFavorite(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/restaurants/${id}/?is_favorite=`;
+
+  return get(id).then((restaurant)=>{
+    let favorite = !(restaurant.is_favorite === 'true');
+    restaurant.is_favorite = favorite;
+
+    url += favorite;
+    return fetch(url, {
+      method: 'PUT',
+    }).then((response) => {
+      if (response.ok)
+        return Store.updateRestaurant(restaurant);
+
+      throw response;
+    });
+  });
+}
+
+/**
  * Retrieve restaurants
  *
  * @param {RestaurantFilters} filters
