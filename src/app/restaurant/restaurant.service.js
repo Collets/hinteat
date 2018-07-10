@@ -78,7 +78,7 @@ export function toggleFavorite(id) {
   let url = `${SYSPARAMS.APIBASEURL}/restaurants/${id}/?is_favorite=`;
 
   return get(id).then((restaurant)=>{
-    let favorite = !restaurant.is_favorite;
+    let favorite = !(restaurant.is_favorite === 'true');
     restaurant.is_favorite = favorite;
 
     url += favorite;
