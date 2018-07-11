@@ -47,6 +47,14 @@ export default function bootstrap(entrypoint) {
     return Store.open().then(() => {
         return ComponentFactory.startup(entrypoint).then(()=>{
             RouteEngine.initialize(process.env.BASEURL);
+
+            let promise = new Promise((resolve)=>{
+                document.addEventListener('HINTEAT:FIRSTLOAD', () => {
+                    resolve();
+                });
+            });
+
+            return promise;
         });
     });
 }
