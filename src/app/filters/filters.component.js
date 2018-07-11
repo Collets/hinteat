@@ -48,6 +48,7 @@ class FiltersComponent extends BaseComponent {
       e.preventDefault();
 
       this.filter();
+      this.toggle();
     });
 
     document.querySelectorAll('.cards-view-button').forEach((element)=>{
@@ -73,15 +74,14 @@ class FiltersComponent extends BaseComponent {
    * Count the results with current filters
    *
    * @memberof FiltersComponent
+   * @return {Promise}
    */
   count() {
     let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
-    RestaurantService.retrieveCount(filters)
+    return RestaurantService.retrieveCount(filters)
     .then((total)=>{
       this._wrapper.querySelector('#total-results').innerHTML = total;
-
-      if (this._model.isBig)
-        this._model.filter(filters);
+      return total;
     })
     .catch((error)=>{
       if (!(error instanceof AppError))
@@ -100,8 +100,6 @@ class FiltersComponent extends BaseComponent {
     let filters = new RestaurantFilters(this.model.cuisine, this.model.neighboorhood);
     this._selectedFilters = filters;
     this._model.filter(filters);
-
-    this.toggle();
   }
 
   /**
@@ -111,7 +109,10 @@ class FiltersComponent extends BaseComponent {
    */
   setCuisine(filter) {
     this.model.cuisine = filter.trim();
-    this.count();
+    this.count().then(()=> {
+      if (this._model.isBig)
+        this.filter();
+    });
   }
 
   /**
@@ -121,7 +122,10 @@ class FiltersComponent extends BaseComponent {
    */
   setNeighborhood(filter) {
     this.model.neighboorhood = filter.trim();
-    this.count();
+    this.count().then(()=> {
+      if (this._model.isBig)
+        this.filter();
+    });
   }
 
   /**

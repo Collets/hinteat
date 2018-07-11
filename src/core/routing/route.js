@@ -1,6 +1,5 @@
 import Navigo from 'navigo';
 import {ComponentFactory} from 'core/component-factory/component-factory';
-import {SYSPARAMS} from 'core/utils/system.params';
 
 export const RouteEngine = {
   routes: [
@@ -16,6 +15,7 @@ export const RouteEngine = {
   router: null,
   /**
    * Initialize the router engine
+   * @param {string} root
    */
   initialize(root) {
     this.router = new Navigo(`${location.protocol}//${root}`);
@@ -28,12 +28,16 @@ export const RouteEngine = {
           });
 
           this.router.on(()=>{
-            ComponentFactory.setRouterComponent(route.component);
+            ComponentFactory.setRouterComponent(route.component).then(()=>{
+              ComponentFactory.endRender();
+            });
           });
         } else {
           let routeObj = {};
           routeObj[route.url] = (params)=>{
-            ComponentFactory.setRouterComponent(route.component, params);
+            ComponentFactory.setRouterComponent(route.component, params).then(()=>{
+              ComponentFactory.endRender();
+            });
           };
 
           this.router.on(routeObj);

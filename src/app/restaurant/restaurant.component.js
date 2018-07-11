@@ -67,7 +67,6 @@ class RestaurantComponent extends BaseComponent {
       });
     }
 
-
     if (this._wrapper.querySelector('#opening-hours-dialog'))
       this._dialog = new MDCDialog(this._wrapper.querySelector('#opening-hours-dialog'));
   }
