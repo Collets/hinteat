@@ -99,7 +99,7 @@ If needed, there is an additiona command to make this possible:
 sudo ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
 ```
 
-In order to fetch the data, run the API server previously installed (see [API Server project](#API-server-project)).
+In order to fetch the data, run the API server previously installed (see [API Server project](#api-server-project)).
 
 In another terminal, open the folder of the server side project and run the script:
 
