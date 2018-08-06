@@ -28,7 +28,11 @@ gulp.task('nunjucks:precompile', () =>
     .pipe(nunjucks.precompile({
       name: file => { 
         var path = file.relative;
-        return (`${path.substr(path.lastIndexOf('/') + 1)}`);
+
+        if(path.lastIndexOf('\\') > 0)
+          return (`${path.substr(path.lastIndexOf('\\') + 1)}`);
+        else
+          return (`${path.substr(path.lastIndexOf('/') + 1)}`);          
       }
     }))
     .pipe(concat('templates.js'))
