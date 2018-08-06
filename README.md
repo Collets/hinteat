@@ -87,8 +87,16 @@ In order to get the "green padlock" on the browser please follow this guide: [en
 
 The script is
 
+#### Linux version
+
 ```bash
 bnr build.optimized.prod
+```
+
+#### Windows version
+
+```bash
+bnr build.optimized.prod.windows
 ```
 
 Some version of lighthouse is not able to give the full PWA score if the HTTPS trafic is not redirected to HTTPS.
@@ -97,8 +105,10 @@ If needed, there is an additiona command to make this possible:
 * after the build (see previous step), move in dist folder
 * run the script
 
+**On Linux environment**  launch as sudo
+
 ```bash
-sudo ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
+ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
 ```
 
 In order to fetch the data, run the API server previously installed (see [API Server project](#api-server-project)).

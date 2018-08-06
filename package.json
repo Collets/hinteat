@@ -38,6 +38,14 @@
         "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
         "APIBASEURL": "http://localhost:1337"
       }
+    },
+    "build.optimized.prod.windows": {
+      "command": "gulp webpack:build:prod && cd dist && ws --https --spa index.html --compress --port 443",
+      "env": {
+        "BASEURL": "127.0.0.1",
+        "MAPSAPIKEY": "AIzaSyCODrZS_NUqQ3uJSry7i7XQWzo349jDqng",
+        "APIBASEURL": "http://localhost:1337"
+      }
     }
   },
   "repository": {
