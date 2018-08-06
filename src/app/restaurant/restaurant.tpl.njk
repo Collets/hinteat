@@ -14,20 +14,21 @@
   </div>
   <div class="restaurant-cover__wrapper">
     <span class="restaurant-cover__overlay"></span>
-    <picture>
+    <picture class="lazy-loading-image">
       <source media="(max-width:599px)"
-        srcset="/assets/img/headers/{{restaurant.photograph}}@599.webp"/>
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}@599.webp"/>
       <source media="(max-width:800px)"
-        srcset="/assets/img/headers/{{restaurant.photograph}}@800.webp"/>
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}@800.webp"/>
       <source media="(max-width:1200px)"
-        srcset="/assets/img/headers/{{restaurant.photograph}}@1200.webp"/>
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}@1200.webp"/>
       <source media="(max-width:1600px)"
-        srcset="/assets/img/headers/{{restaurant.photograph}}@1600.webp"/>
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}@1600.webp"/>
       <source media="(min-width:1601px)"
-        srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
       <img class="restaurant-cover__image" alt="{{restaurant.description}}"
-        src="/assets/img/headers/{{restaurant.photograph}}.jpg"
-        srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
+        src="/assets/img/headers/{{restaurant.photograph}}@5.jpg"
+        data-src="/assets/img/headers/{{restaurant.photograph}}.jpg"
+        data-srcset="/assets/img/headers/{{restaurant.photograph}}.webp"/>
     </picture>  
   </div>
 </header>
@@ -53,14 +54,7 @@
       </div>
       <hr class="mdc-list-divider">
     </div>    
-    <div class="reviews">
-      <h2 class="reviews__title mdc-typography--title">Reviews <span class="reviews-number mdc-typography--caption">({{ restaurant.reviews | length }})</span></h2>
-      <ul class="mdc-list mdc-list--two-line reviews-list">
-        {% for review in restaurant.reviews %}
-          <review-component data-injs-review="restaurant.reviews[{{ loop.index0 }}]"></review-component>        
-        {% endfor %}
-      </ul>
-    </div>
+    <review-list-component data-injs-restaurantId="id"></review-list-component>
   </div>
 </main>
 <footer-component></footer-component>

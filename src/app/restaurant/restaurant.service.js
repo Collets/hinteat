@@ -1,19 +1,97 @@
-import DbService from 'app/db/db.service';
-import RestaurantFilters from 'app/restaurant//restaurant-filters';
-
-import Utils from 'core/utils/utils';
+import {SYSPARAMS} from 'core/utils/system.params';
+import {Store} from 'core/store/store';
 import {AppError} from 'core/models/errors';
-import * as ReviewService from 'app/review/review.service';
 
 /**
  * Get Restaurant by id
  *
  * @param {number} id
- * @return {object}
+ * @return {Promise}
  */
 export function get(id) {
-  return DbService.fetchRestaurantById(id);
+  let url = `${SYSPARAMS.APIBASEURL}/restaurants/${id}`;
+
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((restaurant) => {
+        if (Store.instance)
+          Store.syncRestaurant(restaurant);
+
+        return restaurant;
+      });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('restaurants');
+      return tx.objectStore('restaurants')
+      .get(id);
+    });
+  });
 };
+
+/**
+ * Get all Restaurants
+ *
+ * @return {Promise}
+ */
+export function getAll() {
+  let url = `${SYSPARAMS.APIBASEURL}/restaurants/`;
+
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((restaurants) => {
+        if (Store.instance)
+          Store.sync(restaurants);
+
+        return restaurants;
+      });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('restaurants');
+      return tx.objectStore('restaurants')
+      .getAll();
+    });
+  });
+}
+
+/**
+ * Toggle the favorite state of a restaurant
+ * @param {string} id Id of the restaurant
+ * @return {Promise}
+ */
+export function toggleFavorite(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/restaurants/${id}/?is_favorite=`;
+
+  return get(id).then((restaurant)=>{
+    let favorite = !(restaurant.is_favorite === 'true');
+    restaurant.is_favorite = favorite;
+
+    url += favorite;
+    return fetch(url, {
+      method: 'PUT',
+    }).then((response) => {
+      if (response.ok)
+        return Store.updateRestaurant(restaurant);
+
+      throw response;
+    });
+  });
+}
 
 /**
  * Retrieve restaurants
@@ -24,7 +102,25 @@ export function get(id) {
 export function retrieve(filters) {
   if (!filters) return;
 
-  return DbService.fetchRestaurantByCuisineAndNeighborhood(filters.Cuisine, filters.Neighboorhood);
+  return getAll().
+  then((restaurants) =>{
+    let results = restaurants;
+    if (filters.Cuisine != 'all-cuisines') // filter by cuisine
+      results = results.filter((r) => r.cuisine_type == filters.Cuisine);
+
+    if (filters.Neighboorhood != 'all-neighborhoods') // filter by neighborhood
+      results = results.filter((r) => r.neighborhood == filters.Neighboorhood);
+
+    return results;
+  })
+  .catch((error) => {
+    if (!(error instanceof AppError)) {
+      console.error(error);
+      error = new AppError('Unexpected error');
+    }
+
+    throw error;
+  });
 }
 
 /**
@@ -36,86 +132,16 @@ export function retrieve(filters) {
 export function retrieveCount(filters) {
   if (!filters) return;
 
-  return DbService.fetchRestaurantByCuisineAndNeighborhoodCount(filters.Cuisine, filters.Neighboorhood);
-}
-
-/**
- * Get current restaurant from page URL.
- * @return {promise}
- */
-export let fetchRestaurantFromURL = () => {
-  let promise = new Promise((resolve, reject)=>{
-    const id = Utils.getParameterByName('id');
-
-    if (!id)
-      reject(new AppError('No restaurant id in URL'));
-     else {
-      DbService.fetchRestaurantById(id)
-      .then((restaurant)=>{
-        fillRestaurantHTML(restaurant);
-
-        resolve(restaurant);
-      })
-      .catch((error)=>{
-        if (!(error instanceof AppError)) {
-          console.error(error);
-          error = new AppError('Unexpected error');
-        }
-
-        reject(error);
-      });
+  return retrieve(filters)
+  .then((restaurants) => {
+    return restaurants.length;
+  })
+  .catch((error)=>{
+    if (!(error instanceof AppError)) {
+      console.error(error);
+      error = new AppError('Unexpected error');
     }
+
+    throw error;
   });
-
-  return promise;
-};
-
-/**
- * Create restaurant HTML and add it to the webpage
- * @param {object} restaurant
- */
-export let fillRestaurantHTML = (restaurant) => {
-  const name = document.getElementById('restaurant-name');
-  name.innerHTML = restaurant.name;
-
-  const address = document.getElementById('restaurant-address');
-  address.innerHTML = restaurant.address;
-
-  const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img';
-  image.src = DbService.imageUrlForRestaurant(restaurant);
-
-  const cuisine = document.getElementById('restaurant-cuisine');
-  cuisine.innerHTML = restaurant.cuisine_type;
-
-  // fill operating hours
-  if (restaurant.operating_hours)
-    fillRestaurantHoursHTML(restaurant.operating_hours);
-
-  // fill reviews
-  ReviewService.fillReviewsHTML(restaurant.reviews);
-};
-
-/**
- * Create restaurant operating hours HTML table and add it to the webpage.
- * @param {object} operatingHours
- */
-export let fillRestaurantHoursHTML = (operatingHours) => {
-  const hours = document.getElementById('restaurant-hours');
-
-  for (let key in operatingHours) {
-    if (Object.prototype.hasOwnProperty.call(operatingHours, key)) {
-      const row = document.createElement('tr');
-
-      const day = document.createElement('td');
-      day.innerHTML = key;
-      row.appendChild(day);
-
-      const time = document.createElement('td');
-      time.innerHTML = operatingHours[key];
-      row.appendChild(time);
-
-      hours.appendChild(row);
-    }
-  }
-};
+}

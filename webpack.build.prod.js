@@ -2,8 +2,6 @@
 
 var webpack = require('webpack');
 var path = require('path');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var merge = require('webpack-merge');
@@ -13,6 +11,7 @@ module.exports = merge(common, {
   entry: {
     main: path.resolve(__dirname, 'src/main.js'),
   },
+  devtool: 'hidden-source-map',
   plugins: [
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/,
@@ -24,15 +23,18 @@ module.exports = merge(common, {
     }),
     new UglifyJsPlugin({
       test: /\.js($|\?)/i,
+      parallel: true,
       sourceMap: true,
       uglifyOptions:{
         compress: true,
-        warnings: false,
         output: {
-          comments: true,
-          beautify: true
+          comments: false,
+          beautify: false
         },
-        keep_fnames: true
+        toplevel:true,
+        keep_classnames:true,
+        keep_fnames: true,
+        //warnings: false
       }
     }),
     new webpack.DefinePlugin({

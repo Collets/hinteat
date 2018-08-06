@@ -4,10 +4,8 @@ const gulp = require('gulp');
 const nunjucks = require('gulp-nunjucks');
 const concat = require('gulp-concat');
 
-const gprint = require('gulp-print');
 const gutil = require("gulp-util");
-const del = require('del');
-const vinylPaths = require('vinyl-paths');
+const watch = require('gulp-watch');
 const open = require('opn');
 
 const webpack = require("webpack");
@@ -30,7 +28,11 @@ gulp.task('nunjucks:precompile', () =>
     .pipe(nunjucks.precompile({
       name: file => { 
         var path = file.relative;
-        return (`${path.substr(path.lastIndexOf('/') + 1)}`);
+
+        if(path.lastIndexOf('\\') > 0)
+          return (`${path.substr(path.lastIndexOf('\\') + 1)}`);
+        else
+          return (`${path.substr(path.lastIndexOf('/') + 1)}`);          
       }
     }))
     .pipe(concat('templates.js'))
@@ -66,3 +68,4 @@ gulp.task('webpack:build:dev', ['nunjucks:precompile'] ,() => {
   return webpackStream(BUILD_DEV_CONFIG)
       .pipe(gulp.dest(`${paths.build}`));
 });
+

@@ -39,9 +39,9 @@ class Map {
           this._entity = googleMaps;
           resolve(this._entity);
         });
-      }else{
+      } else {
         resolve(this._entity);
-      }      
+      }
     });
 
     return promise;

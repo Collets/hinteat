@@ -137,29 +137,3 @@
         display: none;
     }
 }
-
-.reviews{
-    padding: 16px;    
-    box-sizing: border-box;
-
-    @media screen and (min-width: 769px) {
-        flex: 1 0 50%;
-        max-width: 50%;
-    }
-}
-
-.reviews-number{
-    color: $mdc-theme-secondary-light;
-}
-
-.reviews-list-item{
-    height: 68px;
-}
-
-.reviews-list-item__rating{
-    display: flex;
-
-    .material-icons{
-        font-size: 16px;
-    }
-}

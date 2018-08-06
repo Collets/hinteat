@@ -1,48 +1,127 @@
-/**
- * Create review HTML and add it to the webpage.
- * @param {object} review
- * @return {string}
- */
-export let createReviewHTML = (review) => {
-  const li = document.createElement('li');
-  const name = document.createElement('p');
-  name.innerHTML = review.name;
-  li.appendChild(name);
-
-  const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
-
-  const rating = document.createElement('p');
-  rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
-
-  const comments = document.createElement('p');
-  comments.innerHTML = review.comments;
-  li.appendChild(comments);
-
-  return li;
-};
+import {SYSPARAMS} from 'core/utils/system.params';
+import {Store} from 'core/store/store';
+import uuidv4 from 'uuid/v4';
 
 /**
- * Create all reviews HTML and add them to the webpage.
- * @param {object[]} reviews
+ * Fetch the review by id.
+ * @param {string} id - id of the review
+ * @return {Promise}
  */
-export let fillReviewsHTML = (reviews) => {
-  const container = document.getElementById('reviews-container');
-  const title = document.createElement('h2');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
+export function get(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/${id}`;
 
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach((review) => {
-    ul.appendChild(createReviewHTML(review));
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((review) => {
+        if (Store.instance)
+          Store.syncReview(review);
+
+        return review;
+      });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      return tx.objectStore('reviews')
+      .get(id);
+    });
   });
-  container.appendChild(ul);
 };
+
+/**
+ * Fetch all the reviews
+ * @return {Promise}
+ */
+export function getAll() {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/`;
+
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((reviews) => {
+        if (Store.instance)
+          Store.sync(null, reviews);
+
+        return reviews;
+      });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      return tx.objectStore('reviews')
+      .getAll();
+    });
+  });
+};
+
+/**
+ * Fetch the reviews by restaurant id.
+ * @param {string} id - id of the restaurant
+ * @return {Promise}
+ */
+export function getByRestaurant(id) {
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/?restaurant_id=${id}`;
+
+  return fetch(url, {
+    method: 'GET',
+  }).then((response) => {
+    if (response.ok) {
+      return response.json().then((reviews) => {
+        if (Store.instance)
+          Store.sync(null, reviews);
+
+        return reviews;
+      });
+    }
+
+    throw response;
+  })
+  .catch((error) => {
+    if (!Store.instance) throw new Error(`Request failed. Returned status of ${error.status}`);
+
+    return Store.instance.then((db) => {
+      const tx = db.transaction('reviews');
+      const objStore = tx.objectStore('reviews');
+      return objStore.index('restaurant_id')
+      .getAll(id);
+    });
+  });
+};
+
+/**
+ * Create a new review
+ * @param {Object} review
+ * @return {Promise}
+ */
+export function create(review) {
+  if (!review) return;
+
+  review.id = uuidv4();
+  let url = `${SYSPARAMS.APIBASEURL}/reviews/`;
+
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(review),
+  }).then((response) => {
+    if (response.ok)
+      return response.json();
+
+    throw response;
+  })
+  .catch((error)=>{
+    return Store.syncReview(review);
+  });
+}

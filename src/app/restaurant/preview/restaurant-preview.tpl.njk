@@ -2,16 +2,17 @@
   <a class="mdc-card__primary-action open-detail-restaurant" href="#" data-url="/restaurant.html?id={{restaurant.id}}" data-id="{{restaurant.id}}">
     <div class="restaurant-preview-media">
       <div class="restaurant-preview-media__wrapper">
-        <picture>
+        <picture class="lazy-loading-image">
           <source media="(max-width:388px)"
-            srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
+            data-srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
           <source media="(min-width:576px) and (max-width:1069px)"
-            srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
+            data-srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
           <source media="(min-width:1280px) and (max-width:1430px)"
-            srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
+            data-srcset="assets/img/previews/{{restaurant.photograph}}@340.webp"/>
           <img class="restaurant-preview-media__image" alt="{{restaurant.description}}"
-            src="assets/img/previews/{{restaurant.photograph}}.jpg"
-            srcset="/assets/img/previews/{{restaurant.photograph}}.webp"/>
+            src="assets/img/previews/{{restaurant.photograph}}@5.jpg"
+            data-src="assets/img/previews/{{restaurant.photograph}}.jpg"
+            data-srcset="/assets/img/previews/{{restaurant.photograph}}.webp"/>
         </picture>  
       </div>      
     </div>
