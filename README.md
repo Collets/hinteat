@@ -4,9 +4,11 @@
 ## Prerequisites
 
 To run the application on development environment the project uses:
-* node >=6.11.2
+* node >=8.11.3
 * gulp-cli installed globally
 * local-web-server installed globally for the best performance
+* better-npm-run installed globally
+* cross-env installed globally
 
 In order to test locally the Stage 2 of the app, a server is needed. I forked the project provided by Udacity to fit some little difference in data structure.
 
