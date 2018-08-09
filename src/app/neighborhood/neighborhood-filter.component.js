@@ -1,5 +1,5 @@
 import {AppError} from 'core/models/errors';
-import * as NeighboorhoodService from 'app/neighborhood/neighborhood.service';
+import * as NeighborhoodService from 'app/neighborhood/neighborhood.service';
 import BaseComponent from 'core/base/base.component';
 
 import {MDCSelect} from '@material/select';
@@ -25,7 +25,7 @@ class NeighborhoodFilterComponent extends BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      NeighboorhoodService.get()
+      NeighborhoodService.getAll()
       .then((results)=>{
         this.model.neighborhoods = results;
 

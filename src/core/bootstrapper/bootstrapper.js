@@ -1,5 +1,6 @@
 import {ComponentFactory} from 'core/component-factory/component-factory';
 import {RouteEngine} from 'core/routing/route';
+import {Store} from 'core/store/store';
 import * as Templates from 'lib/templates';
 
 // Import of components
@@ -17,10 +18,12 @@ import RouterComponent from 'core/routing/router.component';
 import RestaurantComponent from 'app/restaurant/restaurant.component';
 import ReviewComponent from 'app/review/review.component';
 import FooterComponent from 'app/footer/footer.component';
+import ReviewListComponent from 'app/review-list/reviewList.component';
 
 /**
  * Bootsrapper of the application
  * @param {string} entrypoint
+ * @return {Promise}
 */
 export default function bootstrap(entrypoint) {
     ComponentFactory.components = [
@@ -38,9 +41,20 @@ export default function bootstrap(entrypoint) {
         RestaurantComponent,
         ReviewComponent,
         FooterComponent,
+        ReviewListComponent,
     ];
 
-    ComponentFactory.startup(entrypoint).then(()=>{
-        RouteEngine.initialize(process.env.BASEURL);
+    return Store.open().then(() => {
+        return ComponentFactory.startup(entrypoint).then(()=>{
+            RouteEngine.initialize(process.env.BASEURL);
+
+            let promise = new Promise((resolve)=>{
+                document.addEventListener('HINTEAT:FIRSTLOAD', () => {
+                    resolve();
+                });
+            });
+
+            return promise;
+        });
     });
 }

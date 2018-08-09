@@ -4,9 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <title>HintEat - Discover awesome food around you</title>
 
   <link rel="manifest" href="/manifest.json">
@@ -19,37 +16,106 @@
   <meta name="msapplication-TileColor" content="#273043">
   <meta name="msapplication-config" content="/assets/img/icons/browserconfig.xml">
   <meta name="theme-color" content="#273043">
+
+  <link id="fonts" rel="preload" href="/assets/fonts/fonts.css" as="style">
 </head>
 
-<body>
-  <style>
-    .loader{
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height: 100%;
-      background-color: #273043;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:10;
-      box-sizing: border-box;
-      padding: 0 45px;
-    }
-    .loader__logo{
-      max-width:100%;
-    }
-    .loader.hidden{
-      display: none;
-    }
-  </style>
-  <div class="loader">
-    <img class="loader__logo" src="/assets/img/logo/hinteat.png" srcset="/assets/img/logo/hinteat.png 1x, /assets/img/logo/hinteat@2x.png 2x" alt="HintEat"> 
-  </div>
+<body>  
+  <noscript>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <style>
+      html,
+      body{
+        height:100%;
+      }
+      header{
+        background-color:#ff3d00;
+        width: 100%;
+        height:64px;
+      }
+      .content{
+        display:block;
+        min-height: calc(100% - 169px);
+        padding:80px 0 0 120px;
+        box-sizing: border-box;
+      }
+      .line{
+        display:block;
+        width:45px;
+        height:3px;
+        background-color:#ff3d00;
+      }
+      h1{
+        font-family: 'Roboto', sans-serif;
+        font-weight:300;
+        font-size: 38px;
+        margin:0;
+        line-height:65px;
+      }
+      .footer-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 5px;
+        background-color:#273043;
+        height:100px;
+      }
+      .logo{
+        box-sizing: border-box;
+        position: relative;
+        padding: 12px 5px 5px 5px;
+        display: flex;
+        align-items: center;
+        max-width: 110px;
+      }
+      .logo__text{
+          margin: 0;
+      }
+      .logo__image{
+          max-width: 100px;
+      }
+      @media screen and (max-width:860px){
+        .content{
+          padding:60px 0 0 40px;
+        }
+        h1{
+          font-size:32px;
+        }
+      }
+      @media screen and (max-width:425px){
+        .content{
+          padding:40px 0 0 30px;
+        }
+        h1{
+          font-size:22px;
+          line-height:48px;
+        }
+      }
+    </style>
+    <header>
+    </header>
+    <section class="content">
+      <h1>
+        <span class="line"></span>
+        <span style="display:block;">Welcome to HintEat</span>
+        <span style="display:block;">This app depends deeply</span>
+        <span style="display:block;">from JavaScript, please enable it</span>
+        <span style="display:block;">and start to search your next meal!</span>
+      </h1>
+    </section>
+    <footer>
+      <div class="footer-container mdc-theme--secondary-bg">
+        <a class="logo" href="/" alt="Home page">
+          <img class="logo__image" src="/assets/img/logo/hinteat.png" alt="HintEat">
+        </a>
+      </div>
+    </footer>
+  </noscript>
   <app-component></app-component>
 
   <script>
+
     // Check that service workers are registered
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant

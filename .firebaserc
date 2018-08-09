@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "hint-eat"
+    "default": "hint-eat",
+    "dev": "hint-eat-dev"
   }
 }

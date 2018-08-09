@@ -25,7 +25,7 @@ class CuisineFilterComponent extends BaseComponent {
    */
   init() {
     let promise = new Promise((resolve, reject)=>{
-      CuisineService.get()
+      CuisineService.getAll()
       .then((results)=>{
         this.model.cuisines = results;
 

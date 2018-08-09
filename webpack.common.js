@@ -27,6 +27,7 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
+          retainLines: true,
           presets: ['env']
         }
       },
@@ -86,6 +87,10 @@ module.exports = {
         to: 'assets/data'
       },
       {
+        from: './src/assets/fonts/',
+        to: 'assets/fonts'
+      },
+      {
         from: './manifest.json',
         to: './'
       }
@@ -109,7 +114,8 @@ module.exports = {
       'process.env': {
         'BASEURL': JSON.stringify(process.env.BASEURL),
         'MAPSAPIKEY': JSON.stringify(process.env.MAPSAPIKEY),
-        'VERSION': JSON.stringify(require('./package.json').version),
+        'APIBASEURL': JSON.stringify(process.env.APIBASEURL),
+        'VERSION': JSON.stringify(require('./package.json').version)
       }
     }),
     new InjectManifest({

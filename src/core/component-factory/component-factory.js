@@ -1,6 +1,6 @@
 import Utils from 'core/utils/utils';
 import ComponentInfo from 'core/component-factory/component-info';
-import RouterComponent from 'core/routing/router.component';
+import {SYSPARAMS} from 'core/utils/system.params';
 
 export const ComponentFactory = {
   components: [],
@@ -11,7 +11,7 @@ export const ComponentFactory = {
    * @return {Promise}
    */
   startup(entrypoint) {
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise((resolve) => {
       this.startupComponent = this.instantiate(new ComponentInfo(entrypoint, null));
 
       let startupElement = document.querySelector(Utils.getTagByName(entrypoint));
@@ -123,30 +123,39 @@ export const ComponentFactory = {
    * @return {Promise}
    */
   setRouterComponent(componentName, params) {
-    let promise = new Promise((resolve, reject)=>{
+    let promise = new Promise((resolve)=>{
       let componentTag = Utils.getTagByName(componentName);
 
       let routerComponentElement = document.querySelector('router-component');
       routerComponentElement.innerHTML = '<' + componentTag + '></' + componentTag + '>';
-  
+
       if (params)
         this._setParams(params, componentTag, routerComponentElement);
-  
+
       let routerComponent = this._instantiateRouting();
-  
+
       routerComponent.renderDescendants()
       .then(()=>{
         resolve();
       });
     });
-    
+
     return promise;
   },
   /**
    * Called when the render engine ended
    */
   endRender() {
-    console.log('ENDED');
+    if (SYSPARAMS.FIRSTLOAD) {
+      let event = new Event('HINTEAT:FIRSTLOAD');
+
+      document.dispatchEvent(event);
+      SYSPARAMS.FIRSTLOAD = false;
+    } else {
+      let event = new Event('HINTEAT:LOAD');
+
+      document.dispatchEvent(event);
+    }
   },
   /**
    * Helper to instantiate router component

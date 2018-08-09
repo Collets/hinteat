@@ -1,6 +1,5 @@
 import Navigo from 'navigo';
 import {ComponentFactory} from 'core/component-factory/component-factory';
-import {SYSPARAMS} from 'core/utils/system.params';
 
 export const RouteEngine = {
   routes: [
@@ -19,7 +18,7 @@ export const RouteEngine = {
    * @param {string} root
    */
   initialize(root) {
-    this.router = new Navigo(root);
+    this.router = new Navigo(`${location.protocol}//${root}`);
     
     if (this.routes) {
       this.routes.forEach((route)=>{
@@ -29,29 +28,15 @@ export const RouteEngine = {
           });
 
           this.router.on(()=>{
-            ComponentFactory.setRouterComponent(route.component)
-            .then(()=>{
-              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                setTimeout(()=>{
-                  document.querySelector('.loader').classList.add('hidden');
-                }, 2000);
-                
-                SYSPARAMS.FIRSTLOAD = false;
-              }
+            ComponentFactory.setRouterComponent(route.component).then(()=>{
+              ComponentFactory.endRender();
             });
           });
         } else {
           let routeObj = {};
           routeObj[route.url] = (params)=>{
-            ComponentFactory.setRouterComponent(route.component, params)
-            .then(()=>{
-              if (JSON.parse(SYSPARAMS.FIRSTLOAD)) {
-                setTimeout(()=>{
-                  document.querySelector('.loader').classList.add('hidden');
-                }, 1000);
-
-                SYSPARAMS.FIRSTLOAD = false;
-              }
+            ComponentFactory.setRouterComponent(route.component, params).then(()=>{
+              ComponentFactory.endRender();
             });
           };
 
