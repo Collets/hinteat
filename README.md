@@ -50,30 +50,6 @@ npm install
 HintEat uses the Better NPM Run package to run the scripts needed to launch the project or build it.
 There is some script to help the automation, in order to get the production ready version of the app with all the optimization use [optimized local version](#optimized-local-version).
 
-### Serve in a local server
-
-To launch a local server and open the browser
-```bash
-bnr serve.dev
-```
-
-The command launch a webpack web server on port 9000 and open the browser to the main page.
-Webpack recompile the changes immediately for scss and js files, not yet for templates.
-
-**TODO** Fix autoreload on browser and autoprecompile of template on changes.
-
-### Build a development version
-
-To build the project in development mode and serve in other server
-
-**BEFORE YOU RUN THE SCRIPT:** Change the BASEURL in package.json, build.dev env section
-
-```bash
-bnr build.dev
-```
-
-the build files will be generated in dist directory.
-
 ### Optimized local version
 
 This workflow build a production ready version of the app, and serve it on a local server with some optimization adopted.
@@ -99,6 +75,14 @@ bnr build.optimized.prod
 bnr build.optimized.prod.windows
 ```
 
+In order to fetch the data, run the API server previously installed (see [API Server project](#api-server-project)).
+
+In another terminal, open the folder of the server side project and run the script:
+
+```bash
+node server
+```
+
 Some version of lighthouse is not able to give the full PWA score if the HTTPS trafic is not redirected to HTTPS.
 If needed, there is an additiona command to make this possible:
 * open another terminal, and open the same frontend folder
@@ -111,26 +95,14 @@ If needed, there is an additiona command to make this possible:
 ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
 ```
 
-In order to fetch the data, run the API server previously installed (see [API Server project](#api-server-project)).
-
-In another terminal, open the folder of the server side project and run the script:
-
-```bash
-node server
-```
-
 ## Deployments
 
-The projects is ready to deploy using GitHub, Firebase and Travis CI.
+The client side projects is ready to deploy using GitHub, Firebase and Travis CI.
 
 **TODO** 
 
 * Add instruction to deploy using same configuration but with others accounts.
 * Add a server side API endpoints. Evaluate the use of firebase for this step too.
-
-## Demo APP
-
-A demo app is available at this url: [https://hint-eat.firebaseapp.com/](https://hint-eat.firebaseapp.com/)
 
 ## Functionality
 
