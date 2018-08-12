@@ -69,6 +69,12 @@ The script is
 bnr build.optimized.prod
 ```
 
+**WARNING** If you already had run a project with node-sass, you could have to run the following script
+
+```bash
+npm rebuild node-sass
+```
+
 #### Windows version
 
 ```bash
