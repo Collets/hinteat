@@ -4,6 +4,7 @@
 ## Prerequisites
 
 To run the application on development environment the project uses:
+
 * node >=8.11.3
 * gulp-cli installed globally
 * local-web-server installed globally for the best performance
@@ -13,6 +14,7 @@ To run the application on development environment the project uses:
 In order to test locally the Stage 2 of the app, a server is needed. I forked the project provided by Udacity to fit some little difference in data structure.
 
 So, the server side presequisites are:
+
 * my repository intalled
 * sails.js
 
@@ -27,8 +29,7 @@ git clone https://github.com/Collets/hinteat-client.git
 ```
 
 ```bash
-npm install -g gulp-cli
-npm install -g local-web-server
+npm install -g gulp-cli local-web-server cross-env better-npm-run
 
 npm install
 ```
@@ -55,31 +56,45 @@ There is some script to help the automation, in order to get the production read
 This workflow build a production ready version of the app, and serve it on a local server with some optimization adopted.
 
 The server has this functionality enabled:
+
 * HTTPS
 * gzip of the files
 * single page application logic
+
+#### Client
 
 In order to get the "green padlock" on the browser please follow this guide: [enable "green padlock"](https://github.com/lwsjs/local-web-server/wiki/How-to-get-the-%22green-padlock%22-using-the-built-in-certificate).
 
 The script is
 
-#### Linux version
+##### Linux version
 
 ```bash
 bnr build.optimized.prod
 ```
 
-**WARNING** If you already had run a project with node-sass, you could have to run the following script
+##### Windows version
+
+```bash
+bnr build.optimized.prod.windows
+```
+
+**WARNING** If you already had run a project with node-sass, you could have to run the following script and retry
 
 ```bash
 npm rebuild node-sass
 ```
 
-#### Windows version
+**WARNING** If you cannot build the client project, or your environment is not compatible with it, please download the dist folder from here: https://drive.google.com/open?id=1ZqlT8RZQ5qowuJYoIwV8J_SL5euFvQTS, unzip and copy where do you want.
+Open the folder in your console and launch only this script:
+
+**On Linux environment**  launch as sudo
 
 ```bash
-bnr build.optimized.prod.windows
+ws --https --spa index.html --compress --port 443
 ```
+
+#### Server
 
 In order to fetch the data, run the API server previously installed (see [API Server project](#api-server-project)).
 
@@ -91,6 +106,7 @@ node server
 
 Some version of lighthouse is not able to give the full PWA score if the HTTPS trafic is not redirected to HTTPS.
 If needed, there is an additiona command to make this possible:
+
 * open another terminal, and open the same frontend folder
 * after the build (see previous step), move in dist folder
 * run the script
@@ -105,7 +121,7 @@ ws --port 80 --rewrite '/* -> https://127.0.0.1:443/$1'
 
 The client side projects is ready to deploy using GitHub, Firebase and Travis CI.
 
-**TODO** 
+### TODO
 
 * Add instruction to deploy using same configuration but with others accounts.
 * Add a server side API endpoints. Evaluate the use of firebase for this step too.
